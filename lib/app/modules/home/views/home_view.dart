@@ -1,7 +1,10 @@
 import 'package:fltr_alquran_if/app/modules/home/controllers/home_controller.dart';
+import 'package:fltr_alquran_if/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/color.dart';
+import '../../../../widgets/custom_icon_button.dart';
 import '../../../data/models/surah_model.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -11,8 +14,30 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Home"),
+          title: const Text("Al Qur'an"),
           centerTitle: true,
+          actions: [
+            CustomIconButton(
+              onPressed: () => Get.toNamed(Routes.search),
+              icon: Icons.search,
+              onTap: () {},
+            ),
+            CustomIconButton(
+              onPressed: () {},
+              icon: Icons.more_vert,
+              onTap: () {},
+            ),
+          ],
+          // bottom: const TabBar(
+          //   indicatorWeight: 3,
+          //   labelStyle: TextStyle(fontWeight: FontWeight.bold),
+          //   splashFactory: NoSplash.splashFactory,
+          //   tabs: [
+          //     Tab(text: 'SURAH'),
+          //     Tab(text: 'JUZ'),
+          //     Tab(text: 'BOOKMARK'),
+          //   ],
+          // ),
         ),
         body: FutureBuilder<List<Surah>>(
             future: controller.getAllSurah(),
@@ -31,14 +56,29 @@ class HomeView extends GetView<HomeController> {
                     Surah surah = snapshot.data![index];
                     return ListTile(
                       leading: CircleAvatar(
-                        child: Text("${surah.number}"),
+                        backgroundColor: appFontBrown,
+                        child: Text(
+                          "${surah.number}",
+                          style: Theme.of(context).textTheme.titleSmall,
+                          // style: const TextStyle(color: appBarGreen),
+                        ),
                       ),
-                      title: Text("${surah.englishName}"),
+                      title: Text(
+                        "${surah.englishName}",
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                        // style: const TextStyle(fontWeight: FontWeight.w500),
+                      ),
                       subtitle: Text(
-                          "${surah.revelationType} | ${surah.numberOfAyahs} Ayat"),
+                          "${surah.revelationType} | ${surah.numberOfAyahs} Ayat",
+                          style: Theme.of(context).textTheme.bodySmall),
                       trailing: Text(
                         "${surah.name}",
-                        style: const TextStyle(fontSize: 20),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
                       ),
                     );
                   });

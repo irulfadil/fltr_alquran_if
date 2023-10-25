@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import '../../../../utils/color.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/introduction_controller.dart';
 
@@ -21,17 +22,17 @@ class IntroductionView extends GetView<IntroductionController> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             const Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 50,
+                horizontal: 10,
               ),
               child: Text(
                 "Bacalah walaupun hanya satu ayat",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                 ),
               ),
             ),
@@ -47,8 +48,17 @@ class IntroductionView extends GetView<IntroductionController> {
               height: 30,
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: buttonGreen,
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 10.0), // foreground
+              ),
               onPressed: () => Get.offAllNamed(Routes.home),
-              child: const Text("GET STARTED"),
+              child: const Text(
+                "GET STARTED",
+                style: TextStyle(fontSize: 15.0),
+              ),
             ),
           ],
         ),

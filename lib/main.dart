@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../utils/color.dart';
 
 import 'app/routes/app_pages.dart';
 
@@ -13,9 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      color: Colors.greenAccent,
+      theme: lightMode,
+      // darkTheme: darkMode,
+      // themeMode: ThemeMode.system,
       title: 'Al Quran App',
-      initialRoute: Routes.introduction,
+      initialRoute: Routes.home,
+      // initialRoute: Routes.introduction,
       getPages: AppPages.routes,
     );
   }
