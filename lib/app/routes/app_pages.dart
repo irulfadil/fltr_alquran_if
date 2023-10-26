@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/detail_surah/bindings/detail_surah_binding.dart';
+import '../modules/detail_surah/views/detail_surah_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/introduction/views/introduction_view.dart';
@@ -29,6 +31,11 @@ class AppPages {
       name: Routes.lastRead,
       page: () => const LastReadView(),
       binding: LastReadBinding(),
+    ),
+    GetPage(
+      name: Routes.detailSurah,
+      page: () => const DetailSurahView(),
+      binding: DetailSurahBinding(),
     ),
   ];
 }

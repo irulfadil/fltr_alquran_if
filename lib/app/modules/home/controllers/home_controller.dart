@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import '../../../data/models/surah_model.dart';
 
 class HomeController extends GetxController {
+  RxBool isDark = false.obs;
+
   Future<List<Surah>> getAllSurah() async {
     Uri url = Uri.parse("https://api.alquran.cloud/v1/surah");
     var res = await http.get(url);

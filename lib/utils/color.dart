@@ -1,70 +1,91 @@
 import 'package:flutter/material.dart';
 
 const appBarGreen = Color(0xFF186340);
-const appFontGold = Color(0xFFd1ac44);
-const appFontBrown = Color(0xFFc5ab90);
-const appFontGreen = Color(0xFF186340);
 
-const appFontWhite = Color(0xFFFFFFFF);
-const appFontGray = Color(0xFF858585);
-const appFontBlack = Color(0xFF000000);
+const appColorGold = Color(0xFFd1ac44);
+const appColorBrown = Color(0xFFc5ab90);
+const appColorGreen = Color(0xFF186340);
+const appColorTeal = Color(0xFF1d8e81);
 
-const iconBrown = Color(0xFFc5ab90);
-const buttonGreen = Color(0xFF1d8e81);
+const appColorWhite = Color(0xFFFFFFFF);
+const appColorGray = Color(0xFF858585);
+const appColorBlack = Color(0xFF000000);
 
-const backgroundwhite = Color(0xFFFFFFFF);
-const backgroundLight = Color(0xFFf0f0f0);
+const backgroundLight = Color(0xFFF6F1E9);
 
-// const backgroundDark = Color(0xFF2f3231);
 const backgroundDark = Color(0xFF111B21);
-const backgroundDarkLight = Color(0xFF353837);
+const backgroundDarkSecondary = Color(0xFF353837);
 
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
-  colorScheme: ColorScheme.light(
-    background: Colors.grey.shade600,
-    primary: appBarGreen,
-    secondary: Colors.grey.shade200,
-    // background: Colors.grey.shade600,
-    // primary: Colors.grey.shade400,
-    // secondary: Colors.grey.shade200,
+  floatingActionButtonTheme:
+      const FloatingActionButtonThemeData(backgroundColor: backgroundDark),
+  primaryColor: appBarGreen,
+  scaffoldBackgroundColor: backgroundLight,
+  appBarTheme: const AppBarTheme(
+    elevation: 4,
+    backgroundColor: appBarGreen,
   ),
-  // primaryColor: Colors.redAccent,
-  // scaffoldBackgroundColor: backgroundLight,
-  // appBarTheme: const AppBarTheme(
-  //   backgroundColor: appBarGreen,
+  // colorScheme: ColorScheme.light(
+  //   background: Colors.grey.shade600,
+  //   primary: appBarGreen,
+  //   secondary: Colors.grey.shade200,
   // ),
   textTheme: const TextTheme(
-    titleLarge: TextStyle(color: appFontBlack),
-    titleMedium: TextStyle(color: appFontBlack),
-    titleSmall: TextStyle(color: appFontGreen),
-    bodyLarge: TextStyle(color: appFontBlack),
-    bodyMedium: TextStyle(color: appFontBlack),
-    bodySmall: TextStyle(color: appFontBlack),
+    titleLarge: TextStyle(color: appColorBrown),
+    titleMedium: TextStyle(color: appColorBrown),
+    titleSmall: TextStyle(color: appColorTeal),
+    bodyLarge: TextStyle(color: appColorBrown),
+    bodyMedium: TextStyle(color: appColorBrown),
+    bodySmall: TextStyle(color: appColorBrown),
+  ),
+  // listTileTheme: const ListTileThemeData(textColor: appColorTeal),
+  tabBarTheme: const TabBarTheme(
+    indicator: BoxDecoration(
+      border: Border(
+        bottom: BorderSide(
+          color: appColorGreen,
+        ),
+      ),
+    ),
+    unselectedLabelColor: appColorGray,
+    labelColor: appColorBrown,
   ),
 );
 
 ThemeData darkMode = ThemeData(
   brightness: Brightness.dark,
-  colorScheme: ColorScheme.dark(
-    background: Colors.grey.shade900,
-    primary: Colors.grey.shade800,
-    secondary: Colors.grey.shade700,
-    // background: Colors.grey.shade900,
-    // primary: Colors.grey.shade800,
-    // secondary: Colors.grey.shade700,
+  floatingActionButtonTheme:
+      const FloatingActionButtonThemeData(backgroundColor: backgroundLight),
+  primaryColor: Colors.blue,
+  scaffoldBackgroundColor: backgroundDark,
+  appBarTheme: const AppBarTheme(
+    elevation: 4,
+    backgroundColor: backgroundDarkSecondary,
   ),
-  // primaryColor: Colors.redAccent,
-  // scaffoldBackgroundColor: backgroundDark,
-  // appBarTheme: const AppBarTheme(
-  //   backgroundColor: backgroundDark,
+  // colorScheme: ColorScheme.dark(
+  //   background: Colors.grey.shade900,
+  //   primary: Colors.grey.shade800,
+  //   secondary: Colors.grey.shade700,
   // ),
   textTheme: const TextTheme(
-    titleLarge: TextStyle(color: appFontWhite),
-    titleMedium: TextStyle(color: appFontWhite),
-    titleSmall: TextStyle(color: appFontWhite),
-    bodyLarge: TextStyle(color: appFontWhite),
-    bodyMedium: TextStyle(color: appFontWhite),
-    bodySmall: TextStyle(color: appFontWhite),
+    titleLarge: TextStyle(color: appColorWhite),
+    titleMedium: TextStyle(color: appColorWhite),
+    titleSmall: TextStyle(color: appColorTeal),
+    bodyLarge: TextStyle(color: appColorWhite),
+    bodyMedium: TextStyle(color: appColorWhite),
+    bodySmall: TextStyle(color: appColorWhite),
+  ),
+  // listTileTheme: const ListTileThemeData(textColor: appColorTeal),
+  tabBarTheme: const TabBarTheme(
+    indicator: BoxDecoration(
+      border: Border(
+        bottom: BorderSide(
+          color: appColorGold,
+        ),
+      ),
+    ),
+    unselectedLabelColor: appColorGray,
+    labelColor: appColorBrown,
   ),
 );

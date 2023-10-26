@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      darkTheme: darkMode,
       theme: lightMode,
-      // darkTheme: darkMode,
       // themeMode: ThemeMode.system,
       title: 'Al Quran App',
       initialRoute: Routes.home,

@@ -50,7 +50,7 @@ class IntroductionView extends GetView<IntroductionController> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: buttonGreen,
+                backgroundColor: appColorTeal,
                 padding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 10.0), // foreground
               ),
