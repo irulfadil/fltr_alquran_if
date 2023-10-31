@@ -34,7 +34,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.detailSurah,
-      page: () => const DetailSurahView(),
+      page: () => DetailSurahView(),
       binding: DetailSurahBinding(),
     ),
   ];

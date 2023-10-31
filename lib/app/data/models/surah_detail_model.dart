@@ -29,7 +29,11 @@ class SurahDetail {
         englishNameTranslation: json?["englishNameTranslation"],
         revelationType: json?["revelationType"],
         numberOfAyahs: json?["numberOfAyahs"],
-        ayahs: List<Ayah>.from(json?["ayahs"].map((x) => Ayah.fromJson(x))),
+        ayahs: List<Ayah>.from(
+          json?["ayahs"].map(
+            (e) => Ayah.fromJson(e),
+          ),
+        ),
         edition: Edition.fromJson(json?["edition"]),
       );
 
