@@ -152,6 +152,8 @@ class HomeView extends GetView<HomeController> {
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
                             Surah surah = snapshot.data![index];
+                            // print("${detailJuz.surahs![1]}");
+
                             return ListTile(
                               onTap: () {
                                 Get.toNamed(Routes.detailSurah,
@@ -234,7 +236,8 @@ class HomeView extends GetView<HomeController> {
                           itemBuilder: (BuildContext context, int index) {
                             Juz detailJuz = snapshot.data![index];
                             return ListTile(
-                              onTap: () {},
+                              onTap: () => Get.toNamed(Routes.detaillJuz,
+                                  arguments: detailJuz),
                               leading: Obx(
                                 () => Container(
                                   height: 50,
@@ -261,7 +264,7 @@ class HomeView extends GetView<HomeController> {
                                     ),
                               ),
                               subtitle: Text(
-                                "${detailJuz.surahs![0]?.englishName} - ${detailJuz.surahs![detailJuz.surahs!.length - 1]?.englishName}",
+                                "Start from ${detailJuz.surahs![1]?.englishName} - ${detailJuz.surahs![detailJuz.surahs!.length]?.englishName}",
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                             );

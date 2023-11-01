@@ -31,6 +31,7 @@ class HomeController extends GetxController {
 
       Map<String, dynamic> data =
           (jsonDecode(res.body) as Map<String, dynamic>)["data"];
+
       Juz juz = Juz.fromJson(data);
       allJuz.add(juz);
     }
