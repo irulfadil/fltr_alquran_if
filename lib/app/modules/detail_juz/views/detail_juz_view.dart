@@ -21,8 +21,73 @@ class DetailJuzView extends GetView<DetailJuzController> {
         centerTitle: true,
       ),
       body: ListView(
-        padding: const EdgeInsets.all(20.0),
         children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: Get.isDarkMode
+                    ? [headerDark, headerDark]
+                    : [headerLight, headerLight],
+              ),
+            ),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {},
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 6,
+                      right: 5,
+                      child: Opacity(
+                        opacity: 0.5,
+                        child: SizedBox(
+                          height: 80,
+                          width: 80,
+                          child: Image.asset(
+                            "assets/images/dark-logo-alquran-black.png",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                "mecca",
+                                style: TextStyle(
+                                  color: appColorWhite,
+                                ),
+                              ),
+                              const SizedBox(width: 10.0),
+                              Text(
+                                allJuz.surahs!.toString(),
+                                style: const TextStyle(
+                                  color: appColorWhite,
+                                ),
+                              ),
+                              Text(
+                                allJuz.ayahs!.length.toString(),
+                                style: const TextStyle(
+                                  color: appColorWhite,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           FutureBuilder(
             future: controller.getJuzDetail(allJuz.number.toString()),
             builder: (context, snapshot) {
@@ -48,6 +113,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                 );
               }
               return ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount:
@@ -73,20 +139,20 @@ class DetailJuzView extends GetView<DetailJuzController> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 10,
+                            vertical: 5,
+                            horizontal: 5,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                height: 35,
-                                width: 35,
+                                height: 45,
+                                width: 45,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage(Get.isDarkMode
-                                        ? "assets/images/list_dark.png"
-                                        : "assets/images/list_light.png"),
+                                        ? "assets/images/dark-list-numb-juz-4pt.png"
+                                        : "assets/images/light-list-numb-juz-4pt.png"),
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -104,15 +170,21 @@ class DetailJuzView extends GetView<DetailJuzController> {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon:
-                                        const Icon(Icons.bookmark_add_outlined),
+                                  Opacity(
+                                    opacity: 0.5,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                          Icons.bookmark_add_outlined),
+                                    ),
                                   ),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon:
-                                        const Icon(Icons.play_circle_outlined),
+                                  Opacity(
+                                    opacity: 0.5,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                          Icons.play_circle_outlined),
+                                    ),
                                   ),
                                 ],
                               )
@@ -120,15 +192,18 @@ class DetailJuzView extends GetView<DetailJuzController> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20.0),
+                      const SizedBox(height: 10.0),
                       Text(
                         detailJuz["text"].toString(),
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
                         textAlign: TextAlign.right,
                       ),
-                      Text(
+                      const Text(
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                        style: Theme.of(context).textTheme.titleSmall,
+                        style: TextStyle(color: appColorGray, fontSize: 16.0),
                       ),
                       const SizedBox(height: 20.0),
                     ],
