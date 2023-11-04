@@ -20,12 +20,11 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         elevation: Get.isDarkMode ? 0 : 4,
-        title: Text(
+        title: const Text(
           "Al Qur'an",
-          style: Theme.of(context).textTheme.titleLarge,
+          style: TextStyle(color: appColorWhite),
           textAlign: TextAlign.left,
         ),
-        // centerTitle: true,
         actions: [
           CustomIconButton(
             onPressed: () => Get.toNamed(Routes.search),
@@ -45,7 +44,6 @@ class HomeView extends GetView<HomeController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              // margin: const EdgeInsets.symmetric(vertical: 15.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: Get.isDarkMode
@@ -97,14 +95,12 @@ class HomeView extends GetView<HomeController> {
                             SizedBox(height: 10.0),
                             Text(
                               "Al-fatihah",
-                              // style: Theme.of(context).textTheme.titleMedium,
                               style: TextStyle(
                                   color: appColorWhite, fontSize: 16.0),
                             ),
                             SizedBox(height: 5.0),
                             Text(
                               "Juz 1 | Ayat 7",
-                              // style: Theme.of(context).textTheme.titleSmall,
                               style: TextStyle(
                                   color: appColorGray, fontSize: 14.0),
                             ),
@@ -157,7 +153,6 @@ class HomeView extends GetView<HomeController> {
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           Surah surah = snapshot.data![index];
-                          // print("${detailJuz.surahs![1]}");
 
                           return ListTile(
                             onTap: () {

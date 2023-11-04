@@ -20,6 +20,7 @@ const backgroundLight = Color(0xFFFFFFFF);
 
 // const backgroundDark = Color(0xFF111B21);
 // const backgroundDarkSecondary = Color(0xFF353837);
+
 const backgroundDark = Color(0xFF101010);
 const backgroundDarkSecondary = Color(0xFF151516);
 

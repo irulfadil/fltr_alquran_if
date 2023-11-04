@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../../../../utils/color.dart';
 import '../../../data/models/juz_model.dart' as juz;
 import '../controllers/detail_juz_controller.dart';
@@ -9,12 +7,19 @@ import '../controllers/detail_juz_controller.dart';
 class DetailJuzView extends GetView<DetailJuzController> {
   DetailJuzView({Key? key}) : super(key: key);
 
+  final DetailJuzController juzSurah = Get.put(DetailJuzController());
   final juz.Juz allJuz = Get.arguments;
-  final DetailJuzController juzInTranslate = Get.put(DetailJuzController());
+
+  Future<List<dynamic>> fetchData() async {
+    final juzDetail = juzSurah.getJuzDetail(allJuz.number.toString());
+    final juzDetailTranslate =
+        juzSurah.getJuzDetailTranslate(allJuz.number.toString());
+
+    return await Future.wait([juzDetail, juzDetailTranslate]);
+  }
 
   @override
   Widget build(BuildContext context) {
-    print("juztrans: ${juzInTranslate.getJuzDetailTranslate}");
     return Scaffold(
       appBar: AppBar(
         title: Text("Juz ${allJuz.number.toString()}"),
@@ -89,7 +94,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
             ),
           ),
           FutureBuilder(
-            future: controller.getJuzDetail(allJuz.number.toString()),
+            future: fetchData(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -97,35 +102,42 @@ class DetailJuzView extends GetView<DetailJuzController> {
                 );
               }
 
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              }
+
               if (!snapshot.hasData) {
                 return Center(
-                  child: Column(children: [
-                    Image.asset(
-                      "assets/images/data_empty.png",
-                      width: 200,
-                      height: 200,
-                    ),
-                    Text(
-                      "Data Empty",
-                      style: TextStyle(color: Colors.grey[500]),
-                    ),
-                  ]),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        "assets/images/data_empty.png",
+                        width: 200,
+                        height: 200,
+                      ),
+                      Text(
+                        "Data Empty",
+                        style: TextStyle(color: Colors.grey[500]),
+                      ),
+                    ],
+                  ),
                 );
               }
+
               return ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount:
-                    snapshot.data != null ? snapshot.data!.ayahs!.length : 0,
+                itemCount: snapshot.data?[0].ayahs.length,
                 itemBuilder: (context, index) {
-                  if (snapshot.data!.ayahs!.isEmpty) {
+                  if (snapshot.data!.isEmpty) {
                     const SizedBox();
                   }
 
-                  Map<String, dynamic> detailJuz = snapshot.data!.ayahs![index];
-                  // Surah surah = Surah.fromJson(detailJuz["surah"]);
-                  // print(detailJuz["text"]);
+                  Map<String, dynamic> detailAyahs =
+                      snapshot.data![0].ayahs![index];
+                  Map<String, dynamic> detailAyahsTranslate =
+                      snapshot.data![1].ayahs![index];
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -158,7 +170,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    detailJuz["numberInSurah"].toString(),
+                                    detailAyahs["numberInSurah"].toString(),
                                     style: Get.isDarkMode
                                         ? const TextStyle(color: appColorWhite)
                                         : Theme.of(context)
@@ -194,18 +206,19 @@ class DetailJuzView extends GetView<DetailJuzController> {
                       ),
                       const SizedBox(height: 10.0),
                       Text(
-                        detailJuz["text"].toString(),
+                        detailAyahs["text"].toString(),
                         style:
                             Theme.of(context).textTheme.headlineSmall?.copyWith(
                                   fontWeight: FontWeight.w500,
                                 ),
                         textAlign: TextAlign.right,
                       ),
-                      const Text(
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                        style: TextStyle(color: appColorGray, fontSize: 16.0),
+                      Text(
+                        detailAyahsTranslate["text"].toString(),
+                        style: const TextStyle(
+                            color: appColorGray, fontSize: 16.0),
                       ),
-                      const SizedBox(height: 20.0),
+                      const SizedBox(height: 10.0),
                     ],
                   );
                 },

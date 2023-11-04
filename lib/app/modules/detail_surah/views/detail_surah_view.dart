@@ -16,11 +16,11 @@ class DetailSurahView extends GetView<DetailSurahController> {
         title: SizedBox(
           child: Column(
             children: [
-              Text(surah.englishName?.toUpperCase() ?? "error"),
+              Text(surah.englishName ?? "error"),
               const SizedBox(height: 3.0),
               Text(
                 surah.englishNameTranslation ?? "error",
-                style: Theme.of(context).textTheme.titleSmall,
+                style: const TextStyle(color: appColorGray, fontSize: 12),
               ),
             ],
           ),
@@ -83,13 +83,13 @@ class DetailSurahView extends GetView<DetailSurahController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                height: 35,
-                                width: 35,
+                                height: 45,
+                                width: 45,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage(Get.isDarkMode
-                                        ? "assets/images/list_dark.png"
-                                        : "assets/images/list_light.png"),
+                                        ? "assets/images/dark-list-numb-surah-4pt.png"
+                                        : "assets/images/light-list-numb-surah-4pt.png"),
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -104,20 +104,23 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   ),
                                 ),
                               ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon:
-                                        const Icon(Icons.bookmark_add_outlined),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon:
-                                        const Icon(Icons.play_circle_outlined),
-                                  ),
-                                ],
+                              Opacity(
+                                opacity: 0.5,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                          Icons.bookmark_add_outlined),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                          Icons.play_circle_outlined),
+                                    ),
+                                  ],
+                                ),
                               )
                             ],
                           ),
@@ -126,11 +129,14 @@ class DetailSurahView extends GetView<DetailSurahController> {
                       const SizedBox(height: 20.0),
                       Text(
                         ayahs.text.toString(),
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
                         textAlign: TextAlign.right,
                       ),
                       Text(
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                        "Tanslate Surahs",
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 20.0),
