@@ -87,8 +87,7 @@ class HomeView extends GetView<HomeController> {
                                 Text(
                                   "Terakhir di baca",
                                   style: TextStyle(
-                                    color: appColorWhite,
-                                  ),
+                                      color: appColorWhite, fontSize: 16.0),
                                 ),
                               ],
                             ),
@@ -96,13 +95,17 @@ class HomeView extends GetView<HomeController> {
                             Text(
                               "Al-fatihah",
                               style: TextStyle(
-                                  color: appColorWhite, fontSize: 16.0),
+                                  color: appColorWhite,
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold),
                             ),
                             SizedBox(height: 5.0),
                             Text(
                               "Juz 1 | Ayat 7",
                               style: TextStyle(
-                                  color: appColorGray, fontSize: 14.0),
+                                color: appColorWhite,
+                                fontSize: 14.0,
+                              ),
                             ),
                           ],
                         ),
@@ -238,10 +241,20 @@ class HomeView extends GetView<HomeController> {
                           ),
                         );
                       }
+                      // print(snapshot.data?.length);
                       return ListView.builder(
                         itemCount: snapshot.data?.length,
                         itemBuilder: (BuildContext context, int index) {
                           Juz detailJuz = snapshot.data![index];
+
+                          String startSurah = detailJuz.surahs!.keys.first;
+                          String lastSurah = detailJuz.surahs!.keys.last;
+
+                          String? startNameSurah =
+                              detailJuz.surahs![startSurah]!.englishName;
+                          String? lastNameSurah =
+                              detailJuz.surahs![lastSurah]!.englishName;
+
                           return ListTile(
                             onTap: () => Get.toNamed(Routes.detaillJuz,
                                 arguments: detailJuz),
@@ -277,7 +290,7 @@ class HomeView extends GetView<HomeController> {
                                   ),
                             ),
                             subtitle: Text(
-                              "Start from ${detailJuz.surahs![1]?.englishName} - ${detailJuz.surahs![detailJuz.surahs!.length]?.englishName}",
+                              "$startNameSurah - $lastNameSurah",
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                           );
@@ -303,7 +316,7 @@ class HomeView extends GetView<HomeController> {
         },
         child: Obx(
           () => Icon(Icons.color_lens_outlined,
-              color: controller.isDark.isTrue ? appColorBrown : appColorWhite),
+              color: controller.isDark.isTrue ? appColorBrown : appColorGray),
         ),
       ),
     );

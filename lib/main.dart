@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       darkTheme: darkMode,
       theme: lightMode,
-      // themeMode: ThemeMode.system,
       title: 'Al Quran App',
       initialRoute: Routes.home,
+      // themeMode: ThemeMode.system,
       // initialRoute: Routes.introduction,
       getPages: AppPages.routes,
     );

@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/color.dart';
+import '../../../data/models/surah_detail_model.dart';
 import '../controllers/detail_surah_controller.dart';
 import '../../../data/models/surah_detail_model.dart' as detail;
 import '../../../data/models/surah_model.dart';
 
 class DetailSurahView extends GetView<DetailSurahController> {
-  DetailSurahView({super.key});
+  DetailSurahView({Key? key}) : super(key: key);
+
+  final DetailSurahController surahCon = Get.put(DetailSurahController());
   final Surah surah = Get.arguments;
+
+  Future<List<dynamic>> fetchData() async {
+    Future<SurahDetail> surahDetails =
+        surahCon.getSurahDetail(surah.number.toString());
+    Future<SurahDetail> surahDetailTranslate =
+        surahCon.getSurahDetailTranslate(surah.number.toString());
+    return await Future.wait([surahDetails, surahDetailTranslate]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +41,9 @@ class DetailSurahView extends GetView<DetailSurahController> {
       body: ListView(
         padding: const EdgeInsets.all(20.0),
         children: [
-          FutureBuilder<detail.SurahDetail>(
-            future: controller.getSurahDetail(surah.number.toString()),
+          FutureBuilder<List<dynamic>>(
+            future: fetchData(),
+            // future: controller.getSurahDetail(surah.number.toString()),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -58,12 +70,15 @@ class DetailSurahView extends GetView<DetailSurahController> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount:
-                    snapshot.data != null ? snapshot.data!.ayahs!.length : 0,
+                    snapshot.data != null ? snapshot.data![0].ayahs!.length : 0,
                 itemBuilder: (context, index) {
-                  if (snapshot.data!.ayahs!.isEmpty) {
+                  if (snapshot.data!.isEmpty) {
                     const SizedBox();
                   }
-                  detail.Ayah ayahs = snapshot.data!.ayahs![index];
+
+                  detail.Ayah ayahs = snapshot.data![0].ayahs![index];
+                  detail.Ayah ayahsTranslate = snapshot.data![1].ayahs![index];
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -134,10 +149,16 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   fontWeight: FontWeight.w500,
                                 ),
                         textAlign: TextAlign.right,
+                        // style:
+                        //     Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        //           fontWeight: FontWeight.w500,
+                        //         ),
+                        // textAlign: TextAlign.right,
                       ),
                       Text(
-                        "Tanslate Surahs",
-                        style: Theme.of(context).textTheme.titleSmall,
+                        ayahsTranslate.text.toString(),
+                        style: const TextStyle(
+                            color: appColorGray, fontSize: 16.0),
                       ),
                       const SizedBox(height: 20.0),
                     ],

@@ -41,49 +41,43 @@ class DetailJuzView extends GetView<DetailJuzController> {
                 onTap: () {},
                 child: Stack(
                   children: [
-                    Positioned(
-                      top: 6,
-                      right: 5,
-                      child: Opacity(
-                        opacity: 0.5,
-                        child: SizedBox(
-                          height: 80,
-                          width: 80,
-                          child: Image.asset(
-                            "assets/images/dark-logo-alquran-black.png",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Positioned(
+                    //   top: 6,
+                    //   right: 5,
+                    //   child: Opacity(
+                    //     opacity: 0.5,
+                    //     child: SizedBox(
+                    //       height: 80,
+                    //       width: 80,
+                    //       child: Image.asset(
+                    //         "assets/images/dark-logo-alquran-black.png",
+                    //         fit: BoxFit.cover,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      padding: const EdgeInsets.all(20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          Row(
-                            children: [
-                              const Text(
-                                "mecca",
-                                style: TextStyle(
-                                  color: appColorWhite,
-                                ),
-                              ),
-                              const SizedBox(width: 10.0),
-                              Text(
-                                allJuz.surahs!.toString(),
-                                style: const TextStyle(
-                                  color: appColorWhite,
-                                ),
-                              ),
-                              Text(
-                                allJuz.ayahs!.length.toString(),
-                                style: const TextStyle(
-                                  color: appColorWhite,
-                                ),
-                              ),
-                            ],
+                          const Text(
+                            "Mecca",
+                            style: TextStyle(
+                              color: appColorWhite,
+                            ),
+                          ),
+                          // const SizedBox(height: 20.0),
+                          const Text(
+                            "Nama Surah",
+                            style: TextStyle(
+                              color: appColorWhite,
+                            ),
+                          ),
+                          Text(
+                            allJuz.ayahs!.length.toString(),
+                            style: const TextStyle(color: appColorWhite),
                           ),
                         ],
                       ),
@@ -214,9 +208,12 @@ class DetailJuzView extends GetView<DetailJuzController> {
                         textAlign: TextAlign.right,
                       ),
                       Text(
-                        detailAyahsTranslate["text"].toString(),
+                        detailAyahsTranslate["text"].toString().toLowerCase(),
                         style: const TextStyle(
-                            color: appColorGray, fontSize: 16.0),
+                          color: appColorGray,
+                          fontSize: 16.0,
+                        ),
+                        textAlign: TextAlign.left,
                       ),
                       const SizedBox(height: 10.0),
                     ],

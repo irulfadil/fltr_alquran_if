@@ -1,12 +1,10 @@
 // Api URL: http://api.alquran.cloud/v1/juz
 // Get detail surah of alquran
 
-import 'surah_model.dart';
-
 class Juz {
   int? number;
   List<dynamic>? ayahs;
-  Map<String, Surah>? surahs;
+  Map<String, SurahJuz>? surahs;
   Edition? edition;
 
   Juz({
@@ -20,7 +18,7 @@ class Juz {
         number: json["number"],
         ayahs: List<dynamic>.from(json["ayahs"].map((x) => x)),
         surahs: Map.from(json["surahs"])
-            .map((k, v) => MapEntry<String, Surah>(k, Surah.fromJson(v))),
+            .map((k, v) => MapEntry<String, SurahJuz>(k, SurahJuz.fromJson(v))),
         edition: Edition.fromJson(json["edition"]),
       );
 
@@ -30,6 +28,42 @@ class Juz {
         "surahs": Map.from(surahs!)
             .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
         "edition": edition!.toJson(),
+      };
+}
+
+class SurahJuz {
+  int? number;
+  String? name;
+  String? englishName;
+  String? englishNameTranslation;
+  String? revelationType;
+  int? numberOfAyahs;
+
+  SurahJuz({
+    this.number,
+    this.name,
+    this.englishName,
+    this.englishNameTranslation,
+    this.revelationType,
+    this.numberOfAyahs,
+  });
+
+  factory SurahJuz.fromJson(Map<String, dynamic>? json) => SurahJuz(
+        number: json?["number"],
+        name: json?["name"],
+        englishName: json?["englishName"],
+        englishNameTranslation: json?["englishNameTranslation"],
+        revelationType: json?["revelationType"],
+        numberOfAyahs: json?["numberOfAyahs"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "number": number,
+        "name": name,
+        "englishName": englishName,
+        "englishNameTranslation": englishNameTranslation,
+        "revelationType": revelationType,
+        "numberOfAyahs": numberOfAyahs,
       };
 }
 
