@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import '../../../data/models/juz_model.dart';
 
 class DetailJuzController extends GetxController {
+  int index = 0;
   // get AllJuz
   Future<Juz> getJuzDetail(String juzNum) async {
     Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$juzNum");

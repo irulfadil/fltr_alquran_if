@@ -247,6 +247,9 @@ class HomeView extends GetView<HomeController> {
                         itemBuilder: (BuildContext context, int index) {
                           Juz detailJuz = snapshot.data![index];
 
+                          List<dynamic> surahInJuz =
+                              detailJuz.surahs!.keys.toList();
+
                           String startSurah = detailJuz.surahs!.keys.first;
                           String lastSurah = detailJuz.surahs!.keys.last;
 
@@ -256,8 +259,13 @@ class HomeView extends GetView<HomeController> {
                               detailJuz.surahs![lastSurah]!.englishName;
 
                           return ListTile(
-                            onTap: () => Get.toNamed(Routes.detaillJuz,
-                                arguments: detailJuz),
+                            onTap: () => Get.toNamed(
+                              Routes.detaillJuz,
+                              arguments: {
+                                'detailJuz': detailJuz,
+                                'surahInJuz': surahInJuz
+                              },
+                            ),
                             leading: Obx(
                               () => Container(
                                 height: 45,

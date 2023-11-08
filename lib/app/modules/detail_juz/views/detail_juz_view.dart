@@ -8,7 +8,8 @@ class DetailJuzView extends GetView<DetailJuzController> {
   DetailJuzView({Key? key}) : super(key: key);
 
   final DetailJuzController juzSurah = Get.put(DetailJuzController());
-  final juz.Juz allJuz = Get.arguments;
+  final juz.Juz allJuz = Get.arguments["detailJuz"];
+  final List<dynamic> surahInJuz = Get.arguments["surahInJuz"];
 
   Future<List<dynamic>> fetchData() async {
     final juzDetail = juzSurah.getJuzDetail(allJuz.number.toString());
@@ -20,6 +21,23 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> allSurahInJuz = [];
+    List<dynamic> allRevelationType = [];
+    List<dynamic> numberOfAyahs = [];
+
+    for (String elemn in surahInJuz) {
+      var allData = allJuz.surahs?[elemn];
+
+      if (allData != null) {
+        allSurahInJuz.add(allData.englishName.toString());
+        allRevelationType.add(allData.revelationType.toString());
+        numberOfAyahs.add(allData.numberOfAyahs.toString());
+      } else {
+        allSurahInJuz.add("Data Empty");
+        allRevelationType.add("Data Empty");
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Juz ${allJuz.number.toString()}"),
@@ -27,66 +45,6 @@ class DetailJuzView extends GetView<DetailJuzController> {
       ),
       body: ListView(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: Get.isDarkMode
-                    ? [headerDark, headerDark]
-                    : [headerLight, headerLight],
-              ),
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {},
-                child: Stack(
-                  children: [
-                    // Positioned(
-                    //   top: 6,
-                    //   right: 5,
-                    //   child: Opacity(
-                    //     opacity: 0.5,
-                    //     child: SizedBox(
-                    //       height: 80,
-                    //       width: 80,
-                    //       child: Image.asset(
-                    //         "assets/images/dark-logo-alquran-black.png",
-                    //         fit: BoxFit.cover,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          const Text(
-                            "Mecca",
-                            style: TextStyle(
-                              color: appColorWhite,
-                            ),
-                          ),
-                          // const SizedBox(height: 20.0),
-                          const Text(
-                            "Nama Surah",
-                            style: TextStyle(
-                              color: appColorWhite,
-                            ),
-                          ),
-                          Text(
-                            allJuz.ayahs!.length.toString(),
-                            style: const TextStyle(color: appColorWhite),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
           FutureBuilder(
             future: fetchData(),
             builder: (context, snapshot) {
@@ -133,9 +91,66 @@ class DetailJuzView extends GetView<DetailJuzController> {
                   Map<String, dynamic> detailAyahsTranslate =
                       snapshot.data![1].ayahs![index];
 
+                  int numbAyahs =
+                      int.parse(detailAyahs["numberInSurah"].toString());
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      if (numbAyahs == 1)
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: Get.isDarkMode
+                                  ? [headerDark, headerDark]
+                                  : [headerLight, headerLight],
+                            ),
+                          ),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () {},
+                              child: Stack(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          // allRevelationType[0],
+                                          detailAyahs["surah"]["revelationType"]
+                                              .toString(),
+                                          style: const TextStyle(
+                                            color: appColorWhite,
+                                          ),
+                                        ),
+                                        // const SizedBox(height: 20.0),
+                                        Text(
+                                          // allSurahInJuz[0],
+                                          detailAyahs["surah"]["englishName"]
+                                              .toString(),
+                                          style: const TextStyle(
+                                            color: appColorWhite,
+                                          ),
+                                        ),
+                                        Text(
+                                          detailAyahs["surah"]["numberOfAyahs"]
+                                              .toString(),
+                                          style: const TextStyle(
+                                              color: appColorWhite),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      const SizedBox(height: 20.0),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -151,27 +166,43 @@ class DetailJuzView extends GetView<DetailJuzController> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(Get.isDarkMode
-                                        ? "assets/images/dark-list-numb-juz-4pt.png"
-                                        : "assets/images/light-list-numb-juz-4pt.png"),
-                                    fit: BoxFit.contain,
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 45,
+                                    width: 45,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(Get.isDarkMode
+                                            ? "assets/images/dark-list-numb-juz-4pt.png"
+                                            : "assets/images/light-list-numb-juz-4pt.png"),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        detailAyahs["numberInSurah"].toString(),
+                                        style: Get.isDarkMode
+                                            ? const TextStyle(
+                                                color: appColorWhite)
+                                            : Theme.of(context)
+                                                .textTheme
+                                                .titleSmall,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    detailAyahs["numberInSurah"].toString(),
+                                  Text(
+                                    detailAyahs["surah"]["englishName"]
+                                        .toString(),
                                     style: Get.isDarkMode
-                                        ? const TextStyle(color: appColorWhite)
+                                        ? TextStyle(
+                                            color:
+                                                appColorWhite.withOpacity(0.5))
                                         : Theme.of(context)
                                             .textTheme
                                             .titleSmall,
                                   ),
-                                ),
+                                ],
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -215,7 +246,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                         ),
                         textAlign: TextAlign.left,
                       ),
-                      const SizedBox(height: 10.0),
+                      const SizedBox(height: 20.0),
                     ],
                   );
                 },
