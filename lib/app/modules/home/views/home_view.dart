@@ -316,12 +316,7 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.isDarkMode
-              ? Get.changeTheme(lightMode)
-              : Get.changeTheme(darkMode);
-          controller.isDark.toggle();
-        },
+        onPressed: () {},
         child: Obx(
           () => Icon(Icons.color_lens_outlined,
               color: controller.isDark.isTrue ? appColorBrown : appColorGray),
