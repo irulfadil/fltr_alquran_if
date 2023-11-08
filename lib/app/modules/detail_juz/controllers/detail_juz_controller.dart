@@ -5,7 +5,8 @@ import '../../../data/models/juz_model.dart';
 
 class DetailJuzController extends GetxController {
   int index = 0;
-  // get AllJuz
+
+  // get juzDetail
   Future<Juz> getJuzDetail(String juzNum) async {
     Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$juzNum");
     var res = await http.get(url);
@@ -17,7 +18,7 @@ class DetailJuzController extends GetxController {
     return juz;
   }
 
-  // get AllJuzTranslate
+  // get juzDetail translate
   Future<dynamic> getJuzDetailTranslate(String juzNum) async {
     Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$juzNum/en.asad");
     var res = await http.get(url);

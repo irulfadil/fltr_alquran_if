@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import '../../../../utils/color.dart';
+import '../../../../utils/color_system.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/introduction_controller.dart';
 
@@ -50,7 +50,7 @@ class IntroductionView extends GetView<IntroductionController> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: appColorTeal,
+                backgroundColor: ColorSystem.appColorTeal,
                 padding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 10.0), // foreground
               ),

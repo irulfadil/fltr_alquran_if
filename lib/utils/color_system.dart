@@ -3,21 +3,23 @@ import 'package:flutter/material.dart';
 class ColorSystem {
   ColorSystem._();
 
-  static const Color greenDark = Color(0xFF00A884);
-  static const Color greenLight = Color(0xFF008069);
+  static const appColorGreen = Color(0xFF244e4d);
+  static const appColorGold = Color(0xFFd1ac44);
+  static const appColorBrown = Color(0xFF998570);
+  static const appColorTeal = Color(0xFF1d8e81);
 
-  static const Color blueDark = Color(0xFF53BDEB);
-  static const Color blueLight = Color(0xFF027EB5);
+  static const appColorWhite = Color(0xFFFFFFFF);
+  static const appColorGray = Color(0xFF939393);
+  static const appColorBlack = Color(0xFF000000);
 
-  static const Color greyDark = Color(0xFF8696A0);
-  static const Color greyLight = Color(0xFF667781);
+  static const appColorDark = Color(0xFF6E6657);
+  static const appColorLight = Color(0xFF000000);
 
-  static const Color backgroundDark = Color(0xFF111B21);
-  static const Color backgroundLight = Color(0xFFFFFFFF);
+  static const headerLight = Color(0xFFc0bb9e);
+  static const headerDark = Color(0xFF6E6657);
 
-  static const Color greyBackground = Color(0xFF202C33);
+  static const backgroundLight = Color(0xFFFFFFFF);
 
-  // font
-  static const fontDark = Color(0xFFD6D46D);
-  static const fontLight = Color(0xFF858585);
+  static const backgroundDark = Color(0xFF101010);
+  static const backgroundDarkSecondary = Color(0xFF151516);
 }

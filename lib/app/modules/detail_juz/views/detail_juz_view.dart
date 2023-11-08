@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../utils/color.dart';
+import '../../../../utils/color_system.dart';
 import '../../../data/models/juz_model.dart' as juz;
 import '../controllers/detail_juz_controller.dart';
 
@@ -102,8 +102,14 @@ class DetailJuzView extends GetView<DetailJuzController> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: Get.isDarkMode
-                                  ? [headerDark, headerDark]
-                                  : [headerLight, headerLight],
+                                  ? [
+                                      ColorSystem.headerDark,
+                                      ColorSystem.headerDark
+                                    ]
+                                  : [
+                                      ColorSystem.headerLight,
+                                      ColorSystem.headerLight
+                                    ],
                             ),
                           ),
                           child: Material(
@@ -124,7 +130,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                           detailAyahs["surah"]["revelationType"]
                                               .toString(),
                                           style: const TextStyle(
-                                            color: appColorWhite,
+                                            color: ColorSystem.appColorWhite,
                                           ),
                                         ),
                                         // const SizedBox(height: 20.0),
@@ -133,14 +139,14 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                           detailAyahs["surah"]["englishName"]
                                               .toString(),
                                           style: const TextStyle(
-                                            color: appColorWhite,
+                                            color: ColorSystem.appColorWhite,
                                           ),
                                         ),
                                         Text(
                                           detailAyahs["surah"]["numberOfAyahs"]
                                               .toString(),
                                           style: const TextStyle(
-                                              color: appColorWhite),
+                                              color: ColorSystem.appColorWhite),
                                         ),
                                       ],
                                     ),
@@ -155,8 +161,8 @@ class DetailJuzView extends GetView<DetailJuzController> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Get.isDarkMode
-                              ? backgroundDarkSecondary
-                              : appColorBrown.withOpacity(0.1),
+                              ? ColorSystem.backgroundDarkSecondary
+                              : ColorSystem.appColorBrown.withOpacity(0.1),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -184,7 +190,8 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                         detailAyahs["numberInSurah"].toString(),
                                         style: Get.isDarkMode
                                             ? const TextStyle(
-                                                color: appColorWhite)
+                                                color:
+                                                    ColorSystem.appColorWhite)
                                             : Theme.of(context)
                                                 .textTheme
                                                 .titleSmall,
@@ -196,8 +203,9 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                         .toString(),
                                     style: Get.isDarkMode
                                         ? TextStyle(
-                                            color:
-                                                appColorWhite.withOpacity(0.5))
+                                            color: ColorSystem.appColorWhite
+                                                .withOpacity(0.5),
+                                          )
                                         : Theme.of(context)
                                             .textTheme
                                             .titleSmall,
@@ -241,7 +249,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                       Text(
                         detailAyahsTranslate["text"].toString().toLowerCase(),
                         style: const TextStyle(
-                          color: appColorGray,
+                          color: ColorSystem.appColorGray,
                           fontSize: 16.0,
                         ),
                         textAlign: TextAlign.left,

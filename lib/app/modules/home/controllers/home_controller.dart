@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../../utils/color.dart';
+import '../../../../theme/custom_theme.dart';
 import '../../../data/models/juz_model.dart';
 import '../../../data/models/surah_model.dart';
 
@@ -11,6 +11,7 @@ class HomeController extends GetxController {
   RxBool isDark = false.obs;
   final box = GetStorage();
 
+  // toggle theme
   void changeTheme() async {
     Get.isDarkMode ? Get.changeTheme(lightMode) : Get.changeTheme(darkMode);
     isDark.toggle();
@@ -22,6 +23,7 @@ class HomeController extends GetxController {
     }
   }
 
+  // get allSurah to Tab 'Surah'
   Future<List<Surah>> getAllSurah() async {
     Uri url = Uri.parse("https://api.alquran.cloud/v1/surah");
     var res = await http.get(url);
@@ -35,7 +37,7 @@ class HomeController extends GetxController {
     }
   }
 
-  // get AllJuz
+  // get AllJuz to Tab 'Juz'
   Future<List<Juz>> getAllJuz() async {
     List<Juz> allJuz = [];
 

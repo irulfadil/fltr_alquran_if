@@ -3,7 +3,7 @@ import 'package:fltr_alquran_if/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../utils/color.dart';
+import '../../../../utils/color_system.dart';
 import '../../../../widgets/custom_icon_button.dart';
 import '../../../data/models/juz_model.dart';
 import '../../../data/models/surah_model.dart';
@@ -22,7 +22,7 @@ class HomeView extends GetView<HomeController> {
         elevation: Get.isDarkMode ? 0 : 4,
         title: const Text(
           "Al Qur'an",
-          style: TextStyle(color: appColorWhite),
+          style: TextStyle(color: ColorSystem.appColorWhite),
           textAlign: TextAlign.left,
         ),
         actions: [
@@ -47,8 +47,8 @@ class HomeView extends GetView<HomeController> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: Get.isDarkMode
-                      ? [headerDark, headerDark]
-                      : [headerLight, headerLight],
+                      ? [ColorSystem.headerDark, ColorSystem.headerDark]
+                      : [ColorSystem.headerLight, ColorSystem.headerLight],
                 ),
               ),
               child: Material(
@@ -81,13 +81,14 @@ class HomeView extends GetView<HomeController> {
                               children: [
                                 Icon(
                                   Icons.menu_book,
-                                  color: appColorWhite,
+                                  color: ColorSystem.appColorWhite,
                                 ),
                                 SizedBox(width: 5.0),
                                 Text(
                                   "Terakhir di baca",
                                   style: TextStyle(
-                                      color: appColorWhite, fontSize: 16.0),
+                                      color: ColorSystem.appColorWhite,
+                                      fontSize: 16.0),
                                 ),
                               ],
                             ),
@@ -95,7 +96,7 @@ class HomeView extends GetView<HomeController> {
                             Text(
                               "Al-fatihah",
                               style: TextStyle(
-                                  color: appColorWhite,
+                                  color: ColorSystem.appColorWhite,
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -103,7 +104,7 @@ class HomeView extends GetView<HomeController> {
                             Text(
                               "Juz 1 | Ayat 7",
                               style: TextStyle(
-                                color: appColorWhite,
+                                color: ColorSystem.appColorWhite,
                                 fontSize: 14.0,
                               ),
                             ),
@@ -176,7 +177,7 @@ class HomeView extends GetView<HomeController> {
                                   child: Text("${surah.number ?? 'Error'}",
                                       style: Get.isDarkMode
                                           ? const TextStyle(
-                                              color: appColorWhite)
+                                              color: ColorSystem.appColorWhite)
                                           : Theme.of(context)
                                               .textTheme
                                               .titleSmall),
@@ -195,7 +196,7 @@ class HomeView extends GetView<HomeController> {
                             subtitle: Text(
                               "${surah.revelationType ?? 'Error'} | ${surah.numberOfAyahs ?? 'Error'} Ayat",
                               style: const TextStyle(
-                                color: appColorGray,
+                                color: ColorSystem.appColorGray,
                               ),
                             ),
                             trailing: Text(
@@ -281,7 +282,7 @@ class HomeView extends GetView<HomeController> {
                                   child: Text("${index + 1}",
                                       style: Get.isDarkMode
                                           ? const TextStyle(
-                                              color: appColorWhite)
+                                              color: ColorSystem.appColorWhite)
                                           : Theme.of(context)
                                               .textTheme
                                               .titleSmall),
@@ -319,7 +320,9 @@ class HomeView extends GetView<HomeController> {
         onPressed: () {},
         child: Obx(
           () => Icon(Icons.color_lens_outlined,
-              color: controller.isDark.isTrue ? appColorBrown : appColorGray),
+              color: controller.isDark.isTrue
+                  ? ColorSystem.appColorBrown
+                  : ColorSystem.appColorGray),
         ),
       ),
     );

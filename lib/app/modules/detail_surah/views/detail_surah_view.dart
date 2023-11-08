@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../utils/color.dart';
+import '../../../../utils/color_system.dart';
 import '../../../data/models/surah_detail_model.dart';
 import '../controllers/detail_surah_controller.dart';
 import '../../../data/models/surah_detail_model.dart' as detail;
@@ -31,7 +31,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
               const SizedBox(height: 3.0),
               Text(
                 surah.englishNameTranslation ?? "error",
-                style: const TextStyle(color: appColorGray, fontSize: 12),
+                style: const TextStyle(
+                    color: ColorSystem.appColorGray, fontSize: 12),
               ),
             ],
           ),
@@ -43,7 +44,6 @@ class DetailSurahView extends GetView<DetailSurahController> {
         children: [
           FutureBuilder<List<dynamic>>(
             future: fetchData(),
-            // future: controller.getSurahDetail(surah.number.toString()),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -86,8 +86,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Get.isDarkMode
-                              ? backgroundDarkSecondary
-                              : appColorBrown.withOpacity(0.1),
+                              ? ColorSystem.backgroundDarkSecondary
+                              : ColorSystem.appColorBrown.withOpacity(0.1),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -112,7 +112,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   child: Text(
                                     "${index + 1}",
                                     style: Get.isDarkMode
-                                        ? const TextStyle(color: appColorWhite)
+                                        ? const TextStyle(
+                                            color: ColorSystem.appColorWhite)
                                         : Theme.of(context)
                                             .textTheme
                                             .titleSmall,
@@ -149,16 +150,11 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   fontWeight: FontWeight.w500,
                                 ),
                         textAlign: TextAlign.right,
-                        // style:
-                        //     Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        //           fontWeight: FontWeight.w500,
-                        //         ),
-                        // textAlign: TextAlign.right,
                       ),
                       Text(
                         ayahsTranslate.text.toString(),
                         style: const TextStyle(
-                            color: appColorGray, fontSize: 16.0),
+                            color: ColorSystem.appColorGray, fontSize: 16.0),
                       ),
                       const SizedBox(height: 20.0),
                     ],
