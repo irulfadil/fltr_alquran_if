@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/color_system.dart';
 import '../../../data/models/surah_detail_model.dart';
+import '../../../data/models/surah_detail_translate_model.dart';
 import '../controllers/detail_surah_controller.dart';
-import '../../../data/models/surah_detail_model.dart' as detail;
 import '../../../data/models/surah_model.dart';
 
 class DetailSurahView extends GetView<DetailSurahController> {
@@ -15,7 +15,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
   Future<List<dynamic>> fetchData() async {
     Future<SurahDetail> surahDetails =
         surahCon.getSurahDetail(surah.number.toString());
-    Future<SurahDetail> surahDetailTranslate =
+    Future<SurahDetailTranslate> surahDetailTranslate =
         surahCon.getSurahDetailTranslate(surah.number.toString());
     return await Future.wait([surahDetails, surahDetailTranslate]);
   }
@@ -76,8 +76,9 @@ class DetailSurahView extends GetView<DetailSurahController> {
                     const SizedBox();
                   }
 
-                  detail.Ayah ayahs = snapshot.data![0].ayahs![index];
-                  detail.Ayah ayahsTranslate = snapshot.data![1].ayahs![index];
+                  Ayah ayahs = snapshot.data![0].ayahs![index];
+                  AyahTranslate ayahsTranslate =
+                      snapshot.data![1].ayahs![index];
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -131,7 +132,9 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                           Icons.bookmark_add_outlined),
                                     ),
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        controller.playAudio(ayahs.audio);
+                                      },
                                       icon: const Icon(
                                           Icons.play_circle_outlined),
                                     ),
@@ -151,6 +154,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                 ),
                         textAlign: TextAlign.right,
                       ),
+                      const SizedBox(height: 20.0),
                       Text(
                         ayahsTranslate.text.toString(),
                         style: const TextStyle(

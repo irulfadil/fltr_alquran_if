@@ -126,16 +126,13 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          // allRevelationType[0],
                                           detailAyahs["surah"]["revelationType"]
                                               .toString(),
                                           style: const TextStyle(
                                             color: ColorSystem.appColorWhite,
                                           ),
                                         ),
-                                        // const SizedBox(height: 20.0),
                                         Text(
-                                          // allSurahInJuz[0],
                                           detailAyahs["surah"]["englishName"]
                                               .toString(),
                                           style: const TextStyle(
@@ -237,7 +234,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10.0),
+                      const SizedBox(height: 20.0),
                       Text(
                         detailAyahs["text"].toString(),
                         style:

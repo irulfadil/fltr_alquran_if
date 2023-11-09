@@ -140,8 +140,8 @@ class HomeView extends GetView<HomeController> {
                             children: [
                               Image.asset(
                                 "assets/images/data_empty.png",
-                                width: 50,
-                                height: 50,
+                                width: 45,
+                                height: 45,
                               ),
                               const Text(
                                 "Data Empty",
@@ -174,13 +174,15 @@ class HomeView extends GetView<HomeController> {
                                       fit: BoxFit.contain),
                                 ),
                                 child: Center(
-                                  child: Text("${surah.number ?? 'Error'}",
-                                      style: Get.isDarkMode
-                                          ? const TextStyle(
-                                              color: ColorSystem.appColorWhite)
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .titleSmall),
+                                  child: Text(
+                                    "${surah.number ?? 'Error'}",
+                                    style: Get.isDarkMode
+                                        ? const TextStyle(
+                                            color: ColorSystem.appColorWhite)
+                                        : Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                  ),
                                 ),
                               ),
                             ),
