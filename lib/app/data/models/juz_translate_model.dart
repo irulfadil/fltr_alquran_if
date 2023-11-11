@@ -1,22 +1,22 @@
 // Api URL: http://api.alquran.cloud/v1/juz
 // Get detail surah of alquran
 
-class Juz {
+class JuzTranslate {
   int? number;
   List<dynamic>? ayahs;
   Map<String, SurahJuz>? surahs;
   Edition? edition;
 
-  Juz({
+  JuzTranslate({
     this.number,
     this.ayahs,
     this.surahs,
     this.edition,
   });
 
-  factory Juz.fromJson(Map<String, dynamic>? json) => Juz(
+  factory JuzTranslate.fromJson(Map<String, dynamic>? json) => JuzTranslate(
         number: json?["number"],
-        ayahs: List<Ayah>.from(json?["ayahs"].map((x) => Ayah.fromJson(x))),
+        ayahs: List<dynamic>.from(json?["ayahs"].map((x) => x)),
         surahs: Map.from(json?["surahs"])
             .map((k, v) => MapEntry<String, SurahJuz>(k, SurahJuz.fromJson(v))),
         edition: Edition.fromJson(json?["edition"]),
@@ -24,75 +24,10 @@ class Juz {
 
   Map<String, dynamic> toJson() => {
         "number": number,
-        "ayahs": List<dynamic>.from(ayahs!.map((x) => x.toJson())),
+        "ayahs": List<dynamic>.from(ayahs!.map((x) => x)),
         "surahs": Map.from(surahs!)
             .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
         "edition": edition!.toJson(),
-      };
-}
-
-class Ayah {
-  int? number;
-  String? audio;
-  List<String>? audioSecondary;
-  String? text;
-  SurahJuz? surah;
-  int? numberInSurah;
-  int? juz;
-  int? manzil;
-  int? page;
-  int? ruku;
-  int? hizbQuarter;
-  dynamic sajda;
-  String? statusAudio;
-
-  Ayah({
-    this.number,
-    this.audio,
-    this.audioSecondary,
-    this.text,
-    this.surah,
-    this.numberInSurah,
-    this.juz,
-    this.manzil,
-    this.page,
-    this.ruku,
-    this.hizbQuarter,
-    this.sajda,
-    this.statusAudio = 'stop',
-  });
-
-  factory Ayah.fromJson(Map<String, dynamic>? json) => Ayah(
-        number: json?["number"],
-        audio: json?["audio"],
-        audioSecondary:
-            List<String>.from(json?["audioSecondary"].map((x) => x)),
-        text: json?["text"],
-        surah: SurahJuz.fromJson(json?["surah"]),
-        numberInSurah: json?["numberInSurah"],
-        juz: json?["juz"],
-        manzil: json?["manzil"],
-        page: json?["page"],
-        ruku: json?["ruku"],
-        hizbQuarter: json?["hizbQuarter"],
-        sajda: json?["sajda"],
-        // statusAudio: json?["statusAudio"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "number": number,
-        "audio": audio,
-        "audioSecondary": List<dynamic>.from(audioSecondary!.map((x) => x)),
-        "text": text,
-        "surah": surah?.toJson(),
-        "numberInSurah": numberInSurah,
-        "juz": juz,
-        "manzil": manzil,
-        "page": page,
-        "ruku": ruku,
-        "hizbQuarter": hizbQuarter,
-        "sajda": sajda,
-        "statusAudio": statusAudio,
       };
 }
 

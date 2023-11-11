@@ -319,7 +319,9 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          controller.changeTheme();
+        },
         child: Obx(
           () => Icon(Icons.color_lens_outlined,
               color: controller.isDark.isTrue

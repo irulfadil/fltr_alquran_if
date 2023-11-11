@@ -42,7 +42,7 @@ class HomeController extends GetxController {
     List<Juz> allJuz = [];
 
     for (int i = 1; i <= 30; i++) {
-      Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$i");
+      Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$i/ar.alafasy");
       var res = await http.get(url);
 
       Map<String, dynamic> data =

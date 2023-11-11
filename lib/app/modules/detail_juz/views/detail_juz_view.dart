@@ -86,13 +86,12 @@ class DetailJuzView extends GetView<DetailJuzController> {
                     const SizedBox();
                   }
 
-                  Map<String, dynamic> detailAyahs =
-                      snapshot.data![0].ayahs![index];
+                  juz.Ayah detailAyahs = snapshot.data![0].ayahs![index];
                   Map<String, dynamic> detailAyahsTranslate =
                       snapshot.data![1].ayahs![index];
 
                   int numbAyahs =
-                      int.parse(detailAyahs["numberInSurah"].toString());
+                      int.parse(detailAyahs.numberInSurah.toString());
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -126,21 +125,21 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          detailAyahs["surah"]["revelationType"]
+                                          detailAyahs.surah!.revelationType
                                               .toString(),
                                           style: const TextStyle(
                                             color: ColorSystem.appColorWhite,
                                           ),
                                         ),
                                         Text(
-                                          detailAyahs["surah"]["englishName"]
+                                          detailAyahs.surah!.englishName
                                               .toString(),
                                           style: const TextStyle(
                                             color: ColorSystem.appColorWhite,
                                           ),
                                         ),
                                         Text(
-                                          detailAyahs["surah"]["numberOfAyahs"]
+                                          detailAyahs.surah!.numberOfAyahs
                                               .toString(),
                                           style: const TextStyle(
                                               color: ColorSystem.appColorWhite),
@@ -184,7 +183,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        detailAyahs["numberInSurah"].toString(),
+                                        detailAyahs.numberInSurah.toString(),
                                         style: Get.isDarkMode
                                             ? const TextStyle(
                                                 color:
@@ -196,8 +195,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                     ),
                                   ),
                                   Text(
-                                    detailAyahs["surah"]["englishName"]
-                                        .toString(),
+                                    detailAyahs.surah!.englishName.toString(),
                                     style: Get.isDarkMode
                                         ? TextStyle(
                                             color: ColorSystem.appColorWhite
@@ -212,22 +210,88 @@ class DetailJuzView extends GetView<DetailJuzController> {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
+                                  // Opacity(
+                                  //   opacity: 0.5,
+                                  //   child: IconButton(
+                                  //     onPressed: () {},
+                                  //     icon: const Icon(
+                                  //         Icons.bookmark_add_outlined),
+                                  //   ),
+                                  // ),
+                                  // Opacity(
+                                  //   opacity: 0.5,
+                                  //   child: IconButton(
+                                  //     onPressed: () {
+                                  //       controller
+                                  //           .playAudio(detailAyahs['audio']);
+                                  //     },
+                                  //     icon: const Icon(
+                                  //         Icons.play_circle_outlined),
+                                  //   ),
+                                  // ),
                                   Opacity(
                                     opacity: 0.5,
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                          Icons.bookmark_add_outlined),
+                                    child: GetBuilder<DetailJuzController>(
+                                      builder: (c) => Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          // kondisi => stop => button play
+                                          // kondisi => playing => button pause & button stop
+                                          // kondisi => pause => button resume & button stop
+
+                                          IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                                Icons.bookmark_add_outlined),
+                                          ),
+                                          (detailAyahs.statusAudio == 'stop')
+                                              ? (IconButton(
+                                                  onPressed: () {
+                                                    c.playAudio(detailAyahs);
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons.play_arrow_rounded),
+                                                ))
+                                              : Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    (detailAyahs.statusAudio ==
+                                                            'playing')
+                                                        ? (IconButton(
+                                                            onPressed: () {
+                                                              c.pauseAudio(
+                                                                  detailAyahs);
+                                                            },
+                                                            icon: const Icon(
+                                                              Icons.pause,
+                                                            ),
+                                                          ))
+                                                        : (IconButton(
+                                                            onPressed: () {
+                                                              c.resumeAudio(
+                                                                  detailAyahs);
+                                                            },
+                                                            icon: const Icon(
+                                                                Icons
+                                                                    .play_arrow),
+                                                          )),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        c.stopAudio(
+                                                            detailAyahs);
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.stop,
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Opacity(
-                                    opacity: 0.5,
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                          Icons.play_circle_outlined),
-                                    ),
-                                  ),
+                                  )
                                 ],
                               )
                             ],
@@ -236,7 +300,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                       ),
                       const SizedBox(height: 20.0),
                       Text(
-                        detailAyahs["text"].toString(),
+                        detailAyahs.text.toString(),
                         style:
                             Theme.of(context).textTheme.headlineSmall?.copyWith(
                                   fontWeight: FontWeight.w500,

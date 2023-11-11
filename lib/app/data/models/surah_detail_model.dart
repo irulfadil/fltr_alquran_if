@@ -61,6 +61,7 @@ class Ayah {
   int? ruku;
   int? hizbQuarter;
   dynamic sajda;
+  String? statusAudio;
 
   Ayah({
     this.number,
@@ -74,6 +75,7 @@ class Ayah {
     this.ruku,
     this.hizbQuarter,
     this.sajda,
+    this.statusAudio = 'stop',
   });
 
   factory Ayah.fromJson(Map<String, dynamic>? json) => Ayah(
@@ -89,6 +91,7 @@ class Ayah {
         ruku: json?["ruku"],
         hizbQuarter: json?["hizbQuarter"],
         sajda: json?["sajda"],
+        // statusAudio: json?["statusAudio"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -103,6 +106,7 @@ class Ayah {
         "ruku": ruku,
         "hizbQuarter": hizbQuarter,
         "sajda": sajda,
+        "statusAudio": statusAudio,
       };
 }
 

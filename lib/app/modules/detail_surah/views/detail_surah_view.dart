@@ -123,22 +123,59 @@ class DetailSurahView extends GetView<DetailSurahController> {
                               ),
                               Opacity(
                                 opacity: 0.5,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                          Icons.bookmark_add_outlined),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        controller.playAudio(ayahs.audio);
-                                      },
-                                      icon: const Icon(
-                                          Icons.play_circle_outlined),
-                                    ),
-                                  ],
+                                child: GetBuilder<DetailSurahController>(
+                                  builder: (c) => Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      // kondisi => stop => button play
+                                      // kondisi => playing => button pause & button stop
+                                      // kondisi => pause => button resume & button stop
+
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                            Icons.bookmark_add_outlined),
+                                      ),
+                                      (ayahs.statusAudio == 'stop')
+                                          ? (IconButton(
+                                              onPressed: () {
+                                                c.playAudio(ayahs);
+                                              },
+                                              icon: const Icon(
+                                                  Icons.play_arrow_rounded),
+                                            ))
+                                          : Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                (ayahs.statusAudio == 'playing')
+                                                    ? (IconButton(
+                                                        onPressed: () {
+                                                          c.pauseAudio(ayahs);
+                                                        },
+                                                        icon: const Icon(
+                                                          Icons.pause,
+                                                        ),
+                                                      ))
+                                                    : (IconButton(
+                                                        onPressed: () {
+                                                          c.resumeAudio(ayahs);
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.play_arrow),
+                                                      )),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    c.stopAudio(ayahs);
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.stop,
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                    ],
+                                  ),
                                 ),
                               )
                             ],

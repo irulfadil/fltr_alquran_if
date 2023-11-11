@@ -36,12 +36,12 @@ dependencies:
   get_storage: ^2.1.1
   http: ^1.1.0
   lottie: ^2.6.0
+  just_audio: ^0.9.35
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
