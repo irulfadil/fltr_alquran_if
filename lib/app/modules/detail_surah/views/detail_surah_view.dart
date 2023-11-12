@@ -133,7 +133,38 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                       // kondisi => pause => button resume & button stop
 
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Get.defaultDialog(
+                                            title: "BOOKMARK",
+                                            middleText: "Choose Bookmark Type",
+                                            actions: [
+                                              ElevatedButton(
+                                                onPressed: () {},
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      ColorSystem.appColorTeal,
+                                                  textStyle: const TextStyle(
+                                                    color: ColorSystem
+                                                        .appColorWhite,
+                                                  ),
+                                                ),
+                                                child: const Text("LAST READ"),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {},
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      ColorSystem.appColorTeal,
+                                                  textStyle: const TextStyle(
+                                                    color: ColorSystem
+                                                        .appColorWhite,
+                                                  ),
+                                                ),
+                                                child: const Text("BOOKMARK"),
+                                              ),
+                                            ],
+                                          );
+                                        },
                                         icon: const Icon(
                                             Icons.bookmark_add_outlined),
                                       ),

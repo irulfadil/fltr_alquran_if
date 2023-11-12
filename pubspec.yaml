@@ -35,8 +35,11 @@ dependencies:
   get: ^4.6.6
   get_storage: ^2.1.1
   http: ^1.1.0
-  lottie: ^2.6.0
   just_audio: ^0.9.35
+  lottie: ^2.6.0
+  path: ^1.8.3
+  path_provider: ^2.1.1
+  sqflite: ^2.3.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
