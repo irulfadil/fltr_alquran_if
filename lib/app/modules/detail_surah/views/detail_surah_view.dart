@@ -80,6 +80,10 @@ class DetailSurahView extends GetView<DetailSurahController> {
                   AyahTranslate ayahsTranslate =
                       snapshot.data![1].ayahs![index];
 
+                  SurahDetail surahAyahs = snapshot.data![0];
+
+                  // print(surahAyahs);
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -139,7 +143,10 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                             middleText: "Choose Bookmark Type",
                                             actions: [
                                               ElevatedButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  c.addBookmark(
+                                                      true, surahAyahs, index);
+                                                },
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor:
                                                       ColorSystem.appColorTeal,
@@ -151,7 +158,10 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                                 child: const Text("LAST READ"),
                                               ),
                                               ElevatedButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  c.addBookmark(
+                                                      false, surahAyahs, index);
+                                                },
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor:
                                                       ColorSystem.appColorTeal,

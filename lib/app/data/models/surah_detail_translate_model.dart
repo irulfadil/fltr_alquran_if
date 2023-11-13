@@ -123,6 +123,42 @@ class Sajda {
       };
 }
 
+class SurahJuz {
+  int? number;
+  String? name;
+  String? englishName;
+  String? englishNameTranslation;
+  String? revelationType;
+  int? numberOfAyahs;
+
+  SurahJuz({
+    this.number,
+    this.name,
+    this.englishName,
+    this.englishNameTranslation,
+    this.revelationType,
+    this.numberOfAyahs,
+  });
+
+  factory SurahJuz.fromJson(Map<String, dynamic>? json) => SurahJuz(
+        number: json?["number"],
+        name: json?["name"],
+        englishName: json?["englishName"],
+        englishNameTranslation: json?["englishNameTranslation"],
+        revelationType: json?["revelationType"],
+        numberOfAyahs: json?["numberOfAyahs"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "number": number,
+        "name": name,
+        "englishName": englishName,
+        "englishNameTranslation": englishNameTranslation,
+        "revelationType": revelationType,
+        "numberOfAyahs": numberOfAyahs,
+      };
+}
+
 class Edition {
   String? identifier;
   String? language;

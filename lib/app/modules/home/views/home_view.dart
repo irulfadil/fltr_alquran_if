@@ -54,7 +54,9 @@ class HomeView extends GetView<HomeController> {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    // last_read
+                  },
                   borderRadius: BorderRadius.circular(15.0),
                   child: Stack(
                     children: [
@@ -124,58 +126,242 @@ class HomeView extends GetView<HomeController> {
               ],
             ),
             Expanded(
-              child: TabBarView(children: [
-                Center(
-                  child: FutureBuilder<List<Surah>>(
-                    future: controller.getAllSurah(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "assets/images/data_empty.png",
-                                width: 45,
-                                height: 45,
-                              ),
-                              const Text(
-                                "Data Empty",
-                                style: TextStyle(
-                                  color: Colors.grey,
+              child: TabBarView(
+                children: [
+                  Center(
+                    child: FutureBuilder<List<Surah>>(
+                      future: controller.getAllSurah(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  "assets/images/data_empty.png",
+                                  width: 45,
+                                  height: 45,
                                 ),
-                              )
-                            ],
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          Surah surah = snapshot.data![index];
+                                const Text(
+                                  "Data Empty",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                        return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            Surah surah = snapshot.data![index];
 
-                          return ListTile(
-                            onTap: () {
-                              Get.toNamed(Routes.detailSurah, arguments: surah);
-                            },
-                            leading: Obx(
-                              () => Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(controller.isDark.isTrue
-                                          ? "assets/images/dark-list-numb-surah-4pt.png"
-                                          : "assets/images/light-list-numb-surah-4pt.png"),
-                                      fit: BoxFit.contain),
+                            return ListTile(
+                              onTap: () {
+                                Get.toNamed(Routes.detailSurah,
+                                    arguments: surah);
+                              },
+                              leading: Obx(
+                                () => Container(
+                                  height: 45,
+                                  width: 45,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(controller
+                                                .isDark.isTrue
+                                            ? "assets/images/dark-list-numb-surah-4pt.png"
+                                            : "assets/images/light-list-numb-surah-4pt.png"),
+                                        fit: BoxFit.contain),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "${surah.number ?? 'Error'}",
+                                      style: Get.isDarkMode
+                                          ? const TextStyle(
+                                              color: ColorSystem.appColorWhite)
+                                          : Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                    ),
+                                  ),
                                 ),
-                                child: Center(
+                              ),
+                              title: Text(
+                                surah.englishName ?? 'Error',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                              subtitle: Text(
+                                "${surah.revelationType ?? 'Error'} | ${surah.numberOfAyahs ?? 'Error'} Ayat",
+                                style: const TextStyle(
+                                  color: ColorSystem.appColorGray,
+                                ),
+                              ),
+                              trailing: Text(
+                                surah.name ?? 'Error',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  Center(
+                    child: FutureBuilder<List<Juz>>(
+                      future: controller.getAllJuz(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  "assets/images/data_empty.png",
+                                  width: 50,
+                                  height: 50,
+                                ),
+                                const Text(
+                                  "Data Empty",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                        // print(snapshot.data?.length);
+                        return ListView.builder(
+                          itemCount: snapshot.data?.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            Juz detailJuz = snapshot.data![index];
+
+                            List<dynamic> surahInJuz =
+                                detailJuz.surahs!.keys.toList();
+
+                            String startSurah = detailJuz.surahs!.keys.first;
+                            String lastSurah = detailJuz.surahs!.keys.last;
+
+                            String? startNameSurah =
+                                detailJuz.surahs![startSurah]!.englishName;
+                            String? lastNameSurah =
+                                detailJuz.surahs![lastSurah]!.englishName;
+
+                            return ListTile(
+                              onTap: () => Get.toNamed(
+                                Routes.detaillJuz,
+                                arguments: {
+                                  'detailJuz': detailJuz,
+                                  'surahInJuz': surahInJuz
+                                },
+                              ),
+                              leading: Obx(
+                                () => Container(
+                                  height: 45,
+                                  width: 45,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(controller.isDark.isTrue
+                                          ? "assets/images/dark-list-numb-juz-4pt.png"
+                                          : "assets/images/light-list-numb-juz-4pt.png"),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text("${index + 1}",
+                                        style: Get.isDarkMode
+                                            ? const TextStyle(
+                                                color:
+                                                    ColorSystem.appColorWhite)
+                                            : Theme.of(context)
+                                                .textTheme
+                                                .titleSmall),
+                                  ),
+                                ),
+                              ),
+                              title: Text(
+                                "JUZ ${index + 1}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                              subtitle: Text(
+                                "$startNameSurah - $lastNameSurah",
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  GetBuilder<HomeController>(
+                    builder: (c) {
+                      return FutureBuilder<List<Map<String, dynamic>>>(
+                        future: c.getBookmark(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (!snapshot.hasData) {
+                            return Center(
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/data_empty.png",
+                                    width: 50,
+                                    height: 50,
+                                  ),
+                                  const Text(
+                                    "Data Empty",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          }
+
+                          return ListView.builder(
+                            itemCount: snapshot.data?.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              Map<String, dynamic> data = snapshot.data![index];
+                              // print(data['surah']);
+                              return ListTile(
+                                onTap: () {
+                                  // Get.toNamed(Routes.detailSurah,
+                                  //     arguments: data);
+                                },
+                                leading: CircleAvatar(
+                                  backgroundColor: ColorSystem.appColorTeal,
                                   child: Text(
-                                    "${surah.number ?? 'Error'}",
+                                    "${index + 1}",
                                     style: Get.isDarkMode
                                         ? const TextStyle(
                                             color: ColorSystem.appColorWhite)
@@ -184,136 +370,36 @@ class HomeView extends GetView<HomeController> {
                                             .titleSmall,
                                   ),
                                 ),
-                              ),
-                            ),
-                            title: Text(
-                              surah.englishName ?? 'Error',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w500,
+                                title: Text(
+                                  "Surah ${data['surah'].replaceAll("+", "'")}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                                subtitle: Text(
+                                  "Ayah ${data['ayah']} - by ${data['via']}",
+                                  style: const TextStyle(
+                                    color: ColorSystem.appColorGray,
                                   ),
-                            ),
-                            subtitle: Text(
-                              "${surah.revelationType ?? 'Error'} | ${surah.numberOfAyahs ?? 'Error'} Ayat",
-                              style: const TextStyle(
-                                color: ColorSystem.appColorGray,
-                              ),
-                            ),
-                            trailing: Text(
-                              surah.name ?? 'Error',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
+                                ),
+                                trailing: IconButton(
+                                  onPressed: () {
+                                    c.deletBookmark(data['id']);
+                                  },
+                                  icon: const Icon(Icons.delete),
+                                ),
+                              );
+                            },
                           );
                         },
                       );
                     },
-                  ),
-                ),
-                Center(
-                  child: FutureBuilder<List<Juz>>(
-                    future: controller.getAllJuz(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "assets/images/data_empty.png",
-                                width: 50,
-                                height: 50,
-                              ),
-                              const Text(
-                                "Data Empty",
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      }
-                      // print(snapshot.data?.length);
-                      return ListView.builder(
-                        itemCount: snapshot.data?.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          Juz detailJuz = snapshot.data![index];
-
-                          List<dynamic> surahInJuz =
-                              detailJuz.surahs!.keys.toList();
-
-                          String startSurah = detailJuz.surahs!.keys.first;
-                          String lastSurah = detailJuz.surahs!.keys.last;
-
-                          String? startNameSurah =
-                              detailJuz.surahs![startSurah]!.englishName;
-                          String? lastNameSurah =
-                              detailJuz.surahs![lastSurah]!.englishName;
-
-                          return ListTile(
-                            onTap: () => Get.toNamed(
-                              Routes.detaillJuz,
-                              arguments: {
-                                'detailJuz': detailJuz,
-                                'surahInJuz': surahInJuz
-                              },
-                            ),
-                            leading: Obx(
-                              () => Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(controller.isDark.isTrue
-                                        ? "assets/images/dark-list-numb-juz-4pt.png"
-                                        : "assets/images/light-list-numb-juz-4pt.png"),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text("${index + 1}",
-                                      style: Get.isDarkMode
-                                          ? const TextStyle(
-                                              color: ColorSystem.appColorWhite)
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .titleSmall),
-                                ),
-                              ),
-                            ),
-                            title: Text(
-                              "JUZ ${index + 1}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                            subtitle: Text(
-                              "$startNameSurah - $lastNameSurah",
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-                const Center(
-                  child: Text("Page 3"),
-                ),
-              ]),
+                  )
+                ],
+              ),
             )
           ],
         ),

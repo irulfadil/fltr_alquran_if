@@ -2,14 +2,42 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:sqflite/sqflite.dart';
 
 import '../../../../theme/custom_theme.dart';
+import '../../../data/db/database_instance.dart';
 import '../../../data/models/juz_model.dart';
 import '../../../data/models/surah_model.dart';
 
 class HomeController extends GetxController {
   RxBool isDark = false.obs;
+  final lastReading = <Map<String, dynamic>>[].obs;
   final box = GetStorage();
+
+  DatabaseInstance database = DatabaseInstance.instance;
+
+  Future<List<Map<String, dynamic>>> getLastRead() async {
+    Database db = await database.database;
+
+    List<Map<String, dynamic>> lastReading =
+        await db.query('bookmark', where: 'last_read = 1');
+    return lastReading;
+  }
+
+  Future<List<Map<String, dynamic>>> getBookmark() async {
+    Database db = await database.database;
+
+    List<Map<String, dynamic>> allBookmark =
+        await db.query('bookmark', where: 'last_read = 0');
+    return allBookmark;
+  }
+
+  void deletBookmark(int id) async {
+    Database db = await database.database;
+    await db.delete('bookmark', where: "id = $id");
+    update();
+    Get.snackbar('Bookmark', 'Delete data successfully');
+  }
 
   // toggle theme
   void changeTheme() async {

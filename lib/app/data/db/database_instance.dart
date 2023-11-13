@@ -32,10 +32,10 @@ class DatabaseInstance {
           CREATE TABLE bookmark(
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             surah TEXT NOT NULL,
-            ayah INTEGERT NOT NULL,
-            juz INTEGERT NOT NULL,
+            ayah INTEGER NOT NULL,
+            juz INTEGER NOT NULL,
             via TEXT NOT NULL,
-            index_ayah TEXT NOT NULL,
+            index_ayah INTEGER NOT NULL,
             last_read INTEGER DEFAULT 0
           )
         ''');
