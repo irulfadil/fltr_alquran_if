@@ -16,7 +16,7 @@ ThemeData lightMode = ThemeData(
   textTheme: const TextTheme(
     headlineSmall: TextStyle(color: ColorSystem.appColorBrown),
     titleLarge: TextStyle(color: ColorSystem.appColorBrown),
-    titleMedium: TextStyle(color: ColorSystem.appColorGreen),
+    titleMedium: TextStyle(color: ColorSystem.appColorBrown),
     titleSmall: TextStyle(color: ColorSystem.appColorTeal),
     bodyLarge: TextStyle(color: ColorSystem.appColorBrown),
     bodyMedium: TextStyle(color: ColorSystem.appColorBrown),

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -7,6 +9,7 @@ import 'package:sqflite/sqflite.dart';
 import '../../../data/db/database_instance.dart';
 import '../../../data/models/surah_detail_model.dart';
 import '../../../data/models/surah_detail_translate_model.dart';
+// import '../../home/controllers/home_controller.dart';
 
 class DetailSurahController extends GetxController {
   RxBool isDark = false.obs;
@@ -14,7 +17,7 @@ class DetailSurahController extends GetxController {
 
   DatabaseInstance database = DatabaseInstance.instance;
 
-  void addBookmark(bool lastRead, SurahDetail surah, int index) async {
+  Future<void> addBookmark(bool lastRead, SurahDetail surah, int index) async {
     Database db = await database.database;
     bool flagExits = false;
 
@@ -45,10 +48,18 @@ class DetailSurahController extends GetxController {
       );
 
       Get.back();
-      Get.snackbar("Success", "Save Bookmark Successfully");
+      Get.snackbar(
+        "Success",
+        "Save Bookmark Successfully",
+        duration: const Duration(seconds: 1),
+      );
     } else {
       Get.back();
-      Get.snackbar("Failed", "Bookmark is ready");
+      Get.snackbar(
+        "Failed",
+        "Bookmark is ready",
+        duration: const Duration(seconds: 1),
+      );
     }
     //query database
     var data = await db.query('bookmark');

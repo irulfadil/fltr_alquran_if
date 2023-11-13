@@ -43,81 +43,294 @@ class HomeView extends GetView<HomeController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: Get.isDarkMode
-                      ? [ColorSystem.headerDark, ColorSystem.headerDark]
-                      : [ColorSystem.headerLight, ColorSystem.headerLight],
-                ),
-              ),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () {
-                    // last_read
-                  },
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: 6,
-                        right: 5,
-                        child: Opacity(
-                          opacity: 0.5,
-                          child: SizedBox(
-                              height: 80,
-                              width: 80,
-                              child: Image.asset(
-                                "assets/images/dark-logo-alquran-black.png",
-                                fit: BoxFit.cover,
-                              )),
+            GetBuilder<HomeController>(builder: (c) {
+              return FutureBuilder<Map<String, dynamic>?>(
+                  future: c.getLastRead(),
+                  builder: (context, snapshot) {
+                    Map<String, dynamic>? lastRead = snapshot.data;
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: Get.isDarkMode
+                                ? [
+                                    ColorSystem.headerDark,
+                                    ColorSystem.headerDark
+                                  ]
+                                : [
+                                    ColorSystem.headerLight,
+                                    ColorSystem.headerLight
+                                  ],
+                          ),
                         ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.menu_book,
-                                  color: ColorSystem.appColorWhite,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                top: 6,
+                                right: 5,
+                                child: Opacity(
+                                  opacity: 0.5,
+                                  child: SizedBox(
+                                      height: 80,
+                                      width: 80,
+                                      child: Image.asset(
+                                        "assets/images/dark-logo-alquran-black.png",
+                                        fit: BoxFit.cover,
+                                      )),
                                 ),
-                                SizedBox(width: 5.0),
-                                Text(
-                                  "Terakhir di baca",
-                                  style: TextStyle(
-                                      color: ColorSystem.appColorWhite,
-                                      fontSize: 16.0),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.menu_book,
+                                          color: ColorSystem.appColorWhite,
+                                        ),
+                                        SizedBox(width: 5.0),
+                                        Text(
+                                          "Last Read",
+                                          style: TextStyle(
+                                              color: ColorSystem.appColorWhite,
+                                              fontSize: 16.0),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 10.0),
+                                    Text(
+                                      "...Loading",
+                                      style: TextStyle(
+                                          color: ColorSystem.appColorWhite,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(height: 5.0),
+                                    Text(
+                                      "",
+                                      style: TextStyle(
+                                        color: ColorSystem.appColorWhite,
+                                        fontSize: 14.0,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else if (!snapshot.hasData) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: Get.isDarkMode
+                                ? [
+                                    ColorSystem.headerDark,
+                                    ColorSystem.headerDark
+                                  ]
+                                : [
+                                    ColorSystem.headerLight,
+                                    ColorSystem.headerLight
+                                  ],
+                          ),
+                        ),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                top: 6,
+                                right: 5,
+                                child: Opacity(
+                                  opacity: 0.5,
+                                  child: SizedBox(
+                                      height: 80,
+                                      width: 80,
+                                      child: Image.asset(
+                                        "assets/images/dark-logo-alquran-black.png",
+                                        fit: BoxFit.cover,
+                                      )),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.menu_book,
+                                          color: ColorSystem.appColorWhite,
+                                        ),
+                                        SizedBox(width: 5.0),
+                                        Text(
+                                          "Last Read",
+                                          style: TextStyle(
+                                              color: ColorSystem.appColorWhite,
+                                              fontSize: 16.0),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 10.0),
+                                    Text(
+                                      "Data Empty",
+                                      style: TextStyle(
+                                          color: ColorSystem.appColorWhite,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(height: 5.0),
+                                    Text(
+                                      "",
+                                      style: TextStyle(
+                                        color: ColorSystem.appColorWhite,
+                                        fontSize: 14.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Obx(
+                        () => Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: controller.isDark.isTrue
+                                  ? [
+                                      ColorSystem.headerDark,
+                                      ColorSystem.headerDark
+                                    ]
+                                  : [
+                                      ColorSystem.headerLight,
+                                      ColorSystem.headerLight
+                                    ],
                             ),
-                            SizedBox(height: 10.0),
-                            Text(
-                              "Al-fatihah",
-                              style: TextStyle(
-                                  color: ColorSystem.appColorWhite,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Juz 1 | Ayat 7",
-                              style: TextStyle(
-                                color: ColorSystem.appColorWhite,
-                                fontSize: 14.0,
+                          ),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onLongPress: () {
+                                if (lastRead != null) {
+                                  Get.defaultDialog(
+                                    title: "Delete Last Read",
+                                    middleText:
+                                        "Are you sure delete last read bookmark",
+                                    actions: [
+                                      OutlinedButton(
+                                          onPressed: () => Get.back(),
+                                          child: Text(
+                                            "CANCEL",
+                                            style: Get.isDarkMode
+                                                ? const TextStyle(
+                                                    color: ColorSystem
+                                                        .appColorWhite)
+                                                : Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall,
+                                          )),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          controller
+                                              .deletBookmark(lastRead['id']);
+                                          Get.back();
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Colors.white,
+                                          backgroundColor:
+                                              ColorSystem.appColorGold,
+                                        ),
+                                        child: const Text(
+                                          "DELETE",
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                }
+                              },
+                              onTap: () {
+                                // last_read
+                              },
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 6,
+                                    right: 5,
+                                    child: Opacity(
+                                      opacity: 0.5,
+                                      child: SizedBox(
+                                          height: 80,
+                                          width: 80,
+                                          child: Image.asset(
+                                            "assets/images/dark-logo-alquran-black.png",
+                                            fit: BoxFit.cover,
+                                          )),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Row(
+                                          children: [
+                                            Icon(
+                                              Icons.menu_book,
+                                              color: ColorSystem.appColorWhite,
+                                            ),
+                                            SizedBox(width: 5.0),
+                                            Text(
+                                              "Last Read",
+                                              style: TextStyle(
+                                                  color:
+                                                      ColorSystem.appColorWhite,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10.0),
+                                        Text(
+                                          lastRead == null
+                                              ? ""
+                                              : "${lastRead['surah'].replaceAll("+", "'")}",
+                                          style: const TextStyle(
+                                              color: ColorSystem.appColorWhite,
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(height: 5.0),
+                                        Text(
+                                          lastRead == null
+                                              ? ""
+                                              : "Juz ${lastRead['juz']} | Ayat ${lastRead['ayah']}",
+                                          style: const TextStyle(
+                                            color: ColorSystem.appColorWhite,
+                                            fontSize: 14.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                      );
+                    }
+                  });
+            }),
             const TabBar(
               tabs: [
                 Tab(text: 'SURAH'),
@@ -182,9 +395,9 @@ class HomeView extends GetView<HomeController> {
                                   child: Center(
                                     child: Text(
                                       "${surah.number ?? 'Error'}",
-                                      style: Get.isDarkMode
+                                      style: controller.isDark.isTrue
                                           ? const TextStyle(
-                                              color: ColorSystem.appColorWhite)
+                                              color: ColorSystem.appColorBrown)
                                           : Theme.of(context)
                                               .textTheme
                                               .titleSmall,
@@ -194,12 +407,15 @@ class HomeView extends GetView<HomeController> {
                               ),
                               title: Text(
                                 surah.englishName ?? 'Error',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                style: controller.isDark.isTrue
+                                    ? const TextStyle(
+                                        color: ColorSystem.appColorWhite)
+                                    : Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                        ),
                               ),
                               subtitle: Text(
                                 "${surah.revelationType ?? 'Error'} | ${surah.numberOfAyahs ?? 'Error'} Ayat",
@@ -292,7 +508,7 @@ class HomeView extends GetView<HomeController> {
                                         style: Get.isDarkMode
                                             ? const TextStyle(
                                                 color:
-                                                    ColorSystem.appColorWhite)
+                                                    ColorSystem.appColorBrown)
                                             : Theme.of(context)
                                                 .textTheme
                                                 .titleSmall),
@@ -300,7 +516,7 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                               title: Text(
-                                "JUZ ${index + 1}",
+                                "Juz ${index + 1}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleMedium
@@ -310,7 +526,9 @@ class HomeView extends GetView<HomeController> {
                               ),
                               subtitle: Text(
                                 "$startNameSurah - $lastNameSurah",
-                                style: Theme.of(context).textTheme.titleSmall,
+                                style: const TextStyle(
+                                  color: ColorSystem.appColorGray,
+                                ),
                               ),
                             );
                           },
@@ -354,30 +572,29 @@ class HomeView extends GetView<HomeController> {
                               Map<String, dynamic> data = snapshot.data![index];
                               // print(data['surah']);
                               return ListTile(
-                                onTap: () {
-                                  // Get.toNamed(Routes.detailSurah,
-                                  //     arguments: data);
-                                },
+                                onTap: () {},
                                 leading: CircleAvatar(
-                                  backgroundColor: ColorSystem.appColorTeal,
+                                  backgroundColor: Get.isDarkMode
+                                      ? ColorSystem.appColorTeal
+                                      : ColorSystem.appColorBrown,
                                   child: Text(
                                     "${index + 1}",
-                                    style: Get.isDarkMode
-                                        ? const TextStyle(
-                                            color: ColorSystem.appColorWhite)
-                                        : Theme.of(context)
-                                            .textTheme
-                                            .titleSmall,
+                                    style: const TextStyle(
+                                      color: ColorSystem.appColorWhite,
+                                    ),
                                   ),
                                 ),
                                 title: Text(
                                   "Surah ${data['surah'].replaceAll("+", "'")}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                  style: Get.isDarkMode
+                                      ? const TextStyle(
+                                          color: ColorSystem.appColorWhite)
+                                      : Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                 ),
                                 subtitle: Text(
                                   "Ayah ${data['ayah']} - by ${data['via']}",

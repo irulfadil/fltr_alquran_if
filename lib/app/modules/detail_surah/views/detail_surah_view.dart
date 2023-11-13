@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import '../../../../utils/color_system.dart';
 import '../../../data/models/surah_detail_model.dart';
 import '../../../data/models/surah_detail_translate_model.dart';
+import '../../home/controllers/home_controller.dart';
 import '../controllers/detail_surah_controller.dart';
 import '../../../data/models/surah_model.dart';
 
 class DetailSurahView extends GetView<DetailSurahController> {
   DetailSurahView({Key? key}) : super(key: key);
+  final homeC = Get.find<HomeController>();
 
   final DetailSurahController surahCon = Get.put(DetailSurahController());
   final Surah surah = Get.arguments;
@@ -116,7 +118,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                     "${index + 1}",
                                     style: Get.isDarkMode
                                         ? const TextStyle(
-                                            color: ColorSystem.appColorWhite)
+                                            color: ColorSystem.appColorBrown)
                                         : Theme.of(context)
                                             .textTheme
                                             .titleSmall,
@@ -141,9 +143,10 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                             middleText: "Choose Bookmark Type",
                                             actions: [
                                               ElevatedButton(
-                                                onPressed: () {
-                                                  c.addBookmark(
+                                                onPressed: () async {
+                                                  await c.addBookmark(
                                                       true, surahAyahs, index);
+                                                  homeC.update();
                                                 },
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor:

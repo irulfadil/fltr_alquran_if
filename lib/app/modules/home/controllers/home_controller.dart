@@ -11,17 +11,23 @@ import '../../../data/models/surah_model.dart';
 
 class HomeController extends GetxController {
   RxBool isDark = false.obs;
-  final lastReading = <Map<String, dynamic>>[].obs;
   final box = GetStorage();
 
   DatabaseInstance database = DatabaseInstance.instance;
 
-  Future<List<Map<String, dynamic>>> getLastRead() async {
+  Future<Map<String, dynamic>?> getLastRead() async {
     Database db = await database.database;
 
-    List<Map<String, dynamic>> lastReading =
+    List<Map<String, dynamic>> dataLastRead =
         await db.query('bookmark', where: 'last_read = 1');
-    return lastReading;
+
+    if (dataLastRead.isEmpty) {
+      //Data Empty
+      return null;
+    } else {
+      //get data from index 0 => because List still one.
+      return dataLastRead.first;
+    }
   }
 
   Future<List<Map<String, dynamic>>> getBookmark() async {
@@ -36,7 +42,11 @@ class HomeController extends GetxController {
     Database db = await database.database;
     await db.delete('bookmark', where: "id = $id");
     update();
-    Get.snackbar('Bookmark', 'Delete data successfully');
+    Get.snackbar(
+      'Bookmark',
+      'Delete data successfully',
+      duration: const Duration(seconds: 1),
+    );
   }
 
   // toggle theme

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +15,7 @@ class DetailJuzController extends GetxController {
 
   DatabaseInstance database = DatabaseInstance.instance;
 
-  void addBookmark(bool lastRead, Ayah surah, int index) async {
+  Future<void> addBookmark(bool lastRead, Ayah surah, int index) async {
     Database db = await database.database;
     bool flagExits = false;
 
@@ -44,10 +46,18 @@ class DetailJuzController extends GetxController {
       );
 
       Get.back();
-      Get.snackbar("Success", "Save Bookmark Successfully");
+      Get.snackbar(
+        "Success",
+        "Save Bookmark Successfully",
+        duration: const Duration(seconds: 1),
+      );
     } else {
       Get.back();
-      Get.snackbar("Failed", "Bookmark is ready");
+      Get.snackbar(
+        "Failed",
+        "Bookmark is ready",
+        duration: const Duration(seconds: 1),
+      );
     }
     //query database
     var data = await db.query('bookmark');

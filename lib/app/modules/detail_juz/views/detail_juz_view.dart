@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/color_system.dart';
 import '../../../data/models/juz_model.dart' as juz;
+import '../../home/controllers/home_controller.dart';
 import '../controllers/detail_juz_controller.dart';
 
 class DetailJuzView extends GetView<DetailJuzController> {
   DetailJuzView({Key? key}) : super(key: key);
+  final homeC = Get.find<HomeController>();
 
   final DetailJuzController juzSurah = Get.put(DetailJuzController());
   final juz.Juz allJuz = Get.arguments["detailJuz"];
@@ -231,9 +233,10 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                                     "Choose Bookmark Type",
                                                 actions: [
                                                   ElevatedButton(
-                                                    onPressed: () {
-                                                      c.addBookmark(true,
+                                                    onPressed: () async {
+                                                      await c.addBookmark(true,
                                                           surahAyahs, index);
+                                                      homeC.update();
                                                     },
                                                     style: ElevatedButton
                                                         .styleFrom(
