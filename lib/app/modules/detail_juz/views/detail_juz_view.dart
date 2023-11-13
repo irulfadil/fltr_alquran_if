@@ -90,6 +90,8 @@ class DetailJuzView extends GetView<DetailJuzController> {
                   Map<String, dynamic> detailAyahsTranslate =
                       snapshot.data![1].ayahs![index];
 
+                  juz.Ayah surahAyahs = snapshot.data![0].ayahs![index];
+
                   int numbAyahs =
                       int.parse(detailAyahs.numberInSurah.toString());
 
@@ -210,25 +212,6 @@ class DetailJuzView extends GetView<DetailJuzController> {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  // Opacity(
-                                  //   opacity: 0.5,
-                                  //   child: IconButton(
-                                  //     onPressed: () {},
-                                  //     icon: const Icon(
-                                  //         Icons.bookmark_add_outlined),
-                                  //   ),
-                                  // ),
-                                  // Opacity(
-                                  //   opacity: 0.5,
-                                  //   child: IconButton(
-                                  //     onPressed: () {
-                                  //       controller
-                                  //           .playAudio(detailAyahs['audio']);
-                                  //     },
-                                  //     icon: const Icon(
-                                  //         Icons.play_circle_outlined),
-                                  //   ),
-                                  // ),
                                   Opacity(
                                     opacity: 0.5,
                                     child: GetBuilder<DetailJuzController>(
@@ -241,7 +224,53 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                           // kondisi => pause => button resume & button stop
 
                                           IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Get.defaultDialog(
+                                                title: "BOOKMARK",
+                                                middleText:
+                                                    "Choose Bookmark Type",
+                                                actions: [
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      c.addBookmark(true,
+                                                          surahAyahs, index);
+                                                    },
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                          ColorSystem
+                                                              .appColorTeal,
+                                                      textStyle:
+                                                          const TextStyle(
+                                                        color: ColorSystem
+                                                            .appColorWhite,
+                                                      ),
+                                                    ),
+                                                    child:
+                                                        const Text("LAST READ"),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      c.addBookmark(false,
+                                                          surahAyahs, index);
+                                                    },
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                          ColorSystem
+                                                              .appColorTeal,
+                                                      textStyle:
+                                                          const TextStyle(
+                                                        color: ColorSystem
+                                                            .appColorWhite,
+                                                      ),
+                                                    ),
+                                                    child:
+                                                        const Text("BOOKMARK"),
+                                                  ),
+                                                ],
+                                              );
+                                            },
                                             icon: const Icon(
                                                 Icons.bookmark_add_outlined),
                                           ),

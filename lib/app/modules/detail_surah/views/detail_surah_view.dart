@@ -82,8 +82,6 @@ class DetailSurahView extends GetView<DetailSurahController> {
 
                   SurahDetail surahAyahs = snapshot.data![0];
 
-                  // print(surahAyahs);
-
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [

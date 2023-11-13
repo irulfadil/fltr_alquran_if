@@ -36,7 +36,7 @@ class DetailSurahController extends GetxController {
         "bookmark",
         {
           "surah": "${surah.englishName?.replaceAll("'", "+")}",
-          "ayah": "${surah.ayahs![0].number}",
+          "ayah": "${surah.ayahs?[index].numberInSurah}",
           "juz": "${surah.number}",
           "via": "surah",
           "index_ayah": "$index",
