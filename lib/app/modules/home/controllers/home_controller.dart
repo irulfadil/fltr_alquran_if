@@ -11,6 +11,7 @@ import '../../../data/models/surah_model.dart';
 
 class HomeController extends GetxController {
   RxBool isDark = false.obs;
+  List<Juz> allJuz = [];
   final box = GetStorage();
 
   DatabaseInstance database = DatabaseInstance.instance;
@@ -18,8 +19,8 @@ class HomeController extends GetxController {
   Future<Map<String, dynamic>?> getLastRead() async {
     Database db = await database.database;
 
-    List<Map<String, dynamic>> dataLastRead =
-        await db.query('bookmark', where: 'last_read = 1');
+    List<Map<String, dynamic>> dataLastRead = await db.query('bookmark',
+        where: 'last_read = 1', orderBy: 'juz, via, surah, ayah');
 
     if (dataLastRead.isEmpty) {
       //Data Empty
@@ -33,8 +34,8 @@ class HomeController extends GetxController {
   Future<List<Map<String, dynamic>>> getBookmark() async {
     Database db = await database.database;
 
-    List<Map<String, dynamic>> allBookmark =
-        await db.query('bookmark', where: 'last_read = 0');
+    List<Map<String, dynamic>> allBookmark = await db.query('bookmark',
+        where: 'last_read = 0', orderBy: 'juz, via, surah, ayah');
     return allBookmark;
   }
 
@@ -77,7 +78,8 @@ class HomeController extends GetxController {
 
   // get AllJuz to Tab 'Juz'
   Future<List<Juz>> getAllJuz() async {
-    List<Juz> allJuz = [];
+    // dipinah menjadi variabel global
+    // List<Juz> allJuz = [];
 
     for (int i = 1; i <= 30; i++) {
       Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$i/ar.alafasy");

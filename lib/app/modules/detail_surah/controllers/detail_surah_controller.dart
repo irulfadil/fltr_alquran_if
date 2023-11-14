@@ -4,14 +4,16 @@ import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../data/db/database_instance.dart';
 import '../../../data/models/surah_detail_model.dart';
 import '../../../data/models/surah_detail_translate_model.dart';
-// import '../../home/controllers/home_controller.dart';
 
 class DetailSurahController extends GetxController {
+  AutoScrollController autoScrollSurahCon = AutoScrollController();
+
   RxBool isDark = false.obs;
   final player = AudioPlayer();
 
@@ -20,14 +22,23 @@ class DetailSurahController extends GetxController {
   Future<void> addBookmark(bool lastRead, SurahDetail surah, int index) async {
     Database db = await database.database;
     bool flagExits = false;
-
+    print(surah.englishNameTranslation);
     if (lastRead == true) {
       await db.delete('bookmark', where: "last_read = 1");
     } else {
       List checkData = await db.query("bookmark",
-          columns: ["surah", "ayah", "juz", "via", "index_ayah", "last_read"],
+          columns: [
+            "surah",
+            "englishNameTranslation",
+            "number_surah",
+            "ayah",
+            "juz",
+            "via",
+            "index_ayah",
+            "last_read"
+          ],
           where:
-              "surah = '${surah.englishName?.replaceAll("'", "+")}' and ayah = ${surah.numberOfAyahs} and juz = ${surah.number} and via = 'surah' and index_ayah= $index and last_read = 0");
+              "surah = '${surah.englishName?.replaceAll("'", "+")}' and englishNameTranslation = '${surah.englishNameTranslation}' and number_surah = ${surah.number} and ayah = ${surah.numberOfAyahs} and juz = ${surah.number} and via = 'surah' and index_ayah= $index and last_read = 0");
 
       if (checkData.isNotEmpty) {
         flagExits = true;
@@ -39,6 +50,8 @@ class DetailSurahController extends GetxController {
         "bookmark",
         {
           "surah": "${surah.englishName?.replaceAll("'", "+")}",
+          "englishNameTranslation": "${surah.englishNameTranslation}",
+          "number_surah": "${surah.number}",
           "ayah": "${surah.ayahs?[index].numberInSurah}",
           "juz": "${surah.number}",
           "via": "surah",

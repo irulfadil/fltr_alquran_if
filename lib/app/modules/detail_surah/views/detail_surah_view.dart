@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../../../utils/color_system.dart';
 import '../../../data/models/surah_detail_model.dart';
 import '../../../data/models/surah_detail_translate_model.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/detail_surah_controller.dart';
-import '../../../data/models/surah_model.dart';
 
+// ignore: must_be_immutable
 class DetailSurahView extends GetView<DetailSurahController> {
   DetailSurahView({Key? key}) : super(key: key);
   final homeC = Get.find<HomeController>();
+  late Map<String, dynamic>? bookmark;
 
   final DetailSurahController surahCon = Get.put(DetailSurahController());
-  final Surah surah = Get.arguments;
 
   Future<List<dynamic>> fetchData() async {
     Future<SurahDetail> surahDetails =
-        surahCon.getSurahDetail(surah.number.toString());
+        surahCon.getSurahDetail(Get.arguments['number'].toString());
     Future<SurahDetailTranslate> surahDetailTranslate =
-        surahCon.getSurahDetailTranslate(surah.number.toString());
+        surahCon.getSurahDetailTranslate(Get.arguments['number'].toString());
     return await Future.wait([surahDetails, surahDetailTranslate]);
   }
 
@@ -29,10 +30,10 @@ class DetailSurahView extends GetView<DetailSurahController> {
         title: SizedBox(
           child: Column(
             children: [
-              Text(surah.englishName ?? "error"),
+              Text(Get.arguments['englishName'] ?? "error"),
               const SizedBox(height: 3.0),
               Text(
-                surah.englishNameTranslation ?? "error",
+                Get.arguments['englishNameTranslation'] ?? "error",
                 style: const TextStyle(
                     color: ColorSystem.appColorGray, fontSize: 12),
               ),
@@ -42,14 +43,26 @@ class DetailSurahView extends GetView<DetailSurahController> {
         centerTitle: true,
       ),
       body: ListView(
-        padding: const EdgeInsets.all(20.0),
+        controller: controller.autoScrollSurahCon,
+        padding: const EdgeInsets.all(5.0),
         children: [
           FutureBuilder<List<dynamic>>(
             future: fetchData(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Container(
+                  margin: const EdgeInsets.only(top: 20.0),
+                  child: const Center(
+                    child: SizedBox(
+                      width: 35.0,
+                      height: 35.0,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            ColorSystem.appColorTeal),
+                        strokeWidth: 5.0,
+                      ),
+                    ),
+                  ),
                 );
               }
 
@@ -68,6 +81,19 @@ class DetailSurahView extends GetView<DetailSurahController> {
                   ]),
                 );
               }
+
+              if (Get.arguments['bookmark'] != null) {
+                bookmark = Get.arguments['bookmark'];
+                if (bookmark!['index_ayah'] > 1) {
+                  controller.autoScrollSurahCon.scrollToIndex(
+                    // +2 ini adalah angka index from autoScrollTag
+                    // bookmark!['index_ayah'] + 2,
+                    bookmark!['index_ayah'],
+                    preferPosition: AutoScrollPosition.begin,
+                  );
+                }
+              }
+
               return ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -84,163 +110,176 @@ class DetailSurahView extends GetView<DetailSurahController> {
 
                   SurahDetail surahAyahs = snapshot.data![0];
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Get.isDarkMode
-                              ? ColorSystem.backgroundDarkSecondary
-                              : ColorSystem.appColorBrown.withOpacity(0.1),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 10,
+                  return AutoScrollTag(
+                    key: ValueKey(index),
+                    controller: controller.autoScrollSurahCon,
+                    index: index,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Get.isDarkMode
+                                ? ColorSystem.backgroundDarkSecondary
+                                : ColorSystem.appColorBrown.withOpacity(0.1),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(Get.isDarkMode
-                                        ? "assets/images/dark-list-numb-surah-4pt.png"
-                                        : "assets/images/light-list-numb-surah-4pt.png"),
-                                    fit: BoxFit.contain,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 10,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: 45,
+                                  width: 45,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(Get.isDarkMode
+                                          ? "assets/images/dark-list-numb-surah-4pt.png"
+                                          : "assets/images/light-list-numb-surah-4pt.png"),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "${index + 1}",
+                                      style: Get.isDarkMode
+                                          ? const TextStyle(
+                                              color: ColorSystem.appColorBrown)
+                                          : Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                    ),
                                   ),
                                 ),
-                                child: Center(
-                                  child: Text(
-                                    "${index + 1}",
-                                    style: Get.isDarkMode
-                                        ? const TextStyle(
-                                            color: ColorSystem.appColorBrown)
-                                        : Theme.of(context)
-                                            .textTheme
-                                            .titleSmall,
-                                  ),
-                                ),
-                              ),
-                              Opacity(
-                                opacity: 0.5,
-                                child: GetBuilder<DetailSurahController>(
-                                  builder: (c) => Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      // kondisi => stop => button play
-                                      // kondisi => playing => button pause & button stop
-                                      // kondisi => pause => button resume & button stop
+                                Opacity(
+                                  opacity: 0.5,
+                                  child: GetBuilder<DetailSurahController>(
+                                    builder: (c) => Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        // kondisi => stop => button play
+                                        // kondisi => playing => button pause & button stop
+                                        // kondisi => pause => button resume & button stop
 
-                                      IconButton(
-                                        onPressed: () {
-                                          Get.defaultDialog(
-                                            title: "BOOKMARK",
-                                            middleText: "Choose Bookmark Type",
-                                            actions: [
-                                              ElevatedButton(
-                                                onPressed: () async {
-                                                  await c.addBookmark(
-                                                      true, surahAyahs, index);
-                                                  homeC.update();
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      ColorSystem.appColorTeal,
-                                                  textStyle: const TextStyle(
-                                                    color: ColorSystem
-                                                        .appColorWhite,
-                                                  ),
-                                                ),
-                                                child: const Text("LAST READ"),
-                                              ),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  c.addBookmark(
-                                                      false, surahAyahs, index);
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      ColorSystem.appColorTeal,
-                                                  textStyle: const TextStyle(
-                                                    color: ColorSystem
-                                                        .appColorWhite,
-                                                  ),
-                                                ),
-                                                child: const Text("BOOKMARK"),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                        icon: const Icon(
-                                            Icons.bookmark_add_outlined),
-                                      ),
-                                      (ayahs.statusAudio == 'stop')
-                                          ? (IconButton(
-                                              onPressed: () {
-                                                c.playAudio(ayahs);
-                                              },
-                                              icon: const Icon(
-                                                  Icons.play_arrow_rounded),
-                                            ))
-                                          : Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                (ayahs.statusAudio == 'playing')
-                                                    ? (IconButton(
-                                                        onPressed: () {
-                                                          c.pauseAudio(ayahs);
-                                                        },
-                                                        icon: const Icon(
-                                                          Icons.pause,
-                                                        ),
-                                                      ))
-                                                    : (IconButton(
-                                                        onPressed: () {
-                                                          c.resumeAudio(ayahs);
-                                                        },
-                                                        icon: const Icon(
-                                                            Icons.play_arrow),
-                                                      )),
-                                                IconButton(
-                                                  onPressed: () {
-                                                    c.stopAudio(ayahs);
+                                        IconButton(
+                                          onPressed: () {
+                                            Get.defaultDialog(
+                                              title: "BOOKMARK",
+                                              middleText:
+                                                  "Choose Bookmark Type",
+                                              actions: [
+                                                ElevatedButton(
+                                                  onPressed: () async {
+                                                    await c.addBookmark(true,
+                                                        surahAyahs, index);
+                                                    homeC.update();
                                                   },
-                                                  icon: const Icon(
-                                                    Icons.stop,
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor: ColorSystem
+                                                        .appColorTeal,
+                                                    textStyle: const TextStyle(
+                                                      color: ColorSystem
+                                                          .appColorWhite,
+                                                    ),
                                                   ),
-                                                )
+                                                  child:
+                                                      const Text("LAST READ"),
+                                                ),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    c.addBookmark(false,
+                                                        surahAyahs, index);
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor: ColorSystem
+                                                        .appColorTeal,
+                                                    textStyle: const TextStyle(
+                                                      color: ColorSystem
+                                                          .appColorWhite,
+                                                    ),
+                                                  ),
+                                                  child: const Text("BOOKMARK"),
+                                                ),
                                               ],
-                                            )
-                                    ],
+                                            );
+                                          },
+                                          icon: const Icon(
+                                              Icons.bookmark_add_outlined),
+                                        ),
+                                        (ayahs.statusAudio == 'stop')
+                                            ? (IconButton(
+                                                onPressed: () {
+                                                  c.playAudio(ayahs);
+                                                },
+                                                icon: const Icon(
+                                                    Icons.play_arrow_rounded),
+                                              ))
+                                            : Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  (ayahs.statusAudio ==
+                                                          'playing')
+                                                      ? (IconButton(
+                                                          onPressed: () {
+                                                            c.pauseAudio(ayahs);
+                                                          },
+                                                          icon: const Icon(
+                                                            Icons.pause,
+                                                          ),
+                                                        ))
+                                                      : (IconButton(
+                                                          onPressed: () {
+                                                            c.resumeAudio(
+                                                                ayahs);
+                                                          },
+                                                          icon: const Icon(
+                                                              Icons.play_arrow),
+                                                        )),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      c.stopAudio(ayahs);
+                                                    },
+                                                    icon: const Icon(
+                                                      Icons.stop,
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 20.0),
-                      Text(
-                        ayahs.text.toString(),
-                        style:
-                            Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                        textAlign: TextAlign.right,
-                      ),
-                      const SizedBox(height: 20.0),
-                      Text(
-                        ayahsTranslate.text.toString(),
-                        style: const TextStyle(
-                            color: ColorSystem.appColorGray, fontSize: 16.0),
-                      ),
-                      const SizedBox(height: 20.0),
-                    ],
+                        const SizedBox(height: 20.0),
+                        Text(
+                          ayahs.text.toString(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                          textAlign: TextAlign.right,
+                        ),
+                        const SizedBox(height: 20.0),
+                        Text(
+                          ayahsTranslate.text.toString(),
+                          style: const TextStyle(
+                              color: ColorSystem.appColorGray, fontSize: 16.0),
+                        ),
+                        const SizedBox(height: 20.0),
+                      ],
+                    ),
                   );
                 },
               );

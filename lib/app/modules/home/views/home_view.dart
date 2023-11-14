@@ -222,7 +222,7 @@ class HomeView extends GetView<HomeController> {
                               onLongPress: () {
                                 if (lastRead != null) {
                                   Get.defaultDialog(
-                                    title: "Delete Last Read",
+                                    title: "Delete",
                                     middleText:
                                         "Are you sure delete last read bookmark",
                                     actions: [
@@ -245,9 +245,11 @@ class HomeView extends GetView<HomeController> {
                                           Get.back();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          foregroundColor: Colors.white,
                                           backgroundColor:
-                                              ColorSystem.appColorGold,
+                                              ColorSystem.appColorTeal,
+                                          textStyle: const TextStyle(
+                                            color: ColorSystem.appColorWhite,
+                                          ),
                                         ),
                                         child: const Text(
                                           "DELETE",
@@ -347,8 +349,19 @@ class HomeView extends GetView<HomeController> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                          return Container(
+                            margin: const EdgeInsets.only(top: 20.0),
+                            child: const Center(
+                              child: SizedBox(
+                                width: 35.0,
+                                height: 35.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      ColorSystem.appColorTeal),
+                                  strokeWidth: 5.0,
+                                ),
+                              ),
+                            ),
                           );
                         }
                         if (!snapshot.hasData) {
@@ -371,14 +384,18 @@ class HomeView extends GetView<HomeController> {
                           );
                         }
                         return ListView.builder(
-                          itemCount: snapshot.data!.length,
+                          itemCount: snapshot.data?.length ?? 0,
                           itemBuilder: (context, index) {
                             Surah surah = snapshot.data![index];
 
                             return ListTile(
                               onTap: () {
-                                Get.toNamed(Routes.detailSurah,
-                                    arguments: surah);
+                                Get.toNamed(Routes.detailSurah, arguments: {
+                                  'number': surah.number,
+                                  'englishName': surah.englishName,
+                                  'englishNameTranslation':
+                                      surah.englishNameTranslation,
+                                });
                               },
                               leading: Obx(
                                 () => Container(
@@ -444,8 +461,19 @@ class HomeView extends GetView<HomeController> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                          return Container(
+                            margin: const EdgeInsets.only(top: 20.0),
+                            child: const Center(
+                              child: SizedBox(
+                                width: 35.0,
+                                height: 35.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      ColorSystem.appColorTeal),
+                                  strokeWidth: 5.0,
+                                ),
+                              ),
+                            ),
                           );
                         }
                         if (!snapshot.hasData) {
@@ -469,7 +497,7 @@ class HomeView extends GetView<HomeController> {
                         }
                         // print(snapshot.data?.length);
                         return ListView.builder(
-                          itemCount: snapshot.data?.length,
+                          itemCount: snapshot.data?.length ?? 0,
                           itemBuilder: (BuildContext context, int index) {
                             Juz detailJuz = snapshot.data![index];
 
@@ -483,7 +511,6 @@ class HomeView extends GetView<HomeController> {
                                 detailJuz.surahs![startSurah]!.englishName;
                             String? lastNameSurah =
                                 detailJuz.surahs![lastSurah]!.englishName;
-
                             return ListTile(
                               onTap: () => Get.toNamed(
                                 Routes.detaillJuz,
@@ -543,8 +570,19 @@ class HomeView extends GetView<HomeController> {
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
+                            return Container(
+                              margin: const EdgeInsets.only(top: 20.0),
+                              child: const Center(
+                                child: SizedBox(
+                                  width: 35.0,
+                                  height: 35.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        ColorSystem.appColorTeal),
+                                    strokeWidth: 5.0,
+                                  ),
+                                ),
+                              ),
                             );
                           } else if (!snapshot.hasData) {
                             return Center(
@@ -567,12 +605,40 @@ class HomeView extends GetView<HomeController> {
                           }
 
                           return ListView.builder(
-                            itemCount: snapshot.data?.length,
+                            itemCount: snapshot.data?.length ?? 0,
                             itemBuilder: (BuildContext context, int index) {
                               Map<String, dynamic> data = snapshot.data![index];
-                              // print(data['surah']);
+                              // print(data);
                               return ListTile(
-                                onTap: () {},
+                                onTap: () {
+                                  switch (data['via']) {
+                                    case "juz":
+                                      Juz detailJuz =
+                                          controller.allJuz[data['juz'] - 1];
+                                      List<dynamic> surahInJuz =
+                                          detailJuz.surahs!.keys.toList();
+                                      Get.toNamed(
+                                        Routes.detaillJuz,
+                                        arguments: {
+                                          'detailJuz': detailJuz,
+                                          'surahInJuz': surahInJuz,
+                                          "bookmark": data,
+                                        },
+                                      );
+                                      break;
+                                    default:
+                                      Get.toNamed(Routes.detailSurah,
+                                          arguments: {
+                                            "englishName": data['surah']
+                                                .toString()
+                                                .replaceAll("+", ""),
+                                            "number": data['number_surah'],
+                                            "englishNameTranslation":
+                                                data['englishNameTranslation'],
+                                            "bookmark": data,
+                                          });
+                                  }
+                                },
                                 leading: CircleAvatar(
                                   backgroundColor: Get.isDarkMode
                                       ? ColorSystem.appColorTeal

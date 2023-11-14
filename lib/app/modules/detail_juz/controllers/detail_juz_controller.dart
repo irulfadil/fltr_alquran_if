@@ -4,12 +4,15 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../../data/db/database_instance.dart';
 import '../../../data/models/juz_model.dart';
 import '../../../data/models/juz_translate_model.dart';
 
 class DetailJuzController extends GetxController {
+  AutoScrollController autoScrollJuzCon = AutoScrollController();
+
   int index = 0;
   final player = AudioPlayer();
 
@@ -23,9 +26,18 @@ class DetailJuzController extends GetxController {
       await db.delete('bookmark', where: "last_read = 1");
     } else {
       List checkData = await db.query("bookmark",
-          columns: ["surah", "ayah", "juz", "via", "index_ayah", "last_read"],
+          columns: [
+            "surah",
+            "englishNameTranslation",
+            "number_surah",
+            "ayah",
+            "juz",
+            "via",
+            "index_ayah",
+            "last_read"
+          ],
           where:
-              "surah = '${surah.surah!.englishName!.replaceAll("'", "+")}' and ayah = ${surah.surah!.numberOfAyahs} and juz = ${surah.number} and via = 'surah' and index_ayah= $index and last_read = 0");
+              "surah = '${surah.surah!.englishName!.replaceAll("'", "+")}' and englishNameTranslation = '${surah.surah!.englishNameTranslation}' and number_surah = ${surah.number} and ayah = ${surah.surah!.numberOfAyahs} and juz = ${surah.number} and via = 'surah' and index_ayah= $index and last_read = 0");
 
       if (checkData.isNotEmpty) {
         flagExits = true;
@@ -37,6 +49,8 @@ class DetailJuzController extends GetxController {
         "bookmark",
         {
           "surah": "${surah.surah!.englishName?.replaceAll("'", "+")}",
+          "englishNameTranslation": "${surah.surah!.englishNameTranslation}",
+          "number_surah": "${surah.number}",
           "ayah": "${surah.numberInSurah}",
           "juz": "${surah.juz}",
           "via": "juz",
