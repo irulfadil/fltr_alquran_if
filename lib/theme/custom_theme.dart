@@ -6,7 +6,8 @@ import '../utils/color_system.dart';
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: ColorSystem.backgroundDark),
+    backgroundColor: ColorSystem.backgroundDark,
+  ),
   primaryColor: ColorSystem.appColorGreen,
   scaffoldBackgroundColor: ColorSystem.backgroundLight,
   appBarTheme: const AppBarTheme(

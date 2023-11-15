@@ -17,6 +17,7 @@ class HomeView extends GetView<HomeController> {
       controller.isDark.value = true;
     }
 
+    // print("Get.isDarkMode: ${Get.isDarkMode} & ${controller.isDark.value}");
     return Scaffold(
       appBar: AppBar(
         elevation: Get.isDarkMode ? 0 : 4,
@@ -52,7 +53,8 @@ class HomeView extends GetView<HomeController> {
                       return Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: Get.isDarkMode
+                            // colors: Get.isDarkMode
+                            colors: controller.isDark.value
                                 ? [
                                     ColorSystem.headerDark,
                                     ColorSystem.headerDark
@@ -128,7 +130,8 @@ class HomeView extends GetView<HomeController> {
                       return Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: Get.isDarkMode
+                            // colors: Get.isDarkMode
+                            colors: controller.isDark.value
                                 ? [
                                     ColorSystem.headerDark,
                                     ColorSystem.headerDark
@@ -415,17 +418,17 @@ class HomeView extends GetView<HomeController> {
                           itemBuilder: (context, index) {
                             Surah surah = snapshot.data![index];
 
-                            return ListTile(
-                              onTap: () {
-                                Get.toNamed(Routes.detailSurah, arguments: {
-                                  'number': surah.number,
-                                  'englishName': surah.englishName,
-                                  'englishNameTranslation':
-                                      surah.englishNameTranslation,
-                                });
-                              },
-                              leading: Obx(
-                                () => Container(
+                            return Obx(
+                              () => ListTile(
+                                onTap: () {
+                                  Get.toNamed(Routes.detailSurah, arguments: {
+                                    'number': surah.number,
+                                    'englishName': surah.englishName,
+                                    'englishNameTranslation':
+                                        surah.englishNameTranslation,
+                                  });
+                                },
+                                leading: Container(
                                   height: 45,
                                   width: 45,
                                   decoration: BoxDecoration(
@@ -439,42 +442,40 @@ class HomeView extends GetView<HomeController> {
                                   child: Center(
                                     child: Text(
                                       "${surah.number ?? 'Error'}",
-                                      style: controller.isDark.isTrue
-                                          ? const TextStyle(
-                                              color: ColorSystem.appColorBrown)
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
+                                      style: TextStyle(
+                                          color: controller.isDark.isTrue
+                                              ? ColorSystem.appColorBrown
+                                              : ColorSystem.appColorGreen,
+                                          fontSize: 14.0),
                                     ),
                                   ),
                                 ),
-                              ),
-                              title: Text(
-                                surah.englishName ?? 'Error',
-                                style: controller.isDark.isTrue
-                                    ? const TextStyle(
-                                        color: ColorSystem.appColorWhite)
-                                    : Theme.of(context)
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                              ),
-                              subtitle: Text(
-                                "${surah.revelationType ?? 'Error'} | ${surah.numberOfAyahs ?? 'Error'} Ayat",
-                                style: const TextStyle(
-                                  color: ColorSystem.appColorGray,
+                                title: Text(
+                                  surah.englishName ?? 'Error',
+                                  style: TextStyle(
+                                    color: controller.isDark.isTrue
+                                        ? ColorSystem.appColorWhite
+                                        : ColorSystem.appColorBrown,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                              trailing: Text(
-                                surah.name ?? 'Error',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                subtitle: Text(
+                                  "${surah.revelationType ?? 'Error'} | ${surah.numberOfAyahs ?? 'Error'} Ayat",
+                                  style: const TextStyle(
+                                    color: ColorSystem.appColorGray,
+                                  ),
+                                ),
+                                trailing: Text(
+                                  surah.name ?? 'Error',
+                                  style: TextStyle(
+                                    color: controller.isDark.isTrue
+                                        ? ColorSystem.appColorWhite
+                                        : ColorSystem.appColorBrown,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -538,16 +539,16 @@ class HomeView extends GetView<HomeController> {
                                 detailJuz.surahs![startSurah]!.englishName;
                             String? lastNameSurah =
                                 detailJuz.surahs![lastSurah]!.englishName;
-                            return ListTile(
-                              onTap: () => Get.toNamed(
-                                Routes.detaillJuz,
-                                arguments: {
-                                  'detailJuz': detailJuz,
-                                  'surahInJuz': surahInJuz
-                                },
-                              ),
-                              leading: Obx(
-                                () => Container(
+                            return Obx(
+                              () => ListTile(
+                                onTap: () => Get.toNamed(
+                                  Routes.detaillJuz,
+                                  arguments: {
+                                    'detailJuz': detailJuz,
+                                    'surahInJuz': surahInJuz
+                                  },
+                                ),
+                                leading: Container(
                                   height: 45,
                                   width: 45,
                                   decoration: BoxDecoration(
@@ -558,30 +559,29 @@ class HomeView extends GetView<HomeController> {
                                     ),
                                   ),
                                   child: Center(
-                                    child: Text("${index + 1}",
-                                        style: Get.isDarkMode
-                                            ? const TextStyle(
-                                                color:
-                                                    ColorSystem.appColorBrown)
-                                            : Theme.of(context)
-                                                .textTheme
-                                                .titleSmall),
+                                    child: Text(
+                                      "${index + 1}",
+                                      style: TextStyle(
+                                          color: controller.isDark.isTrue
+                                              ? ColorSystem.appColorBrown
+                                              : ColorSystem.appColorGreen,
+                                          fontSize: 14.0),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              title: Text(
-                                "Juz ${index + 1}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                              subtitle: Text(
-                                "$startNameSurah - $lastNameSurah",
-                                style: const TextStyle(
-                                  color: ColorSystem.appColorGray,
+                                title: Text(
+                                  "Juz ${index + 1}",
+                                  style: TextStyle(
+                                      color: controller.isDark.isTrue
+                                          ? ColorSystem.appColorWhite
+                                          : ColorSystem.appColorBrown,
+                                      fontSize: 16.0),
+                                ),
+                                subtitle: Text(
+                                  "$startNameSurah - $lastNameSurah",
+                                  style: const TextStyle(
+                                    color: ColorSystem.appColorGray,
+                                  ),
                                 ),
                               ),
                             );
@@ -636,70 +636,68 @@ class HomeView extends GetView<HomeController> {
                             itemBuilder: (BuildContext context, int index) {
                               Map<String, dynamic> data = snapshot.data![index];
                               // print(data);
-                              return ListTile(
-                                onTap: () {
-                                  switch (data['via']) {
-                                    case "juz":
-                                      Juz detailJuz =
-                                          controller.allJuz[data['juz'] - 1];
-                                      List<dynamic> surahInJuz =
-                                          detailJuz.surahs!.keys.toList();
-                                      Get.toNamed(
-                                        Routes.detaillJuz,
-                                        arguments: {
-                                          'detailJuz': detailJuz,
-                                          'surahInJuz': surahInJuz,
-                                          "bookmark": data,
-                                        },
-                                      );
-                                      break;
-                                    default:
-                                      Get.toNamed(Routes.detailSurah,
+                              return Obx(
+                                () => ListTile(
+                                  onTap: () {
+                                    switch (data['via']) {
+                                      case "juz":
+                                        Juz detailJuz =
+                                            controller.allJuz[data['juz'] - 1];
+                                        List<dynamic> surahInJuz =
+                                            detailJuz.surahs!.keys.toList();
+                                        Get.toNamed(
+                                          Routes.detaillJuz,
                                           arguments: {
-                                            "englishName": data['surah']
-                                                .toString()
-                                                .replaceAll("+", ""),
-                                            "number": data['number_surah'],
-                                            "englishNameTranslation":
-                                                data['englishNameTranslation'],
+                                            'detailJuz': detailJuz,
+                                            'surahInJuz': surahInJuz,
                                             "bookmark": data,
-                                          });
-                                  }
-                                },
-                                leading: CircleAvatar(
-                                  backgroundColor: Get.isDarkMode
-                                      ? ColorSystem.appColorTeal
-                                      : ColorSystem.appColorBrown,
-                                  child: Text(
-                                    "${index + 1}",
-                                    style: const TextStyle(
-                                      color: ColorSystem.appColorWhite,
+                                          },
+                                        );
+                                        break;
+                                      default:
+                                        Get.toNamed(Routes.detailSurah,
+                                            arguments: {
+                                              "englishName": data['surah']
+                                                  .toString()
+                                                  .replaceAll("+", ""),
+                                              "number": data['number_surah'],
+                                              "englishNameTranslation": data[
+                                                  'englishNameTranslation'],
+                                              "bookmark": data,
+                                            });
+                                    }
+                                  },
+                                  leading: CircleAvatar(
+                                    backgroundColor: controller.isDark.isTrue
+                                        ? ColorSystem.appColorTeal
+                                        : ColorSystem.appColorBrown,
+                                    child: Text(
+                                      "${index + 1}",
+                                      style: const TextStyle(
+                                        color: ColorSystem.appColorWhite,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                title: Text(
-                                  "Surah ${data['surah'].replaceAll("+", "'")}",
-                                  style: Get.isDarkMode
-                                      ? const TextStyle(
-                                          color: ColorSystem.appColorWhite)
-                                      : Theme.of(context)
-                                          .textTheme
-                                          .titleMedium
-                                          ?.copyWith(
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                ),
-                                subtitle: Text(
-                                  "Ayah ${data['ayah']} - by ${data['via']}",
-                                  style: const TextStyle(
-                                    color: ColorSystem.appColorGray,
+                                  title: Text(
+                                    "Surah ${data['surah'].replaceAll("+", "'")}",
+                                    style: TextStyle(
+                                        color: controller.isDark.isTrue
+                                            ? ColorSystem.appColorWhite
+                                            : ColorSystem.appColorBrown,
+                                        fontSize: 16.0),
                                   ),
-                                ),
-                                trailing: IconButton(
-                                  onPressed: () {
-                                    c.deletBookmark(data['id']);
-                                  },
-                                  icon: const Icon(Icons.delete),
+                                  subtitle: Text(
+                                    "Ayah ${data['ayah']} - by ${data['via']}",
+                                    style: const TextStyle(
+                                      color: ColorSystem.appColorGray,
+                                    ),
+                                  ),
+                                  trailing: IconButton(
+                                    onPressed: () {
+                                      c.deletBookmark(data['id']);
+                                    },
+                                    icon: const Icon(Icons.delete),
+                                  ),
                                 ),
                               );
                             },

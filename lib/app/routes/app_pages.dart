@@ -16,7 +16,7 @@ class AppPages {
   static final List<GetPage> routes = [
     GetPage(
       name: Routes.introduction,
-      page: () => const IntroductionView(),
+      page: () => IntroductionView(),
     ),
     GetPage(
         name: Routes.home,

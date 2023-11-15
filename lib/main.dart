@@ -19,10 +19,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: box.read('darkMode') == null ? lightMode : darkMode,
       title: 'Al Quran App',
-      initialRoute: Routes.home,
-      // darkTheme: darkMode,
-      // themeMode: ThemeMode.system,
-      // initialRoute: Routes.introduction,
+      initialRoute: box.read('isSkipIntro') ? Routes.home : Routes.introduction,
       getPages: AppPages.routes,
     );
   }

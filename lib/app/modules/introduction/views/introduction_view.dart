@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../utils/color_system.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/introduction_controller.dart';
 
 class IntroductionView extends GetView<IntroductionController> {
-  const IntroductionView({Key? key}) : super(key: key);
+  IntroductionView({Key? key}) : super(key: key);
+  final box = GetStorage();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +57,10 @@ class IntroductionView extends GetView<IntroductionController> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 10.0), // foreground
               ),
-              onPressed: () => Get.offAllNamed(Routes.home),
+              onPressed: () {
+                Get.offAllNamed(Routes.home);
+                box.write('isSkipIntro', true);
+              },
               child: const Text(
                 "GET STARTED",
                 style: TextStyle(fontSize: 15.0),

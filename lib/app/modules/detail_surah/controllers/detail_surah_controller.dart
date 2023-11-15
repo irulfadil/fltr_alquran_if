@@ -22,7 +22,7 @@ class DetailSurahController extends GetxController {
   Future<void> addBookmark(bool lastRead, SurahDetail surah, int index) async {
     Database db = await database.database;
     bool flagExits = false;
-    print(surah.englishNameTranslation);
+
     if (lastRead == true) {
       await db.delete('bookmark', where: "last_read = 1");
     } else {

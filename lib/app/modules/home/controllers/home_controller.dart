@@ -55,6 +55,7 @@ class HomeController extends GetxController {
     Get.isDarkMode ? Get.changeTheme(lightMode) : Get.changeTheme(darkMode);
     isDark.toggle();
 
+    // read & remove database in getStore
     if (Get.isDarkMode) {
       box.remove('darkMode');
     } else {
