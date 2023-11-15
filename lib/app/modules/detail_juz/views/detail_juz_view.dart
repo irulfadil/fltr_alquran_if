@@ -6,6 +6,7 @@ import '../../../data/models/juz_model.dart' as juz;
 import '../../home/controllers/home_controller.dart';
 import '../controllers/detail_juz_controller.dart';
 
+// ignore: must_be_immutable
 class DetailJuzView extends GetView<DetailJuzController> {
   DetailJuzView({Key? key}) : super(key: key);
   final homeC = Get.find<HomeController>();

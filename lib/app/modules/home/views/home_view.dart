@@ -260,7 +260,34 @@ class HomeView extends GetView<HomeController> {
                                 }
                               },
                               onTap: () {
-                                // last_read
+                                if (lastRead != null) {
+                                  switch (lastRead['via']) {
+                                    case "juz":
+                                      Juz detailJuz = controller
+                                          .allJuz[lastRead['juz'] - 1];
+                                      List<dynamic> surahInJuz =
+                                          detailJuz.surahs!.keys.toList();
+
+                                      Get.toNamed(Routes.detailSurah,
+                                          arguments: {
+                                            'detailJuz': detailJuz,
+                                            'surahInJuz': surahInJuz,
+                                            "bookmark": lastRead,
+                                          });
+                                      break;
+                                    default:
+                                      Get.toNamed(Routes.detailSurah,
+                                          arguments: {
+                                            "englishName": lastRead['surah']
+                                                .toString()
+                                                .replaceAll("+", ""),
+                                            "number": lastRead['number_surah'],
+                                            "englishNameTranslation": lastRead[
+                                                'englishNameTranslation'],
+                                            "bookmark": lastRead,
+                                          });
+                                  }
+                                }
                               },
                               borderRadius: BorderRadius.circular(15.0),
                               child: Stack(
