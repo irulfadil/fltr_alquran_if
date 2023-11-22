@@ -13,13 +13,11 @@ class DetailSurahView extends GetView<DetailSurahController> {
   final homeC = Get.find<HomeController>();
   late Map<String, dynamic>? bookmark;
 
-  final DetailSurahController surahCon = Get.put(DetailSurahController());
-
   Future<List<dynamic>> fetchData() async {
     Future<SurahDetail> surahDetails =
-        surahCon.getSurahDetail(Get.arguments['number'].toString());
+        controller.getSurahDetail(Get.arguments['number'].toString());
     Future<SurahDetailTranslate> surahDetailTranslate =
-        surahCon.getSurahDetailTranslate(Get.arguments['number'].toString());
+        controller.getSurahDetailTranslate(Get.arguments['number'].toString());
     return await Future.wait([surahDetails, surahDetailTranslate]);
   }
 

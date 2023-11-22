@@ -24,7 +24,7 @@ class AppPages {
         binding: HomesBinding()),
     GetPage(
       name: Routes.search,
-      page: () => const SearchView(),
+      page: () => SearchView(),
       binding: SearchBinding(),
     ),
     GetPage(

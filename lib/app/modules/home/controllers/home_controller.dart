@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,6 +14,7 @@ import '../../../data/models/surah_model.dart';
 class HomeController extends GetxController {
   RxBool isDark = false.obs;
   List<Juz> allJuz = [];
+  // List<Surah> surah = [];
   final box = GetStorage();
 
   DatabaseInstance database = DatabaseInstance.instance;
@@ -68,20 +71,16 @@ class HomeController extends GetxController {
     Uri url = Uri.parse("https://api.alquran.cloud/v1/surah");
     var res = await http.get(url);
 
-    List? data = (jsonDecode(res.body) as Map<String, dynamic>)["data"];
+    List<dynamic> data = (jsonDecode(res.body) as Map<String, dynamic>)["data"];
 
-    if (data == null) {
-      return [];
-    } else {
-      return data.map((e) => Surah.fromJson(e)).toList();
-    }
+    List<Surah> results = data.map((e) => Surah.fromJson(e)).toList();
+    // surah = results;
+    print("Master Sum: ${results.length}");
+    return results;
   }
 
   // get AllJuz to Tab 'Juz'
   Future<List<Juz>> getAllJuz() async {
-    // dipinah menjadi variabel global
-    // List<Juz> allJuz = [];
-
     for (int i = 1; i <= 30; i++) {
       Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$i/ar.alafasy");
       var res = await http.get(url);
