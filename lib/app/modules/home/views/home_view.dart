@@ -17,7 +17,6 @@ class HomeView extends GetView<HomeController> {
       controller.isDark.value = true;
     }
 
-    // print("Get.isDarkMode: ${Get.isDarkMode} & ${controller.isDark.value}");
     return Scaffold(
       appBar: AppBar(
         elevation: Get.isDarkMode ? 0 : 4,
@@ -377,22 +376,39 @@ class HomeView extends GetView<HomeController> {
                     child: FutureBuilder<List<Surah>>(
                       future: controller.getAllSurah(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
+                        if (snapshot.connectionState !=
                             ConnectionState.waiting) {
-                          return Container(
-                            margin: const EdgeInsets.only(top: 20.0),
-                            child: const Center(
-                              child: SizedBox(
-                                width: 35.0,
-                                height: 35.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      ColorSystem.appColorTeal),
-                                  strokeWidth: 5.0,
+                          return Center(
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  "assets/images/data_empty.png",
+                                  width: 100,
+                                  height: 100,
                                 ),
-                              ),
+                                const Text(
+                                  "Data Empty",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                )
+                              ],
                             ),
                           );
+                          // return Container(
+                          //   margin: const EdgeInsets.only(top: 20.0),
+                          //   child: const Center(
+                          //     child: SizedBox(
+                          //       width: 35.0,
+                          //       height: 35.0,
+                          //       child: CircularProgressIndicator(
+                          //         valueColor: AlwaysStoppedAnimation<Color>(
+                          //             ColorSystem.appColorTeal),
+                          //         strokeWidth: 5.0,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // );
                         }
                         if (!snapshot.hasData) {
                           return Center(
@@ -400,8 +416,8 @@ class HomeView extends GetView<HomeController> {
                               children: [
                                 Image.asset(
                                   "assets/images/data_empty.png",
-                                  width: 45,
-                                  height: 45,
+                                  width: 100,
+                                  height: 100,
                                 ),
                                 const Text(
                                   "Data Empty",
@@ -510,8 +526,8 @@ class HomeView extends GetView<HomeController> {
                               children: [
                                 Image.asset(
                                   "assets/images/data_empty.png",
-                                  width: 50,
-                                  height: 50,
+                                  width: 100,
+                                  height: 100,
                                 ),
                                 const Text(
                                   "Data Empty",
@@ -523,7 +539,6 @@ class HomeView extends GetView<HomeController> {
                             ),
                           );
                         }
-                        // print(snapshot.data?.length);
                         return ListView.builder(
                           itemCount: snapshot.data?.length ?? 0,
                           itemBuilder: (BuildContext context, int index) {
@@ -617,8 +632,8 @@ class HomeView extends GetView<HomeController> {
                                 children: [
                                   Image.asset(
                                     "assets/images/data_empty.png",
-                                    width: 50,
-                                    height: 50,
+                                    width: 100,
+                                    height: 100,
                                   ),
                                   const Text(
                                     "Data Empty",

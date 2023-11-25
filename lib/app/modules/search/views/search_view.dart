@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/color_system.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/search_controller.dart';
 import '../../home/controllers/home_controller.dart';
 
@@ -76,15 +77,14 @@ class SearchView extends GetView<SearchControl> {
           : ListView.builder(
               itemCount: controller.surahSearch.length,
               itemBuilder: (BuildContext context, int index) {
-                print("index: $index");
                 var surah = controller.surahSearch[index];
                 return ListTile(
                   onTap: () {
-                    // Get.toNamed(Routes.detailSurah, arguments: {
-                    //   'number': surah['number'],
-                    //   'englishName': surah['englishName'],
-                    //   'englishNameTranslation': surah['englishNameTranslation'],
-                    // });
+                    Get.toNamed(Routes.detailSurah, arguments: {
+                      'number': surah['number'],
+                      'englishName': surah['englishName'],
+                      'englishNameTranslation': surah['englishNameTranslation'],
+                    });
                   },
                   leading: Container(
                     height: 45,
@@ -99,7 +99,6 @@ class SearchView extends GetView<SearchControl> {
                     child: Center(
                       child: Text(
                         "${surah['number']}",
-                        // "${index + 1}",
                         style: TextStyle(
                             color: homeC.isDark.isTrue
                                 ? ColorSystem.appColorBrown
@@ -111,7 +110,6 @@ class SearchView extends GetView<SearchControl> {
                   title: Obx(
                     () => Text(
                       surah["englishName"].toString(),
-                      // "${controller.surahSearch[index]["englishName"]}",
                       style: TextStyle(
                         color: homeC.isDark.isTrue
                             ? ColorSystem.appColorWhite

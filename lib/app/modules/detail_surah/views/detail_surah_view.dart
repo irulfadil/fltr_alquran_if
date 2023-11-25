@@ -69,8 +69,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
                   child: Column(children: [
                     Image.asset(
                       "assets/images/data_empty.png",
-                      width: 200,
-                      height: 200,
+                      width: 100,
+                      height: 100,
                     ),
                     Text(
                       "Data Empty",

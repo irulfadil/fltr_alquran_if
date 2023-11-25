@@ -26,7 +26,6 @@ class HomeController extends GetxController {
         where: 'last_read = 1', orderBy: 'juz, via, surah, ayah');
 
     if (dataLastRead.isEmpty) {
-      //Data Empty
       return null;
     } else {
       //get data from index 0 => because List still one.
@@ -74,7 +73,6 @@ class HomeController extends GetxController {
     List<dynamic> data = (jsonDecode(res.body) as Map<String, dynamic>)["data"];
 
     List<Surah> results = data.map((e) => Surah.fromJson(e)).toList();
-    // surah = results;
     print("Master Sum: ${results.length}");
     return results;
   }

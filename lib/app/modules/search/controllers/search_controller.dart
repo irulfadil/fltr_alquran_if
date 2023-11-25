@@ -26,7 +26,7 @@ class SearchControl extends GetxController {
 
       surahSearch.assignAll(queryStart);
     } catch (e) {
-      print(e);
+      print("Error $e");
     } finally {
       isLoading.value = false;
     }
@@ -35,7 +35,6 @@ class SearchControl extends GetxController {
   void searchData(String enteredKeyword) async {
     if (enteredKeyword.isEmpty) {
       surahSearch.value = queryStart;
-      print("enter emty");
     } else {
       final results = surahSearch
           .where((data) => data['englishName']
@@ -45,7 +44,6 @@ class SearchControl extends GetxController {
 
       if (results.isNotEmpty) {
         surahSearch.value = RxList<dynamic>(results);
-        print(surahSearch);
       } else {
         print("Result Empty");
       }
