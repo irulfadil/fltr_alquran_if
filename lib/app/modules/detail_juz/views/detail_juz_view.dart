@@ -77,18 +77,23 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
               if (!snapshot.hasData) {
                 return Center(
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        "assets/images/data_empty.png",
-                        width: 100,
-                        height: 100,
-                      ),
-                      Text(
-                        "Data Empty",
-                        style: TextStyle(color: Colors.grey[500]),
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30.0),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          "assets/images/data_empty.png",
+                          width: 100,
+                          height: 100,
+                        ),
+                        const Text(
+                          "Data Empty",
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 );
               }
