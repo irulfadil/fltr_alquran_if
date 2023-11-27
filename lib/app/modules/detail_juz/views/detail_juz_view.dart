@@ -9,7 +9,7 @@ import '../controllers/detail_juz_controller.dart';
 // ignore: must_be_immutable
 class DetailJuzView extends GetView<DetailJuzController> {
   DetailJuzView({Key? key}) : super(key: key);
-  final homeC = Get.find<HomeController>();
+  final homeC = Get.put(HomeController());
   late Map<String, dynamic>? bookmark;
 
   final DetailJuzController juzSurah = Get.put(DetailJuzController());
@@ -26,6 +26,10 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
   @override
   Widget build(BuildContext context) {
+    if (Get.isDarkMode) {
+      homeC.isDark.value = true;
+    }
+
     List<dynamic> allSurahInJuz = [];
     List<dynamic> allRevelationType = [];
     List<dynamic> numberOfAyahs = [];
@@ -138,17 +142,11 @@ class DetailJuzView extends GetView<DetailJuzController> {
                         if (numbAyahs == 1)
                           Container(
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: Get.isDarkMode
-                                    ? [
-                                        ColorSystem.headerDark,
-                                        ColorSystem.headerDark
-                                      ]
-                                    : [
-                                        ColorSystem.headerLight,
-                                        ColorSystem.headerLight
-                                      ],
-                              ),
+                              image: DecorationImage(
+                                  image: AssetImage(homeC.isDark.isTrue
+                                      ? "assets/images/header-dark.png"
+                                      : "assets/images/header-light.png"),
+                                  fit: BoxFit.fitWidth),
                             ),
                             child: Material(
                               color: Colors.transparent,
@@ -157,32 +155,33 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                 child: Stack(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(20.0),
+                                      padding: const EdgeInsets.all(33.0),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
-                                        mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             detailAyahs.surah!.revelationType
                                                 .toString(),
                                             style: const TextStyle(
-                                              color: ColorSystem.appColorWhite,
+                                              color: ColorSystem.appColorBrown,
+                                              fontSize: 12,
                                             ),
                                           ),
                                           Text(
                                             detailAyahs.surah!.englishName
                                                 .toString(),
                                             style: const TextStyle(
-                                              color: ColorSystem.appColorWhite,
+                                              color: ColorSystem.appColorBrown,
+                                              fontSize: 12,
                                             ),
                                           ),
                                           Text(
-                                            detailAyahs.surah!.numberOfAyahs
-                                                .toString(),
+                                            "${detailAyahs.surah!.numberOfAyahs} Ayat",
                                             style: const TextStyle(
-                                                color:
-                                                    ColorSystem.appColorWhite),
+                                              color: ColorSystem.appColorBrown,
+                                              fontSize: 12,
+                                            ),
                                           ),
                                         ],
                                       ),

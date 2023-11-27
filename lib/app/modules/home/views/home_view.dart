@@ -617,7 +617,9 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                             );
-                          } else if (!snapshot.hasData) {
+                          }
+
+                          if (!snapshot.hasData || snapshot.data!.isEmpty) {
                             return Center(
                               child: Padding(
                                 padding:
