@@ -34,6 +34,12 @@ ThemeData lightMode = ThemeData(
     unselectedLabelColor: ColorSystem.appColorGray,
     labelColor: ColorSystem.appColorBrown,
   ),
+  switchTheme: SwitchThemeData(
+    thumbColor: MaterialStateProperty.all(
+        ColorSystem.headerLight), // Warna untuk toggle switch
+    trackColor: MaterialStateProperty.all(
+        ColorSystem.appColorGray), // Warna untuk track switch
+  ),
 );
 
 // Theme darkMode
@@ -66,5 +72,11 @@ ThemeData darkMode = ThemeData(
     ),
     unselectedLabelColor: ColorSystem.appColorGray,
     labelColor: ColorSystem.appColorBrown,
+  ),
+  switchTheme: SwitchThemeData(
+    thumbColor: MaterialStateProperty.all(
+        ColorSystem.appColorTeal), // Warna untuk toggle switch
+    trackColor: MaterialStateProperty.all(
+        ColorSystem.appColorGray), // Warna untuk track switch
   ),
 );

@@ -2,7 +2,6 @@ import 'package:fltr_alquran_if/app/modules/home/controllers/home_controller.dar
 import 'package:fltr_alquran_if/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/custom_icon_button.dart';
 import '../../../data/models/juz_model.dart';
@@ -34,10 +33,64 @@ class HomeView extends GetView<HomeController> {
           CustomIconButton(
             onPressed: () {},
             icon: Icons.more_vert,
-            onTap: () {},
+            onTap: () {
+              Scaffold.of(context).openDrawer();
+            },
           ),
         ],
       ),
+      drawer: Drawer(
+          child: ListView(
+        children: [
+          Obx(
+            () => Container(
+              height: 50,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: controller.isDark.value
+                      ? [ColorSystem.headerDark, ColorSystem.headerDark]
+                      : [ColorSystem.headerLight, ColorSystem.headerLight],
+                ),
+              ),
+              child: Stack(children: [
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Opacity(
+                    opacity: 0.1,
+                    child: SizedBox(
+                        height: 80,
+                        width: 80,
+                        child: Image.asset(
+                          "assets/images/dark-logo-alquran-black.png",
+                          fit: BoxFit.cover,
+                        )),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+          Obx(
+            () => SwitchListTile(
+              title: controller.isDark.value
+                  ? const Text("Dark")
+                  : const Text("Light"),
+              value: controller.isDark.value,
+              onChanged: (value) {
+                controller.changeTheme();
+              },
+              secondary: controller.isDark.value
+                  ? const Icon(Icons.nightlight_round)
+                  : const Icon(Icons.wb_sunny),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text("Setting"),
+            onTap: () {},
+          )
+        ],
+      )),
       body: DefaultTabController(
         length: 3,
         child: Column(
@@ -531,7 +584,7 @@ class HomeView extends GetView<HomeController> {
                           );
                         }
                         return ListView.builder(
-                          itemCount: snapshot.data?.length ?? 0,
+                          itemCount: 30,
                           itemBuilder: (BuildContext context, int index) {
                             Juz detailJuz = snapshot.data![index];
 
@@ -566,7 +619,7 @@ class HomeView extends GetView<HomeController> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "${index + 1}",
+                                      "${detailJuz.number}",
                                       style: TextStyle(
                                           color: controller.isDark.isTrue
                                               ? ColorSystem.appColorBrown
@@ -576,7 +629,7 @@ class HomeView extends GetView<HomeController> {
                                   ),
                                 ),
                                 title: Text(
-                                  "Juz ${index + 1}",
+                                  "Juz ${detailJuz.number}",
                                   style: TextStyle(
                                       color: controller.isDark.isTrue
                                           ? ColorSystem.appColorWhite
@@ -721,17 +774,6 @@ class HomeView extends GetView<HomeController> {
               ),
             )
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.changeTheme();
-        },
-        child: Obx(
-          () => Icon(Icons.color_lens_outlined,
-              color: controller.isDark.isTrue
-                  ? ColorSystem.appColorBrown
-                  : ColorSystem.appColorGray),
         ),
       ),
     );

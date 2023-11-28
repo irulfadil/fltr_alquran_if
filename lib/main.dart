@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: box.read('darkMode') == null ? lightMode : darkMode,
       title: 'Al Quran App',
       initialRoute:

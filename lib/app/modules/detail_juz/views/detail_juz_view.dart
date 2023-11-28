@@ -13,13 +13,13 @@ class DetailJuzView extends GetView<DetailJuzController> {
   late Map<String, dynamic>? bookmark;
 
   final DetailJuzController juzSurah = Get.put(DetailJuzController());
-  final juz.Juz allJuz = Get.arguments["detailJuz"];
+  final juz.Juz detailJuz = Get.arguments["detailJuz"];
   final List<dynamic> surahInJuz = Get.arguments["surahInJuz"];
 
   Future<List<dynamic>> fetchData() async {
-    final juzDetail = juzSurah.getJuzDetail(allJuz.number.toString());
+    final juzDetail = juzSurah.getJuzDetail(detailJuz.number.toString());
     final juzDetailTranslate =
-        juzSurah.getJuzDetailTranslate(allJuz.number.toString());
+        juzSurah.getJuzDetailTranslate(detailJuz.number.toString());
 
     return await Future.wait([juzDetail, juzDetailTranslate]);
   }
@@ -35,7 +35,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
     List<dynamic> numberOfAyahs = [];
 
     for (String elemn in surahInJuz) {
-      var allData = allJuz.surahs?[elemn];
+      var allData = detailJuz.surahs?[elemn];
 
       if (allData != null) {
         allSurahInJuz.add(allData.englishName.toString());
@@ -49,7 +49,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Juz ${allJuz.number.toString()}"),
+        title: Text("Juz ${detailJuz.number.toString()}"),
         centerTitle: true,
       ),
       body: ListView(
@@ -155,7 +155,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                 child: Stack(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(33.0),
+                                      padding: const EdgeInsets.all(22.0),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
@@ -165,22 +165,40 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                                 .toString(),
                                             style: const TextStyle(
                                               color: ColorSystem.appColorBrown,
-                                              fontSize: 12,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
                                             ),
                                           ),
-                                          Text(
-                                            detailAyahs.surah!.englishName
-                                                .toString(),
-                                            style: const TextStyle(
-                                              color: ColorSystem.appColorBrown,
-                                              fontSize: 12,
-                                            ),
+                                          Column(
+                                            children: [
+                                              const Text(
+                                                "",
+                                                style: TextStyle(
+                                                  color:
+                                                      ColorSystem.appColorBrown,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 4.0,
+                                              ),
+                                              Text(
+                                                detailAyahs.surah!.englishName
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  color:
+                                                      ColorSystem.appColorBrown,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           Text(
                                             "${detailAyahs.surah!.numberOfAyahs} Ayat",
                                             style: const TextStyle(
                                               color: ColorSystem.appColorBrown,
-                                              fontSize: 12,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
                                             ),
                                           ),
                                         ],
@@ -383,6 +401,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                     ),
                                 textAlign: TextAlign.right,
                               ),
+                              const SizedBox(height: 20.0),
                               Text(
                                 detailAyahsTranslate["text"]
                                     .toString()

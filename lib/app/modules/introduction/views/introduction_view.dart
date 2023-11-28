@@ -32,7 +32,7 @@ class IntroductionView extends GetView<IntroductionController> {
                 horizontal: 10,
               ),
               child: Text(
-                "Bacalah walaupun hanya satu ayat",
+                "Read, even if just one verse.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
