@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,60 +15,114 @@ class IntroductionView extends GetView<IntroductionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "Al-Quran Apps",
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-              child: Text(
-                "Read, even if just one verse.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg_introduction.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    color: Colors.transparent,
+                    child: Stack(
+                      children: [
+                        //bluer effect
+                        BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: 4.0,
+                            sigmaY: 4.0,
+                          ),
+                          child: Container(),
+                        ),
+                        //gradients effect
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.13),
+                            ),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Colors.white.withOpacity(0.15),
+                                Colors.white.withOpacity(0.15),
+                              ],
+                            ),
+                          ),
+                        ),
+                        //child
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Read, even if just one verse.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: ColorSystem.appColorWhite,
+                                fontSize: 14,
+                              ),
+                            ),
+                            Center(
+                              child: SizedBox(
+                                width: 150,
+                                child: Lottie.asset(
+                                    "assets/lotties/animation_alquran_child_yellow.json"),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              width: 300,
-              height: 300,
-              child: Lottie.asset("assets/lotties/animation_alquran.json"),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: ColorSystem.appColorTeal,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 10.0), // foreground
+              const SizedBox(
+                height: 10.0,
               ),
-              onPressed: () {
-                Get.offAllNamed(Routes.home);
-                box.write('isSkipIntro', true);
-              },
-              child: const Text(
-                "GET STARTED",
-                style: TextStyle(fontSize: 15.0),
+              SizedBox(
+                width: 200,
+                child: Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 6,
+                      shadowColor: ColorSystem.appColorBlack,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      foregroundColor: ColorSystem.appColorWhite,
+                      backgroundColor: ColorSystem.appColorTeal,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10.0), // foreground
+                    ),
+                    onPressed: () {
+                      Get.offAllNamed(Routes.home);
+                      box.write('isSkipIntro', true);
+                    },
+                    child: const Text(
+                      "IQRAA'",
+                      style: TextStyle(
+                        fontSize: 15.0,
+                      ),
+                      // style: TextStyle(
+                      //   fontSize: 15.0,
+                      // ),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
