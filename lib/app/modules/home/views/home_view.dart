@@ -105,7 +105,6 @@ class HomeView extends GetView<HomeController> {
                       return Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            // colors: Get.isDarkMode
                             colors: controller.isDark.value
                                 ? [
                                     ColorSystem.headerDark,
@@ -150,8 +149,9 @@ class HomeView extends GetView<HomeController> {
                                         Text(
                                           "Last Read",
                                           style: TextStyle(
-                                              color: ColorSystem.appColorWhite,
-                                              fontSize: 16.0),
+                                            color: ColorSystem.appColorWhite,
+                                            fontSize: 16.0,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -236,9 +236,9 @@ class HomeView extends GetView<HomeController> {
                                     Text(
                                       "Data Empty",
                                       style: TextStyle(
-                                          color: ColorSystem.appColorWhite,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.bold),
+                                        color: ColorSystem.appColorWhite,
+                                        fontSize: 14.0,
+                                      ),
                                     ),
                                     SizedBox(height: 5.0),
                                     Text(
@@ -279,13 +279,13 @@ class HomeView extends GetView<HomeController> {
                                   Get.defaultDialog(
                                     title: "Delete",
                                     middleText:
-                                        "Are you sure delete last read bookmark",
+                                        "Are you sure delete last read ?",
                                     actions: [
                                       OutlinedButton(
                                           onPressed: () => Get.back(),
                                           child: Text(
                                             "CANCEL",
-                                            style: Get.isDarkMode
+                                            style: controller.isDark.isTrue
                                                 ? const TextStyle(
                                                     color: ColorSystem
                                                         .appColorWhite)
@@ -304,6 +304,7 @@ class HomeView extends GetView<HomeController> {
                                               ColorSystem.appColorTeal,
                                           textStyle: const TextStyle(
                                             color: ColorSystem.appColorWhite,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                         child: const Text(
@@ -758,7 +759,43 @@ class HomeView extends GetView<HomeController> {
                                   ),
                                   trailing: IconButton(
                                     onPressed: () {
-                                      c.deletBookmark(data['id']);
+                                      Get.defaultDialog(
+                                        title: "Delete",
+                                        middleText:
+                                            "Are you sure delete bookmark ?",
+                                        actions: [
+                                          OutlinedButton(
+                                              onPressed: () => Get.back(),
+                                              child: Text(
+                                                "CANCEL",
+                                                style: controller.isDark.isTrue
+                                                    ? const TextStyle(
+                                                        color: ColorSystem
+                                                            .appColorWhite)
+                                                    : Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall,
+                                              )),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              c.deletBookmark(data['id']);
+                                              Get.back();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  ColorSystem.appColorTeal,
+                                              textStyle: const TextStyle(
+                                                color:
+                                                    ColorSystem.appColorWhite,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            child: const Text(
+                                              "DELETE",
+                                            ),
+                                          )
+                                        ],
+                                      );
                                     },
                                     icon: const Icon(Icons.delete),
                                   ),

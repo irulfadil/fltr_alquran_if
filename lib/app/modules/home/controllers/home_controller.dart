@@ -14,7 +14,6 @@ import '../../../data/models/surah_model.dart';
 class HomeController extends GetxController {
   RxBool isDark = false.obs;
   List<Juz> allJuz = [];
-  // List<Surah> surah = [];
   final box = GetStorage();
 
   DatabaseInstance database = DatabaseInstance.instance;
@@ -54,11 +53,10 @@ class HomeController extends GetxController {
 
   // toggle theme
   void changeTheme() async {
-    print("Status Mode:");
     print(Get.isDarkMode);
     Get.isDarkMode ? Get.changeTheme(lightMode) : Get.changeTheme(darkMode);
     isDark.toggle();
-    print("isDark:$isDark");
+
     // read & remove database in getStore
     if (Get.isDarkMode) {
       box.remove('darkMode');

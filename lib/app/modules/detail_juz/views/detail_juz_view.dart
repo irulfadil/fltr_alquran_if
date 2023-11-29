@@ -131,7 +131,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
                   int numbAyahs =
                       int.parse(detailAyahs.numberInSurah.toString());
-
+                  // var size = 150.0;
                   return AutoScrollTag(
                     key: ValueKey(index),
                     controller: controller.autoScrollJuzCon,
@@ -141,75 +141,65 @@ class DetailJuzView extends GetView<DetailJuzController> {
                       children: [
                         if (numbAyahs == 1)
                           Container(
+                            // height: size,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage(homeC.isDark.isTrue
-                                      ? "assets/images/header-dark.png"
-                                      : "assets/images/header-light.png"),
-                                  fit: BoxFit.fitWidth),
+                                image: AssetImage(homeC.isDark.isTrue
+                                    ? "assets/images/header-dark.png"
+                                    : "assets/images/header-light.png"),
+                                fit: BoxFit.fitWidth,
+                              ),
                             ),
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                onTap: () {},
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(22.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(22.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        detailAyahs.surah!.revelationType
+                                            .toString(),
+                                        style: const TextStyle(
+                                          color: ColorSystem.appColorBrown,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 0.2,
+                                      ),
+                                      Column(
                                         children: [
+                                          const Text(
+                                            "",
+                                          ),
                                           Text(
-                                            detailAyahs.surah!.revelationType
+                                            detailAyahs.surah!.englishName
                                                 .toString(),
                                             style: const TextStyle(
                                               color: ColorSystem.appColorBrown,
                                               fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          Column(
-                                            children: [
-                                              const Text(
-                                                "",
-                                                style: TextStyle(
-                                                  color:
-                                                      ColorSystem.appColorBrown,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 4.0,
-                                              ),
-                                              Text(
-                                                detailAyahs.surah!.englishName
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                  color:
-                                                      ColorSystem.appColorBrown,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Text(
-                                            "${detailAyahs.surah!.numberOfAyahs} Ayat",
-                                            style: const TextStyle(
-                                              color: ColorSystem.appColorBrown,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
                                             ),
                                           ),
                                         ],
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(
+                                        width: 0.2,
+                                      ),
+                                      Text(
+                                        "${detailAyahs.surah!.numberOfAyahs} Ayat",
+                                        style: const TextStyle(
+                                          color: ColorSystem.appColorBrown,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                        // const SizedBox(height: 20.0),
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),

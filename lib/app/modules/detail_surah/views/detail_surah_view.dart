@@ -42,7 +42,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
       ),
       body: ListView(
         controller: controller.autoScrollSurahCon,
-        padding: const EdgeInsets.all(5.0),
+        // padding: const EdgeInsets.all(5.0),
         children: [
           FutureBuilder<List<dynamic>>(
             future: fetchData(),
@@ -114,6 +114,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                       snapshot.data![1].ayahs![index];
 
                   SurahDetail surahAyahs = snapshot.data![0];
+                  int numbAyahs = int.parse(ayahs.numberInSurah.toString());
 
                   return AutoScrollTag(
                     key: ValueKey(index),
@@ -122,6 +123,18 @@ class DetailSurahView extends GetView<DetailSurahController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
+                        if (numbAyahs == 1)
+                          OrientationBuilder(
+                            builder: (context, orientation) {
+                              final isPotrait =
+                                  orientation == Orientation.portrait;
+                              return isPotrait
+                                  ? BuildHeaderPortrait(
+                                      homeC: homeC, surahAyahs: surahAyahs)
+                                  : BuildHeaderLandscape(
+                                      homeC: homeC, surahAyahs: surahAyahs);
+                            },
+                          ),
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -266,21 +279,30 @@ class DetailSurahView extends GetView<DetailSurahController> {
                           ),
                         ),
                         const SizedBox(height: 20.0),
-                        Text(
-                          ayahs.text.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(
-                                fontWeight: FontWeight.w500,
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                ayahs.text.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                textAlign: TextAlign.right,
                               ),
-                          textAlign: TextAlign.right,
-                        ),
-                        const SizedBox(height: 20.0),
-                        Text(
-                          ayahsTranslate.text.toString(),
-                          style: const TextStyle(
-                              color: ColorSystem.appColorGray, fontSize: 16.0),
+                              const SizedBox(height: 20.0),
+                              Text(
+                                ayahsTranslate.text.toString(),
+                                style: const TextStyle(
+                                    color: ColorSystem.appColorGray,
+                                    fontSize: 16.0),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 20.0),
                       ],
@@ -291,6 +313,143 @@ class DetailSurahView extends GetView<DetailSurahController> {
             },
           ),
         ],
+      ),
+    );
+  }
+}
+
+class BuildHeaderPortrait extends StatelessWidget {
+  const BuildHeaderPortrait({
+    super.key,
+    required this.homeC,
+    required this.surahAyahs,
+  });
+
+  final HomeController homeC;
+  final SurahDetail surahAyahs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage(homeC.isDark.isTrue
+                ? "assets/images/header-dark.png"
+                : "assets/images/header-light.png"),
+            fit: BoxFit.fitWidth),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(22.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "${surahAyahs.revelationType}",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Column(
+              children: [
+                const Text(
+                  "",
+                  style: TextStyle(
+                    color: ColorSystem.appColorBrown,
+                  ),
+                ),
+                Text(
+                  "${surahAyahs.englishName}",
+                  style: const TextStyle(
+                    color: ColorSystem.appColorBrown,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Text(
+              "${surahAyahs.numberOfAyahs} Ayat",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BuildHeaderLandscape extends StatelessWidget {
+  const BuildHeaderLandscape({
+    super.key,
+    required this.homeC,
+    required this.surahAyahs,
+  });
+
+  final HomeController homeC;
+  final SurahDetail surahAyahs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(homeC.isDark.isTrue
+              ? "assets/images/header-dark.png"
+              : "assets/images/header-light.png"),
+          // fit: BoxFit.fitWidth,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(22.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "${surahAyahs.revelationType}",
+              style: const TextStyle(
+                color: ColorSystem.appColorWhite,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Column(
+              children: [
+                const Text(
+                  "",
+                ),
+                Text(
+                  "${surahAyahs.englishName}",
+                  style: const TextStyle(
+                    color: ColorSystem.appColorWhite,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Text(
+              "${surahAyahs.numberOfAyahs} Ayat",
+              style: const TextStyle(
+                color: ColorSystem.appColorWhite,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
