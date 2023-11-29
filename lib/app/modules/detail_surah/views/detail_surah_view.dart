@@ -126,9 +126,10 @@ class DetailSurahView extends GetView<DetailSurahController> {
                         if (numbAyahs == 1)
                           OrientationBuilder(
                             builder: (context, orientation) {
-                              final isPotrait =
-                                  orientation == Orientation.portrait;
-                              return isPotrait
+                              final orientation =
+                                  MediaQuery.of(context).orientation;
+
+                              return orientation == Orientation.portrait
                                   ? BuildHeaderPortrait(
                                       homeC: homeC, surahAyahs: surahAyahs)
                                   : BuildHeaderLandscape(
@@ -355,11 +356,8 @@ class BuildHeaderPortrait extends StatelessWidget {
             ),
             Column(
               children: [
-                const Text(
-                  "",
-                  style: TextStyle(
-                    color: ColorSystem.appColorBrown,
-                  ),
+                const SizedBox(
+                  height: 10.0,
                 ),
                 Text(
                   "${surahAyahs.englishName}",
@@ -406,7 +404,6 @@ class BuildHeaderLandscape extends StatelessWidget {
           image: AssetImage(homeC.isDark.isTrue
               ? "assets/images/header-dark.png"
               : "assets/images/header-light.png"),
-          // fit: BoxFit.fitWidth,
         ),
       ),
       child: Padding(
@@ -417,34 +414,34 @@ class BuildHeaderLandscape extends StatelessWidget {
             Text(
               "${surahAyahs.revelationType}",
               style: const TextStyle(
-                color: ColorSystem.appColorWhite,
+                color: ColorSystem.appColorBrown,
                 fontSize: 14,
               ),
             ),
             const SizedBox(
-              width: 0.2,
+              width: 0.1,
             ),
             Column(
               children: [
-                const Text(
-                  "",
+                const SizedBox(
+                  height: 55.0,
                 ),
                 Text(
                   "${surahAyahs.englishName}",
                   style: const TextStyle(
-                    color: ColorSystem.appColorWhite,
+                    color: ColorSystem.appColorBrown,
                     fontSize: 14,
                   ),
                 ),
               ],
             ),
             const SizedBox(
-              width: 0.2,
+              width: 0.1,
             ),
             Text(
               "${surahAyahs.numberOfAyahs} Ayat",
               style: const TextStyle(
-                color: ColorSystem.appColorWhite,
+                color: ColorSystem.appColorBrown,
                 fontSize: 14,
               ),
             ),

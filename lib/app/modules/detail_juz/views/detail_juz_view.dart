@@ -124,6 +124,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                   }
 
                   juz.Ayah detailAyahs = snapshot.data![0].ayahs![index];
+
                   Map<String, dynamic> detailAyahsTranslate =
                       snapshot.data![1].ayahs![index];
 
@@ -131,7 +132,6 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
                   int numbAyahs =
                       int.parse(detailAyahs.numberInSurah.toString());
-                  // var size = 150.0;
                   return AutoScrollTag(
                     key: ValueKey(index),
                     controller: controller.autoScrollJuzCon,
@@ -140,65 +140,17 @@ class DetailJuzView extends GetView<DetailJuzController> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         if (numbAyahs == 1)
-                          Container(
-                            // height: size,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(homeC.isDark.isTrue
-                                    ? "assets/images/header-dark.png"
-                                    : "assets/images/header-light.png"),
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                            child: Stack(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(22.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        detailAyahs.surah!.revelationType
-                                            .toString(),
-                                        style: const TextStyle(
-                                          color: ColorSystem.appColorBrown,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 0.2,
-                                      ),
-                                      Column(
-                                        children: [
-                                          const Text(
-                                            "",
-                                          ),
-                                          Text(
-                                            detailAyahs.surah!.englishName
-                                                .toString(),
-                                            style: const TextStyle(
-                                              color: ColorSystem.appColorBrown,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: 0.2,
-                                      ),
-                                      Text(
-                                        "${detailAyahs.surah!.numberOfAyahs} Ayat",
-                                        style: const TextStyle(
-                                          color: ColorSystem.appColorBrown,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                          OrientationBuilder(
+                            builder: (context, orientation) {
+                              final orientation =
+                                  MediaQuery.of(context).orientation;
+
+                              return orientation == Orientation.portrait
+                                  ? BuildHeaderJuzPortrait(
+                                      homeC: homeC, detailAyahs: detailAyahs)
+                                  : BuildHeaderJuzLandscape(
+                                      homeC: homeC, detailAyahs: detailAyahs);
+                            },
                           ),
                         Container(
                           decoration: BoxDecoration(
@@ -414,6 +366,140 @@ class DetailJuzView extends GetView<DetailJuzController> {
             },
           ),
         ],
+      ),
+    );
+  }
+}
+
+class BuildHeaderJuzPortrait extends StatelessWidget {
+  const BuildHeaderJuzPortrait({
+    super.key,
+    required this.detailAyahs,
+    required this.homeC,
+  });
+
+  final HomeController homeC;
+  final juz.Ayah detailAyahs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(homeC.isDark.isTrue
+              ? "assets/images/header-dark.png"
+              : "assets/images/header-light.png"),
+          fit: BoxFit.fitWidth,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(22.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "${detailAyahs.surah!.revelationType}",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  "${detailAyahs.surah!.englishName}",
+                  style: const TextStyle(
+                    color: ColorSystem.appColorBrown,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Text(
+              "${detailAyahs.surah!.numberOfAyahs} Ayat",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BuildHeaderJuzLandscape extends StatelessWidget {
+  const BuildHeaderJuzLandscape({
+    super.key,
+    required this.homeC,
+    required this.detailAyahs,
+  });
+
+  final HomeController homeC;
+  final juz.Ayah detailAyahs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(homeC.isDark.isTrue
+              ? "assets/images/header-dark.png"
+              : "assets/images/header-light.png"),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(22.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "${detailAyahs.surah!.revelationType}",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 55.0,
+                ),
+                Text(
+                  "${detailAyahs.surah!.englishName}",
+                  style: const TextStyle(
+                    color: ColorSystem.appColorBrown,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Text(
+              "${detailAyahs.surah!.numberOfAyahs} Ayat",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
