@@ -23,6 +23,12 @@ class DetailSurahView extends GetView<DetailSurahController> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (Get.isDarkMode) {
+        homeC.isDark.value = true;
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: SizedBox(
@@ -42,7 +48,6 @@ class DetailSurahView extends GetView<DetailSurahController> {
       ),
       body: ListView(
         controller: controller.autoScrollSurahCon,
-        // padding: const EdgeInsets.all(5.0),
         children: [
           FutureBuilder<List<dynamic>>(
             future: fetchData(),
@@ -139,7 +144,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Get.isDarkMode
+                            color: homeC.isDark.isTrue
                                 ? ColorSystem.backgroundDarkSecondary
                                 : ColorSystem.appColorBrown.withOpacity(0.1),
                           ),
@@ -156,7 +161,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   width: 45,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(Get.isDarkMode
+                                      image: AssetImage(homeC.isDark.isTrue
                                           ? "assets/images/dark-list-numb-surah-4pt.png"
                                           : "assets/images/light-list-numb-surah-4pt.png"),
                                       fit: BoxFit.contain,
@@ -165,7 +170,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   child: Center(
                                     child: Text(
                                       "${index + 1}",
-                                      style: Get.isDarkMode
+                                      style: homeC.isDark.isTrue
                                           ? const TextStyle(
                                               color: ColorSystem.appColorBrown)
                                           : Theme.of(context)
@@ -188,9 +193,19 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                         IconButton(
                                           onPressed: () {
                                             Get.defaultDialog(
-                                              title: "BOOKMARK",
+                                              titleStyle: TextStyle(
+                                                color: homeC.isDark.isTrue
+                                                    ? ColorSystem.appColorWhite
+                                                    : ColorSystem.appColorBrown,
+                                              ),
+                                              middleTextStyle: TextStyle(
+                                                color: homeC.isDark.isTrue
+                                                    ? ColorSystem.appColorWhite
+                                                    : ColorSystem.appColorBrown,
+                                              ),
+                                              title: "Save as",
                                               middleText:
-                                                  "Choose Bookmark Type",
+                                                  "Please, Choose LastRead or Bookmark ?",
                                               actions: [
                                                 ElevatedButton(
                                                   onPressed: () async {
@@ -201,14 +216,18 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                                   style:
                                                       ElevatedButton.styleFrom(
                                                     backgroundColor: ColorSystem
-                                                        .appColorTeal,
+                                                        .appColorBrown,
                                                     textStyle: const TextStyle(
                                                       color: ColorSystem
                                                           .appColorWhite,
                                                     ),
                                                   ),
-                                                  child:
-                                                      const Text("LAST READ"),
+                                                  child: const Text(
+                                                    "LAST READ",
+                                                    style: TextStyle(
+                                                      fontSize: 12.0,
+                                                    ),
+                                                  ),
                                                 ),
                                                 ElevatedButton(
                                                   onPressed: () {
@@ -224,7 +243,12 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                                           .appColorWhite,
                                                     ),
                                                   ),
-                                                  child: const Text("BOOKMARK"),
+                                                  child: const Text(
+                                                    "BOOKMARK",
+                                                    style: TextStyle(
+                                                      fontSize: 12.0,
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             );
@@ -298,9 +322,14 @@ class DetailSurahView extends GetView<DetailSurahController> {
                               const SizedBox(height: 20.0),
                               Text(
                                 ayahsTranslate.text.toString(),
-                                style: const TextStyle(
-                                    color: ColorSystem.appColorGray,
-                                    fontSize: 16.0),
+                                style: TextStyle(
+                                  color: homeC.isDark.isTrue
+                                      ? ColorSystem.appColorGray
+                                          .withOpacity(0.5)
+                                      : Colors.grey,
+                                  fontSize: 16.0,
+                                ),
+                                textAlign: TextAlign.left,
                               ),
                             ],
                           ),

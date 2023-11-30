@@ -20,8 +20,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: box.read('darkMode') == null ? lightMode : darkMode,
       title: 'Al Quran App',
-      initialRoute:
-          box.read('isSkipIntro') == null ? Routes.introduction : Routes.home,
+      initialRoute: Routes.accessMenu,
+      // initialRoute:
+      //     box.read('isSkipIntro') == null ? Routes.introduction : Routes.home,
       getPages: AppPages.routes,
     );
   }

@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:lottie/lottie.dart';
 import '../../../../utils/color_system.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/introduction_controller.dart';
@@ -73,11 +72,12 @@ class IntroductionView extends GetView<IntroductionController> {
                                 fontSize: 14,
                               ),
                             ),
+                            const SizedBox(height: 10.0),
                             Center(
                               child: SizedBox(
-                                width: 150,
-                                child: Lottie.asset(
-                                    "assets/lotties/animation_alquran_child_yellow.json"),
+                                width: 125,
+                                child: Image.asset(
+                                    "assets/images/light-logo-alquran-green.png"),
                               ),
                             ),
                           ],
@@ -92,31 +92,27 @@ class IntroductionView extends GetView<IntroductionController> {
               ),
               SizedBox(
                 width: 200,
-                child: Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 6,
-                      shadowColor: ColorSystem.appColorBlack,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      foregroundColor: ColorSystem.appColorWhite,
-                      backgroundColor: ColorSystem.appColorTeal,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 10.0), // foreground
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 8,
+                    shadowColor: ColorSystem.appColorBlack,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
                     ),
-                    onPressed: () {
-                      Get.offAllNamed(Routes.home);
-                      box.write('isSkipIntro', true);
-                    },
-                    child: const Text(
-                      "IQRAA'",
-                      style: TextStyle(
-                        fontSize: 15.0,
-                      ),
-                      // style: TextStyle(
-                      //   fontSize: 15.0,
-                      // ),
+                    foregroundColor: ColorSystem.appColorWhite,
+                    backgroundColor: ColorSystem.appColorGreen,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10.0), // foreground
+                  ),
+                  onPressed: () {
+                    Get.offAllNamed(Routes.home);
+                    box.write('isSkipIntro', true);
+                  },
+                  child: const Text(
+                    "IQRAA'",
+                    style: TextStyle(
+                      fontSize: 15.0,
                     ),
                   ),
                 ),

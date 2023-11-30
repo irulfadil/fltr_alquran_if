@@ -9,7 +9,7 @@ class ColorSystem {
   static const appColorTeal = Color(0xFF1d8e81);
 
   static const appColorWhite = Color(0xFFFFFFFF);
-  static const appColorGray = Color(0xFF939393);
+  static const appColorGray = Color(0xFFCCCCCC);
   static const appColorBlack = Color(0xFF000000);
 
   static const appColorDark = Color(0xFF6E6657); //which mode dark

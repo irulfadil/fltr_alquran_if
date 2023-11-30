@@ -9,7 +9,7 @@ import '../controllers/detail_juz_controller.dart';
 // ignore: must_be_immutable
 class DetailJuzView extends GetView<DetailJuzController> {
   DetailJuzView({Key? key}) : super(key: key);
-  final homeC = Get.put(HomeController());
+  final homeC = Get.find<HomeController>();
   late Map<String, dynamic>? bookmark;
 
   final DetailJuzController juzSurah = Get.put(DetailJuzController());
@@ -26,9 +26,11 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
   @override
   Widget build(BuildContext context) {
-    if (Get.isDarkMode) {
-      homeC.isDark.value = true;
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (Get.isDarkMode) {
+        homeC.isDark.value = true;
+      }
+    });
 
     List<dynamic> allSurahInJuz = [];
     List<dynamic> allRevelationType = [];
@@ -155,7 +157,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Get.isDarkMode
+                            color: homeC.isDark.isTrue
                                 ? ColorSystem.backgroundDarkSecondary
                                 : ColorSystem.appColorBrown.withOpacity(0.1),
                           ),
@@ -174,7 +176,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                       width: 45,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          image: AssetImage(Get.isDarkMode
+                                          image: AssetImage(homeC.isDark.isTrue
                                               ? "assets/images/dark-list-numb-juz-4pt.png"
                                               : "assets/images/light-list-numb-juz-4pt.png"),
                                           fit: BoxFit.contain,
@@ -182,8 +184,8 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          detailAyahs.numberInSurah.toString(),
-                                          style: Get.isDarkMode
+                                          "${detailAyahs.numberInSurah}",
+                                          style: homeC.isDark.isTrue
                                               ? const TextStyle(
                                                   color:
                                                       ColorSystem.appColorWhite)
@@ -194,8 +196,8 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                       ),
                                     ),
                                     Text(
-                                      detailAyahs.surah!.englishName.toString(),
-                                      style: Get.isDarkMode
+                                      "${detailAyahs.surah!.englishName}",
+                                      style: homeC.isDark.isTrue
                                           ? TextStyle(
                                               color: ColorSystem.appColorWhite
                                                   .withOpacity(0.5),
@@ -223,9 +225,23 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                             IconButton(
                                               onPressed: () {
                                                 Get.defaultDialog(
-                                                  title: "BOOKMARK",
+                                                  titleStyle: TextStyle(
+                                                    color: homeC.isDark.isTrue
+                                                        ? ColorSystem
+                                                            .appColorWhite
+                                                        : ColorSystem
+                                                            .appColorBrown,
+                                                  ),
+                                                  middleTextStyle: TextStyle(
+                                                    color: homeC.isDark.isTrue
+                                                        ? ColorSystem
+                                                            .appColorWhite
+                                                        : ColorSystem
+                                                            .appColorBrown,
+                                                  ),
+                                                  title: "Save as",
                                                   middleText:
-                                                      "Choose Bookmark Type",
+                                                      "Please, Choose LastRead or Bookmark ?",
                                                   actions: [
                                                     ElevatedButton(
                                                       onPressed: () async {
@@ -239,7 +255,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                                           .styleFrom(
                                                         backgroundColor:
                                                             ColorSystem
-                                                                .appColorTeal,
+                                                                .appColorBrown,
                                                         textStyle:
                                                             const TextStyle(
                                                           color: ColorSystem
@@ -247,7 +263,11 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                                         ),
                                                       ),
                                                       child: const Text(
-                                                          "LAST READ"),
+                                                        "LAST READ",
+                                                        style: TextStyle(
+                                                          fontSize: 12.0,
+                                                        ),
+                                                      ),
                                                     ),
                                                     ElevatedButton(
                                                       onPressed: () {
@@ -266,7 +286,11 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                                         ),
                                                       ),
                                                       child: const Text(
-                                                          "BOOKMARK"),
+                                                        "BOOKMARK",
+                                                        style: TextStyle(
+                                                          fontSize: 12.0,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ],
                                                 );
@@ -334,7 +358,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                             children: [
                               const SizedBox(height: 20.0),
                               Text(
-                                detailAyahs.text.toString(),
+                                "${detailAyahs.text}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall
@@ -345,11 +369,12 @@ class DetailJuzView extends GetView<DetailJuzController> {
                               ),
                               const SizedBox(height: 20.0),
                               Text(
-                                detailAyahsTranslate["text"]
-                                    .toString()
-                                    .toLowerCase(),
-                                style: const TextStyle(
-                                  color: ColorSystem.appColorGray,
+                                "${detailAyahsTranslate['text']}",
+                                style: TextStyle(
+                                  color: homeC.isDark.isTrue
+                                      ? ColorSystem.appColorGray
+                                          .withOpacity(0.5)
+                                      : Colors.grey,
                                   fontSize: 16.0,
                                 ),
                                 textAlign: TextAlign.left,

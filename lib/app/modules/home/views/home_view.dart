@@ -4,21 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/custom_icon_button.dart';
+import '../../../../widgets/shimmer/shimmer_animation.dart';
 import '../../../data/models/juz_model.dart';
 import '../../../data/models/surah_model.dart';
+import '../../loading/loading_alljuz.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    if (Get.isDarkMode) {
-      controller.isDark.value = true;
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (Get.isDarkMode) {
+        controller.isDark.value = true;
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
-        elevation: Get.isDarkMode ? 0 : 4,
+        elevation: controller.isDark.isTrue ? 0 : 4,
         title: const Text(
           "Al Qur'an",
           style: TextStyle(color: ColorSystem.appColorWhite),
@@ -47,7 +51,7 @@ class HomeView extends GetView<HomeController> {
               height: 50,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: controller.isDark.value
+                  colors: controller.isDark.isTrue
                       ? [ColorSystem.headerDark, ColorSystem.headerDark]
                       : [ColorSystem.headerLight, ColorSystem.headerLight],
                 ),
@@ -72,14 +76,14 @@ class HomeView extends GetView<HomeController> {
           ),
           Obx(
             () => SwitchListTile(
-              title: controller.isDark.value
+              title: controller.isDark.isTrue
                   ? const Text("Dark")
                   : const Text("Light"),
-              value: controller.isDark.value,
+              value: controller.isDark.isTrue,
               onChanged: (value) {
                 controller.changeTheme();
               },
-              secondary: controller.isDark.value
+              secondary: controller.isDark.isTrue
                   ? const Icon(Icons.nightlight_round)
                   : const Icon(Icons.wb_sunny),
             ),
@@ -105,7 +109,7 @@ class HomeView extends GetView<HomeController> {
                       return Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: controller.isDark.value
+                            colors: controller.isDark.isTrue
                                 ? [
                                     ColorSystem.headerDark,
                                     ColorSystem.headerDark
@@ -182,8 +186,7 @@ class HomeView extends GetView<HomeController> {
                       return Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            // colors: Get.isDarkMode
-                            colors: controller.isDark.value
+                            colors: controller.isDark.isTrue
                                 ? [
                                     ColorSystem.headerDark,
                                     ColorSystem.headerDark
@@ -277,7 +280,7 @@ class HomeView extends GetView<HomeController> {
                               onLongPress: () {
                                 if (lastRead != null) {
                                   Get.defaultDialog(
-                                    title: "Delete",
+                                    title: "Message",
                                     middleText:
                                         "Are you sure delete last read ?",
                                     actions: [
@@ -511,7 +514,7 @@ class HomeView extends GetView<HomeController> {
                                   surah.englishName ?? 'Error',
                                   style: TextStyle(
                                     color: controller.isDark.isTrue
-                                        ? ColorSystem.appColorWhite
+                                        ? ColorSystem.appColorGray
                                         : ColorSystem.appColorBrown,
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w500,
@@ -520,14 +523,14 @@ class HomeView extends GetView<HomeController> {
                                 subtitle: Text(
                                   "${surah.revelationType ?? 'Error'} | ${surah.numberOfAyahs ?? 'Error'} Ayat",
                                   style: const TextStyle(
-                                    color: ColorSystem.appColorGray,
+                                    color: Colors.grey,
                                   ),
                                 ),
                                 trailing: Text(
                                   surah.name ?? 'Error',
                                   style: TextStyle(
                                     color: controller.isDark.isTrue
-                                        ? ColorSystem.appColorWhite
+                                        ? ColorSystem.appColorGray
                                         : ColorSystem.appColorBrown,
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.w500,
@@ -546,20 +549,22 @@ class HomeView extends GetView<HomeController> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Container(
-                            margin: const EdgeInsets.only(top: 20.0),
-                            child: const Center(
-                              child: SizedBox(
-                                width: 35.0,
-                                height: 35.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      ColorSystem.appColorTeal),
-                                  strokeWidth: 5.0,
-                                ),
-                              ),
-                            ),
-                          );
+                          return const LoadAlljuz();
+                          // return const ShimmerAnimatedEffect();
+                          // return Container(
+                          //   margin: const EdgeInsets.only(top: 20.0),
+                          //   child: const Center(
+                          //     child: SizedBox(
+                          //       width: 35.0,
+                          //       height: 35.0,
+                          //       child: CircularProgressIndicator(
+                          //         valueColor: AlwaysStoppedAnimation<Color>(
+                          //             ColorSystem.appColorTeal),
+                          //         strokeWidth: 5.0,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // );
                         }
                         if (!snapshot.hasData) {
                           return Center(
@@ -633,14 +638,14 @@ class HomeView extends GetView<HomeController> {
                                   "Juz ${detailJuz.number}",
                                   style: TextStyle(
                                       color: controller.isDark.isTrue
-                                          ? ColorSystem.appColorWhite
+                                          ? ColorSystem.appColorGray
                                           : ColorSystem.appColorBrown,
                                       fontSize: 16.0),
                                 ),
                                 subtitle: Text(
                                   "$startNameSurah - $lastNameSurah",
                                   style: const TextStyle(
-                                    color: ColorSystem.appColorGray,
+                                    color: Colors.grey,
                                   ),
                                 ),
                               ),
@@ -747,14 +752,14 @@ class HomeView extends GetView<HomeController> {
                                     "Surah ${data['surah'].replaceAll("+", "'")}",
                                     style: TextStyle(
                                         color: controller.isDark.isTrue
-                                            ? ColorSystem.appColorWhite
+                                            ? ColorSystem.appColorGray
                                             : ColorSystem.appColorBrown,
                                         fontSize: 16.0),
                                   ),
                                   subtitle: Text(
                                     "Ayah ${data['ayah']} - by ${data['via']}",
                                     style: const TextStyle(
-                                      color: ColorSystem.appColorGray,
+                                      color: Colors.grey,
                                     ),
                                   ),
                                   trailing: IconButton(

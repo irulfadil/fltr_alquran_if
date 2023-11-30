@@ -12,9 +12,11 @@ class SearchView extends GetView<SearchControl> {
 
   @override
   Widget build(BuildContext context) {
-    if (Get.isDarkMode) {
-      homeC.isDark.value = true;
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (Get.isDarkMode) {
+        homeC.isDark.value = true;
+      }
+    });
 
     return Scaffold(
       appBar: PreferredSize(
