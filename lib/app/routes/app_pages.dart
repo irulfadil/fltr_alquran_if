@@ -22,9 +22,10 @@ class AppPages {
       page: () => IntroductionView(),
     ),
     GetPage(
-        name: Routes.home,
-        page: () => const HomeView(),
-        binding: HomesBinding()),
+      name: Routes.home,
+      page: () => HomeView(),
+      binding: HomesBinding(),
+    ),
     GetPage(
       name: Routes.search,
       page: () => SearchView(),
@@ -47,7 +48,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.accessMenu,
-      page: () => const AccessMenuView(),
+      page: () => AccessMenuView(),
       binding: AccessMenuBinding(),
     ),
   ];

@@ -88,6 +88,7 @@ class HomeController extends GetxController {
 
       Juz juz = Juz.fromJson(data);
       allJuz.add(juz);
+      // print("allJuz: $allJuz");
     }
     return allJuz;
   }

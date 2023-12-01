@@ -22,6 +22,17 @@ class SearchView extends GetView<SearchControl> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(120),
         child: AppBar(
+          leading: GestureDetector(
+            onTap: () {
+              Get.toNamed(
+                Routes.home,
+                arguments: {"indexTabHome": 0},
+              );
+            },
+            child: const Icon(
+              Icons.arrow_back_sharp,
+            ),
+          ),
           title: const Text('Search'),
           centerTitle: true,
           flexibleSpace: Padding(

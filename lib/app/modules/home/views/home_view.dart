@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/custom_icon_button.dart';
-import '../../../../widgets/shimmer/shimmer_animation.dart';
 import '../../../data/models/juz_model.dart';
 import '../../../data/models/surah_model.dart';
 import '../../loading/loading_alljuz.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({super.key});
+  HomeView({super.key});
+  final indexTabHome = Get.arguments['indexTabHome'] ?? 0;
+  final indexTabBookmark = Get.arguments['indexTabBokkmark'] ?? 0;
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +75,13 @@ class HomeView extends GetView<HomeController> {
               ]),
             ),
           ),
+          ListTile(
+            leading: const Icon(Icons.home),
+            title: const Text("Menu"),
+            onTap: () {
+              Get.offAllNamed(Routes.accessMenu);
+            },
+          ),
           Obx(
             () => SwitchListTile(
               title: controller.isDark.isTrue
@@ -96,6 +104,8 @@ class HomeView extends GetView<HomeController> {
         ],
       )),
       body: DefaultTabController(
+        initialIndex:
+            indexTabBookmark == null ? indexTabHome : indexTabBookmark,
         length: 3,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

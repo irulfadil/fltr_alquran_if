@@ -7,6 +7,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../../../utils/color_system.dart';
 import '../../../data/db/database_instance.dart';
 import '../../../data/models/surah_detail_model.dart';
 import '../../../data/models/surah_detail_translate_model.dart';
@@ -65,6 +66,7 @@ class DetailSurahController extends GetxController {
         "Success",
         "Save Bookmark Successfully",
         duration: const Duration(seconds: 1),
+        colorText: ColorSystem.appColorWhite,
       );
     } else {
       Get.back();
@@ -72,6 +74,7 @@ class DetailSurahController extends GetxController {
         "Failed",
         "Bookmark is ready",
         duration: const Duration(seconds: 1),
+        colorText: ColorSystem.appColorWhite,
       );
     }
     //query database

@@ -38,8 +38,8 @@ class IntroductionView extends GetView<IntroductionController> {
                         //bluer effect
                         BackdropFilter(
                           filter: ImageFilter.blur(
-                            sigmaX: 4.0,
-                            sigmaY: 4.0,
+                            sigmaX: 5.0,
+                            sigmaY: 5.0,
                           ),
                           child: Container(),
                         ),
@@ -106,14 +106,15 @@ class IntroductionView extends GetView<IntroductionController> {
                         horizontal: 20.0, vertical: 10.0), // foreground
                   ),
                   onPressed: () {
-                    Get.offAllNamed(Routes.home);
+                    Get.offAllNamed(
+                      Routes.home,
+                      arguments: {"indexTabHome": 0},
+                    );
                     box.write('isSkipIntro', true);
                   },
                   child: const Text(
                     "IQRAA'",
-                    style: TextStyle(
-                      fontSize: 15.0,
-                    ),
+                    style: TextStyle(color: ColorSystem.appColorWhite),
                   ),
                 ),
               ),

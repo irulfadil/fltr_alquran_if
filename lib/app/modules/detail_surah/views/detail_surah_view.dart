@@ -4,6 +4,7 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../../../utils/color_system.dart';
 import '../../../data/models/surah_detail_model.dart';
 import '../../../data/models/surah_detail_translate_model.dart';
+import '../../../routes/app_pages.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/detail_surah_controller.dart';
 
@@ -31,6 +32,17 @@ class DetailSurahView extends GetView<DetailSurahController> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Get.toNamed(
+              Routes.home,
+              arguments: {"indexTabHome": 0},
+            );
+          },
+          child: const Icon(
+            Icons.arrow_back_sharp,
+          ),
+        ),
         title: SizedBox(
           child: Column(
             children: [

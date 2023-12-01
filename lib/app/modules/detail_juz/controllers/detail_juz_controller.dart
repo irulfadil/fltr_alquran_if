@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
+import 'package:fltr_alquran_if/utils/color_system.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
@@ -37,7 +38,7 @@ class DetailJuzController extends GetxController {
             "last_read"
           ],
           where:
-              "surah = '${surah.surah!.englishName!.replaceAll("'", "+")}' and englishNameTranslation = '${surah.surah!.englishNameTranslation}' and number_surah = ${surah.number} and ayah = ${surah.surah!.numberOfAyahs} and juz = ${surah.number} and via = 'surah' and index_ayah= $index and last_read = 0");
+              "surah = '${surah.surah!.englishName!.replaceAll("'", "+")}' and englishNameTranslation = '${surah.surah!.englishNameTranslation}' and number_surah = ${surah.surah!.number} and ayah = ${surah.surah!.numberOfAyahs} and juz = ${surah.number} and via = 'surah' and index_ayah= $index and last_read = 0");
 
       if (checkData.isNotEmpty) {
         flagExits = true;
@@ -50,7 +51,7 @@ class DetailJuzController extends GetxController {
         {
           "surah": "${surah.surah!.englishName?.replaceAll("'", "+")}",
           "englishNameTranslation": "${surah.surah!.englishNameTranslation}",
-          "number_surah": "${surah.number}",
+          "number_surah": "${surah.surah!.number}",
           "ayah": "${surah.numberInSurah}",
           "juz": "${surah.juz}",
           "via": "juz",
@@ -64,6 +65,7 @@ class DetailJuzController extends GetxController {
         "Success",
         "Save Bookmark Successfully",
         duration: const Duration(seconds: 1),
+        colorText: ColorSystem.appColorWhite,
       );
     } else {
       Get.back();
@@ -71,6 +73,7 @@ class DetailJuzController extends GetxController {
         "Failed",
         "Bookmark is ready",
         duration: const Duration(seconds: 1),
+        colorText: ColorSystem.appColorWhite,
       );
     }
     //query database
