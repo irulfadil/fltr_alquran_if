@@ -1,12 +1,12 @@
-import 'package:fltr_alquran_if/app/modules/home/controllers/home_controller.dart';
-import 'package:fltr_alquran_if/app/routes/app_pages.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/custom_icon_button.dart';
 import '../../../data/models/juz_model.dart';
 import '../../../data/models/surah_model.dart';
+import '../../../routes/app_pages.dart';
 import '../../loading/loading_alljuz.dart';
+import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({super.key});
@@ -104,8 +104,7 @@ class HomeView extends GetView<HomeController> {
         ],
       )),
       body: DefaultTabController(
-        initialIndex:
-            indexTabBookmark == null ? indexTabHome : indexTabBookmark,
+        initialIndex: indexTabBookmark ?? indexTabHome,
         length: 3,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,6 +114,7 @@ class HomeView extends GetView<HomeController> {
                   future: c.getLastRead(),
                   builder: (context, snapshot) {
                     Map<String, dynamic>? lastRead = snapshot.data;
+                    print("home lastread: $lastRead");
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Container(
                         decoration: BoxDecoration(
@@ -336,15 +336,14 @@ class HomeView extends GetView<HomeController> {
                                           .allJuz[lastRead['juz'] - 1];
                                       List<dynamic> surahInJuz =
                                           detailJuz.surahs!.keys.toList();
-
-                                      Get.toNamed(Routes.detailSurah,
-                                          arguments: {
-                                            'detailJuz': detailJuz,
-                                            'surahInJuz': surahInJuz,
-                                            "bookmark": lastRead,
-                                          });
-                                      break;
-                                    default:
+                                      print("detailJuz: ${detailJuz.number}");
+                                      print("surahInJuz: $surahInJuz");
+                                      Get.toNamed(Routes.detailJuz, arguments: {
+                                        'detailJuz': detailJuz,
+                                        'surahInJuz': surahInJuz,
+                                        "bookmark": lastRead,
+                                      });
+                                    case "surah":
                                       Get.toNamed(Routes.detailSurah,
                                           arguments: {
                                             "englishName": lastRead['surah']
@@ -355,6 +354,9 @@ class HomeView extends GetView<HomeController> {
                                                 'englishNameTranslation'],
                                             "bookmark": lastRead,
                                           });
+                                      break;
+                                    default:
+                                      null;
                                   }
                                 }
                               },
@@ -560,21 +562,6 @@ class HomeView extends GetView<HomeController> {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const LoadAlljuz();
-                          // return const ShimmerAnimatedEffect();
-                          // return Container(
-                          //   margin: const EdgeInsets.only(top: 20.0),
-                          //   child: const Center(
-                          //     child: SizedBox(
-                          //       width: 35.0,
-                          //       height: 35.0,
-                          //       child: CircularProgressIndicator(
-                          //         valueColor: AlwaysStoppedAnimation<Color>(
-                          //             ColorSystem.appColorTeal),
-                          //         strokeWidth: 5.0,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // );
                         }
                         if (!snapshot.hasData) {
                           return Center(
@@ -617,7 +604,7 @@ class HomeView extends GetView<HomeController> {
                             return Obx(
                               () => ListTile(
                                 onTap: () => Get.toNamed(
-                                  Routes.detaillJuz,
+                                  Routes.detailJuz,
                                   arguments: {
                                     'detailJuz': detailJuz,
                                     'surahInJuz': surahInJuz
@@ -726,7 +713,7 @@ class HomeView extends GetView<HomeController> {
                                         List<dynamic> surahInJuz =
                                             detailJuz.surahs!.keys.toList();
                                         Get.toNamed(
-                                          Routes.detaillJuz,
+                                          Routes.detailJuz,
                                           arguments: {
                                             'detailJuz': detailJuz,
                                             'surahInJuz': surahInJuz,

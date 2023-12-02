@@ -107,8 +107,7 @@ class IntroductionView extends GetView<IntroductionController> {
                   ),
                   onPressed: () {
                     Get.offAllNamed(
-                      Routes.home,
-                      arguments: {"indexTabHome": 0},
+                      Routes.accessMenu,
                     );
                     box.write('isSkipIntro', true);
                   },

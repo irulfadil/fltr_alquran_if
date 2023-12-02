@@ -41,6 +41,7 @@ dependencies:
   path: ^1.8.3
   path_provider: ^2.1.1
   scroll_to_index: ^3.0.1
+  shimmer_animation: ^2.1.0+1
   sqflite: ^2.3.0
 
 dev_dependencies:

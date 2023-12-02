@@ -6,7 +6,7 @@ abstract class Routes {
   static const home = '/home';
   static const search = '/search';
   static const detailSurah = '/detail-surah';
-  static const detaillJuz = '/detail-juz';
+  static const detailJuz = '/detail-juz';
   static const loading = '/loading';
   static const accessMenu = '/access-menu';
 }

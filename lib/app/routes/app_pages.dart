@@ -37,7 +37,7 @@ class AppPages {
       binding: DetailSurahBinding(),
     ),
     GetPage(
-      name: Routes.detaillJuz,
+      name: Routes.detailJuz,
       page: () => DetailJuzView(),
       binding: DetailJuzBinding(),
     ),
