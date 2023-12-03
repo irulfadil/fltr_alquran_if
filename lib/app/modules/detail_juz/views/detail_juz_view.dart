@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../../../utils/color_system.dart';
+import '../../../../widgets/header_landscape.dart';
+import '../../../../widgets/header_portrait.dart';
 import '../../../data/models/juz_model.dart' as juz;
 import '../../home/controllers/home_controller.dart';
 import '../controllers/detail_juz_controller.dart';
@@ -154,10 +156,30 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                   MediaQuery.of(context).orientation;
 
                               return orientation == Orientation.portrait
-                                  ? HeaderJuzPortrait(
-                                      homeC: homeC, detailAyahs: detailAyahs)
-                                  : HeaderJuzLandscape(
-                                      homeC: homeC, detailAyahs: detailAyahs);
+                                  ? HeaderPortrait(
+                                      homeC: homeC,
+                                      revelationType: detailAyahs
+                                          .surah!.revelationType
+                                          .toString(),
+                                      englishName: detailAyahs
+                                          .surah!.englishName
+                                          .toString(),
+                                      numberOfAyahs: detailAyahs
+                                          .surah!.numberOfAyahs
+                                          .toString(),
+                                    )
+                                  : HeaderLandscape(
+                                      homeC: homeC,
+                                      revelationType: detailAyahs
+                                          .surah!.revelationType
+                                          .toString(),
+                                      englishName: detailAyahs
+                                          .surah!.englishName
+                                          .toString(),
+                                      numberOfAyahs: detailAyahs
+                                          .surah!.numberOfAyahs
+                                          .toString(),
+                                    );
                             },
                           ),
                         Container(
@@ -397,140 +419,6 @@ class DetailJuzView extends GetView<DetailJuzController> {
             },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class HeaderJuzPortrait extends StatelessWidget {
-  const HeaderJuzPortrait({
-    super.key,
-    required this.homeC,
-    required this.detailAyahs,
-  });
-
-  final HomeController homeC;
-  final juz.Ayah detailAyahs;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(homeC.isDark.isTrue
-              ? "assets/images/header-dark.png"
-              : "assets/images/header-light.png"),
-          fit: BoxFit.fitWidth,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(22.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "${detailAyahs.surah!.revelationType}",
-              style: const TextStyle(
-                color: ColorSystem.appColorBrown,
-                fontSize: 14,
-              ),
-            ),
-            const SizedBox(
-              width: 0.2,
-            ),
-            Column(
-              children: [
-                const SizedBox(
-                  height: 10.0,
-                ),
-                Text(
-                  "${detailAyahs.surah!.englishName}",
-                  style: const TextStyle(
-                    color: ColorSystem.appColorBrown,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              width: 0.2,
-            ),
-            Text(
-              "${detailAyahs.surah!.numberOfAyahs} Ayat",
-              style: const TextStyle(
-                color: ColorSystem.appColorBrown,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class HeaderJuzLandscape extends StatelessWidget {
-  const HeaderJuzLandscape({
-    super.key,
-    required this.homeC,
-    required this.detailAyahs,
-  });
-
-  final HomeController homeC;
-  final juz.Ayah detailAyahs;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(homeC.isDark.isTrue
-              ? "assets/images/header-dark.png"
-              : "assets/images/header-light.png"),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(22.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "${detailAyahs.surah!.revelationType}",
-              style: const TextStyle(
-                color: ColorSystem.appColorBrown,
-                fontSize: 14,
-              ),
-            ),
-            const SizedBox(
-              width: 0.2,
-            ),
-            Column(
-              children: [
-                const SizedBox(
-                  height: 55.0,
-                ),
-                Text(
-                  "${detailAyahs.surah!.englishName}",
-                  style: const TextStyle(
-                    color: ColorSystem.appColorBrown,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              width: 0.2,
-            ),
-            Text(
-              "${detailAyahs.surah!.numberOfAyahs} Ayat",
-              style: const TextStyle(
-                color: ColorSystem.appColorBrown,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

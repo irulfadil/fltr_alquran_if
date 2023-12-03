@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../app/data/models/surah_detail_model.dart';
 import '../app/modules/home/controllers/home_controller.dart';
 import '../utils/color_system.dart';
 
@@ -9,11 +8,15 @@ class HeaderPortrait extends StatelessWidget {
   const HeaderPortrait({
     super.key,
     required this.homeC,
-    required this.surahAyahs,
+    required this.revelationType,
+    required this.englishName,
+    required this.numberOfAyahs,
   });
 
   final HomeController homeC;
-  final SurahDetail surahAyahs;
+  final String revelationType;
+  final String englishName;
+  final String numberOfAyahs;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class HeaderPortrait extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              "${surahAyahs.revelationType}",
+              revelationType,
               style: const TextStyle(
                 color: ColorSystem.appColorBrown,
                 fontSize: 14,
@@ -46,7 +49,7 @@ class HeaderPortrait extends StatelessWidget {
                   height: 10.0,
                 ),
                 Text(
-                  "${surahAyahs.englishName}",
+                  englishName,
                   style: const TextStyle(
                     color: ColorSystem.appColorBrown,
                     fontSize: 14,
@@ -58,7 +61,7 @@ class HeaderPortrait extends StatelessWidget {
               width: 0.2,
             ),
             Text(
-              "${surahAyahs.numberOfAyahs} Ayat",
+              "$numberOfAyahs Ayat",
               style: const TextStyle(
                 color: ColorSystem.appColorBrown,
                 fontSize: 14,

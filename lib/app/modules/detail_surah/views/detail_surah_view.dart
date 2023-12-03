@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../../../utils/color_system.dart';
+import '../../../../widgets/header_landscape.dart';
+import '../../../../widgets/header_portrait.dart';
 import '../../../data/models/surah_detail_model.dart';
 import '../../../data/models/surah_detail_translate_model.dart';
 import '../../home/controllers/home_controller.dart';
@@ -140,10 +142,24 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   MediaQuery.of(context).orientation;
 
                               return orientation == Orientation.portrait
-                                  ? HeaderSurahPortrait(
-                                      homeC: homeC, surahAyahs: surahAyahs)
-                                  : HeaderSurahLandscape(
-                                      homeC: homeC, surahAyahs: surahAyahs);
+                                  ? HeaderPortrait(
+                                      homeC: homeC,
+                                      revelationType:
+                                          surahAyahs.revelationType.toString(),
+                                      englishName:
+                                          surahAyahs.englishName.toString(),
+                                      numberOfAyahs:
+                                          surahAyahs.numberOfAyahs.toString(),
+                                    )
+                                  : HeaderLandscape(
+                                      homeC: homeC,
+                                      revelationType:
+                                          surahAyahs.revelationType.toString(),
+                                      englishName:
+                                          surahAyahs.englishName.toString(),
+                                      numberOfAyahs:
+                                          surahAyahs.numberOfAyahs.toString(),
+                                    );
                             },
                           ),
                         Container(
@@ -348,139 +364,6 @@ class DetailSurahView extends GetView<DetailSurahController> {
             },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class HeaderSurahPortrait extends StatelessWidget {
-  const HeaderSurahPortrait({
-    super.key,
-    required this.homeC,
-    required this.surahAyahs,
-  });
-
-  final HomeController homeC;
-  final SurahDetail surahAyahs;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage(homeC.isDark.isTrue
-                ? "assets/images/header-dark.png"
-                : "assets/images/header-light.png"),
-            fit: BoxFit.fitWidth),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(22.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "${surahAyahs.revelationType}",
-              style: const TextStyle(
-                color: ColorSystem.appColorBrown,
-                fontSize: 14,
-              ),
-            ),
-            const SizedBox(
-              width: 0.2,
-            ),
-            Column(
-              children: [
-                const SizedBox(
-                  height: 10.0,
-                ),
-                Text(
-                  "${surahAyahs.englishName}",
-                  style: const TextStyle(
-                    color: ColorSystem.appColorBrown,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              width: 0.2,
-            ),
-            Text(
-              "${surahAyahs.numberOfAyahs} Ayat",
-              style: const TextStyle(
-                color: ColorSystem.appColorBrown,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class HeaderSurahLandscape extends StatelessWidget {
-  const HeaderSurahLandscape({
-    super.key,
-    required this.homeC,
-    required this.surahAyahs,
-  });
-
-  final HomeController homeC;
-  final SurahDetail surahAyahs;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(homeC.isDark.isTrue
-              ? "assets/images/header-dark.png"
-              : "assets/images/header-light.png"),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(22.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "${surahAyahs.revelationType}",
-              style: const TextStyle(
-                color: ColorSystem.appColorBrown,
-                fontSize: 14,
-              ),
-            ),
-            const SizedBox(
-              width: 0.2,
-            ),
-            Column(
-              children: [
-                const SizedBox(
-                  height: 55.0,
-                ),
-                Text(
-                  "${surahAyahs.englishName}",
-                  style: const TextStyle(
-                    color: ColorSystem.appColorBrown,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              width: 0.2,
-            ),
-            Text(
-              "${surahAyahs.numberOfAyahs} Ayat",
-              style: const TextStyle(
-                color: ColorSystem.appColorBrown,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

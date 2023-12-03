@@ -17,7 +17,7 @@ class AccessMenuView extends GetView<AccessMenuController> {
 
   @override
   Widget build(BuildContext context) {
-    print("check allJuz: ${homeC.allJuz}");
+    print("check copyallJuz: ${accessC.copyallJuz}");
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -81,22 +81,19 @@ class AccessMenuView extends GetView<AccessMenuController> {
 
                                 return InkWell(
                                   onTap: () {
-                                    if (lastRead != null) {
+                                    if (lastRead != null &&
+                                        accessC.copyallJuz.length >= 30) {
                                       switch (lastRead['via']) {
                                         case "juz":
-                                          Juz detailJuz =
-                                              homeC.allJuz[lastRead['juz'] - 1];
+                                          Juz detailJuz = accessC
+                                              .copyallJuz[lastRead['juz'] - 1];
                                           List<dynamic> surahInJuz =
                                               detailJuz.surahs!.keys.toList();
-                                          // Map<String, dynamic> detailJuz =
-                                          //     accessC.allJuz[lastRead['juz'] - 1];
-                                          // List<dynamic> surahInJuz =
-                                          //     detailJuz['surahs'].keys.toList();
 
                                           print("detailJuz: $detailJuz");
                                           print("surahInJuz: $surahInJuz");
 
-                                          Get.toNamed(Routes.detailSurah,
+                                          Get.toNamed(Routes.detailJuz,
                                               arguments: {
                                                 'detailJuz': detailJuz,
                                                 'surahInJuz': surahInJuz,
@@ -132,7 +129,8 @@ class AccessMenuView extends GetView<AccessMenuController> {
                                           color: ColorSystem.appColorGray,
                                         ),
                                         title: "Message",
-                                        middleText: "Last read data is empty",
+                                        middleText:
+                                            "Last read data is empty or in processing...",
                                         actions: [
                                           OutlinedButton(
                                             onPressed: () => Get.back(),
@@ -225,7 +223,6 @@ class AccessMenuView extends GetView<AccessMenuController> {
                         ),
                         InkWell(
                           onTap: () {
-                            // Get.offAllNamed(Routes.search);
                             Get.toNamed(Routes.search);
                           },
                           child: Container(

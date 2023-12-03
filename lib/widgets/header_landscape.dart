@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../app/data/models/surah_detail_model.dart';
 import '../app/modules/home/controllers/home_controller.dart';
 import '../utils/color_system.dart';
 
@@ -9,16 +8,20 @@ class HeaderLandscape extends StatelessWidget {
   const HeaderLandscape({
     super.key,
     required this.homeC,
-    required this.surahAyahs,
+    required this.revelationType,
+    required this.englishName,
+    required this.numberOfAyahs,
   });
 
   final HomeController homeC;
-  final SurahDetail surahAyahs;
+  final String revelationType;
+  final String englishName;
+  final String numberOfAyahs;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 145,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(homeC.isDark.isTrue
@@ -32,7 +35,7 @@ class HeaderLandscape extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              "${surahAyahs.revelationType}",
+              revelationType,
               style: const TextStyle(
                 color: ColorSystem.appColorBrown,
                 fontSize: 14,
@@ -47,7 +50,7 @@ class HeaderLandscape extends StatelessWidget {
                   height: 55.0,
                 ),
                 Text(
-                  "${surahAyahs.englishName}",
+                  englishName,
                   style: const TextStyle(
                     color: ColorSystem.appColorBrown,
                     fontSize: 14,
@@ -59,7 +62,7 @@ class HeaderLandscape extends StatelessWidget {
               width: 0.1,
             ),
             Text(
-              "${surahAyahs.numberOfAyahs} Ayat",
+              "$numberOfAyahs Ayat",
               style: const TextStyle(
                 color: ColorSystem.appColorBrown,
                 fontSize: 14,

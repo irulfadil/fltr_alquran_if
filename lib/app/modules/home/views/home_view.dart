@@ -297,17 +297,18 @@ class HomeView extends GetView<HomeController> {
                                         "Are you sure delete last read ?",
                                     actions: [
                                       OutlinedButton(
-                                          onPressed: () => Get.back(),
-                                          child: Text(
-                                            "CANCEL",
-                                            style: controller.isDark.isTrue
-                                                ? const TextStyle(
-                                                    color: ColorSystem
-                                                        .appColorWhite)
-                                                : Theme.of(context)
-                                                    .textTheme
-                                                    .titleSmall,
-                                          )),
+                                        onPressed: () => Get.back(),
+                                        child: Text(
+                                          "CANCEL",
+                                          style: controller.isDark.isTrue
+                                              ? const TextStyle(
+                                                  color:
+                                                      ColorSystem.appColorWhite)
+                                              : Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall,
+                                        ),
+                                      ),
                                       ElevatedButton(
                                         onPressed: () {
                                           controller
@@ -331,7 +332,8 @@ class HomeView extends GetView<HomeController> {
                                 }
                               },
                               onTap: () {
-                                if (lastRead != null) {
+                                if (lastRead != null &&
+                                    controller.allJuz.length >= 30) {
                                   switch (lastRead['via']) {
                                     case "juz":
                                       Juz detailJuz = controller
@@ -360,6 +362,36 @@ class HomeView extends GetView<HomeController> {
                                     default:
                                       null;
                                   }
+                                } else {
+                                  Get.defaultDialog(
+                                    backgroundColor:
+                                        ColorSystem.backgroundDarkSecondary,
+                                    confirmTextColor: ColorSystem.appColorGray,
+                                    titleStyle: const TextStyle(
+                                      color: ColorSystem.appColorGray,
+                                    ),
+                                    middleTextStyle: const TextStyle(
+                                      color: ColorSystem.appColorGray,
+                                    ),
+                                    title: "Message",
+                                    middleText:
+                                        "Last read data in processing...",
+                                    actions: [
+                                      OutlinedButton(
+                                        onPressed: () => Get.back(),
+                                        style: OutlinedButton.styleFrom(
+                                          side: const BorderSide(
+                                              color: ColorSystem.appColorGray),
+                                        ),
+                                        child: const Text(
+                                          "Back",
+                                          style: TextStyle(
+                                            color: ColorSystem.appColorGray,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
                                 }
                               },
                               borderRadius: BorderRadius.circular(15.0),
