@@ -2,7 +2,7 @@
 
 import 'package:get/get.dart';
 
-import '../../../data/models/juz_model.dart';
+// import '../../../data/models/juz_model.dart';
 import '../../home/controllers/home_controller.dart';
 
 class AccessMenuController extends GetxController {

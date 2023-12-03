@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/color_system.dart';
@@ -718,6 +720,7 @@ class HomeView extends GetView<HomeController> {
                                             'detailJuz': detailJuz,
                                             'surahInJuz': surahInJuz,
                                             "bookmark": data,
+                                            //data bookmark, get index autoscroll
                                           },
                                         );
                                         break;
@@ -731,6 +734,7 @@ class HomeView extends GetView<HomeController> {
                                               "englishNameTranslation": data[
                                                   'englishNameTranslation'],
                                               "bookmark": data,
+                                              //data bookmark, get index autoscroll
                                             });
                                     }
                                   },

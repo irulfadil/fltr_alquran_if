@@ -24,7 +24,7 @@ class SearchView extends GetView<SearchControl> {
         child: AppBar(
           leading: GestureDetector(
             onTap: () {
-              Get.toNamed(
+              Get.offNamed(
                 Routes.home,
                 arguments: {"indexTabHome": 0},
               );

@@ -4,7 +4,6 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../../../utils/color_system.dart';
 import '../../../data/models/surah_detail_model.dart';
 import '../../../data/models/surah_detail_translate_model.dart';
-import '../../../routes/app_pages.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/detail_surah_controller.dart';
 
@@ -32,17 +31,6 @@ class DetailSurahView extends GetView<DetailSurahController> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            Get.toNamed(
-              Routes.home,
-              arguments: {"indexTabHome": 0},
-            );
-          },
-          child: const Icon(
-            Icons.arrow_back_sharp,
-          ),
-        ),
         title: SizedBox(
           child: Column(
             children: [
@@ -104,15 +92,20 @@ class DetailSurahView extends GetView<DetailSurahController> {
                 );
               }
 
+              // argument bookmark use index autoscroll
               if (Get.arguments['bookmark'] != null) {
                 bookmark = Get.arguments['bookmark'];
+                print("Databookmark: $bookmark");
+                print("index_ayah: ${bookmark!['index_ayah']}");
+                // index_ayah for autoscroll
                 if (bookmark!['index_ayah'] > 1) {
+                  // +2 ini adalah angka index from autoScrollTag
+                  // bookmark!['index_ayah'] + 2,
                   controller.autoScrollSurahCon.scrollToIndex(
-                    // +2 ini adalah angka index from autoScrollTag
-                    // bookmark!['index_ayah'] + 2,
                     bookmark!['index_ayah'],
                     preferPosition: AutoScrollPosition.begin,
                   );
+                  print("success");
                 }
               }
 
@@ -135,8 +128,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
 
                   return AutoScrollTag(
                     key: ValueKey(index),
-                    controller: controller.autoScrollSurahCon,
                     index: index,
+                    controller: controller.autoScrollSurahCon,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -147,118 +140,10 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   MediaQuery.of(context).orientation;
 
                               return orientation == Orientation.portrait
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(homeC
-                                                    .isDark.isTrue
-                                                ? "assets/images/header-dark.png"
-                                                : "assets/images/header-light.png"),
-                                            fit: BoxFit.fitWidth),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(22.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              "${surahAyahs.revelationType}",
-                                              style: const TextStyle(
-                                                color:
-                                                    ColorSystem.appColorBrown,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 0.2,
-                                            ),
-                                            Column(
-                                              children: [
-                                                const SizedBox(
-                                                  height: 10.0,
-                                                ),
-                                                Text(
-                                                  "${surahAyahs.englishName}",
-                                                  style: const TextStyle(
-                                                    color: ColorSystem
-                                                        .appColorBrown,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 0.2,
-                                            ),
-                                            Text(
-                                              "${surahAyahs.numberOfAyahs} Ayat",
-                                              style: const TextStyle(
-                                                color:
-                                                    ColorSystem.appColorBrown,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  : Container(
-                                      height: 150,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(homeC.isDark.isTrue
-                                              ? "assets/images/header-dark.png"
-                                              : "assets/images/header-light.png"),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(22.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              "${surahAyahs.revelationType}",
-                                              style: const TextStyle(
-                                                color:
-                                                    ColorSystem.appColorBrown,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 0.1,
-                                            ),
-                                            Column(
-                                              children: [
-                                                const SizedBox(
-                                                  height: 55.0,
-                                                ),
-                                                Text(
-                                                  "${surahAyahs.englishName}",
-                                                  style: const TextStyle(
-                                                    color: ColorSystem
-                                                        .appColorBrown,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 0.1,
-                                            ),
-                                            Text(
-                                              "${surahAyahs.numberOfAyahs} Ayat",
-                                              style: const TextStyle(
-                                                color:
-                                                    ColorSystem.appColorBrown,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
+                                  ? HeaderSurahPortrait(
+                                      homeC: homeC, surahAyahs: surahAyahs)
+                                  : HeaderSurahLandscape(
+                                      homeC: homeC, surahAyahs: surahAyahs);
                             },
                           ),
                         Container(
@@ -463,6 +348,139 @@ class DetailSurahView extends GetView<DetailSurahController> {
             },
           ),
         ],
+      ),
+    );
+  }
+}
+
+class HeaderSurahPortrait extends StatelessWidget {
+  const HeaderSurahPortrait({
+    super.key,
+    required this.homeC,
+    required this.surahAyahs,
+  });
+
+  final HomeController homeC;
+  final SurahDetail surahAyahs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage(homeC.isDark.isTrue
+                ? "assets/images/header-dark.png"
+                : "assets/images/header-light.png"),
+            fit: BoxFit.fitWidth),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(22.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "${surahAyahs.revelationType}",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  "${surahAyahs.englishName}",
+                  style: const TextStyle(
+                    color: ColorSystem.appColorBrown,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Text(
+              "${surahAyahs.numberOfAyahs} Ayat",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HeaderSurahLandscape extends StatelessWidget {
+  const HeaderSurahLandscape({
+    super.key,
+    required this.homeC,
+    required this.surahAyahs,
+  });
+
+  final HomeController homeC;
+  final SurahDetail surahAyahs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(homeC.isDark.isTrue
+              ? "assets/images/header-dark.png"
+              : "assets/images/header-light.png"),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(22.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "${surahAyahs.revelationType}",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 55.0,
+                ),
+                Text(
+                  "${surahAyahs.englishName}",
+                  style: const TextStyle(
+                    color: ColorSystem.appColorBrown,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Text(
+              "${surahAyahs.numberOfAyahs} Ayat",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

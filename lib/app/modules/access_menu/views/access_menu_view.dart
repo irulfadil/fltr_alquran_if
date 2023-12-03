@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:get/get.dart';
@@ -15,6 +17,7 @@ class AccessMenuView extends GetView<AccessMenuController> {
 
   @override
   Widget build(BuildContext context) {
+    print("check allJuz: ${homeC.allJuz}");
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -222,7 +225,8 @@ class AccessMenuView extends GetView<AccessMenuController> {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.offAllNamed(Routes.search);
+                            // Get.offAllNamed(Routes.search);
+                            Get.toNamed(Routes.search);
                           },
                           child: Container(
                             width: 200,

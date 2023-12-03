@@ -1,9 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../../../utils/color_system.dart';
 import '../../../data/models/juz_model.dart' as juz;
-import '../../../routes/app_pages.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/detail_juz_controller.dart';
 
@@ -53,17 +54,6 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            Get.toNamed(
-              Routes.home,
-              arguments: {"indexTabHome": 0},
-            );
-          },
-          child: const Icon(
-            Icons.arrow_back_sharp,
-          ),
-        ),
         title: Text("Juz ${detailJuz.number.toString()}"),
         centerTitle: true,
       ),
@@ -117,12 +107,14 @@ class DetailJuzView extends GetView<DetailJuzController> {
                 );
               }
 
+              // argument bookmark use index autoscroll.
               if (Get.arguments['bookmark'] != null) {
                 bookmark = Get.arguments['bookmark'];
+                // jika ayat kurang dari 1 maka tidak autoscrol.
                 if (bookmark!['index_ayah'] > 1) {
                   controller.autoScrollJuzCon.scrollToIndex(
-                    // +2 ini adalah angka index from autoScrollTag
-                    // bookmark!['index_ayah'] + 2,
+                    // +2 ini adalah angka index from autoScrollTag(key: ValueKey(1)).
+                    // bookmark!['index_ayah'] + 2.
                     bookmark!['index_ayah'],
                     preferPosition: AutoScrollPosition.begin,
                   );
@@ -147,6 +139,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
                   int numbAyahs =
                       int.parse(detailAyahs.numberInSurah.toString());
+
                   return AutoScrollTag(
                     key: ValueKey(index),
                     controller: controller.autoScrollJuzCon,
@@ -161,118 +154,10 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                   MediaQuery.of(context).orientation;
 
                               return orientation == Orientation.portrait
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(homeC.isDark.isTrue
-                                              ? "assets/images/header-dark.png"
-                                              : "assets/images/header-light.png"),
-                                          fit: BoxFit.fitWidth,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(22.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              "${detailAyahs.surah!.revelationType}",
-                                              style: const TextStyle(
-                                                color:
-                                                    ColorSystem.appColorBrown,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 0.2,
-                                            ),
-                                            Column(
-                                              children: [
-                                                const SizedBox(
-                                                  height: 10.0,
-                                                ),
-                                                Text(
-                                                  "${detailAyahs.surah!.englishName}",
-                                                  style: const TextStyle(
-                                                    color: ColorSystem
-                                                        .appColorBrown,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 0.2,
-                                            ),
-                                            Text(
-                                              "${detailAyahs.surah!.numberOfAyahs} Ayat",
-                                              style: const TextStyle(
-                                                color:
-                                                    ColorSystem.appColorBrown,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  : Container(
-                                      height: 150,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(homeC.isDark.isTrue
-                                              ? "assets/images/header-dark.png"
-                                              : "assets/images/header-light.png"),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(22.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              "${detailAyahs.surah!.revelationType}",
-                                              style: const TextStyle(
-                                                color:
-                                                    ColorSystem.appColorBrown,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 0.2,
-                                            ),
-                                            Column(
-                                              children: [
-                                                const SizedBox(
-                                                  height: 55.0,
-                                                ),
-                                                Text(
-                                                  "${detailAyahs.surah!.englishName}",
-                                                  style: const TextStyle(
-                                                    color: ColorSystem
-                                                        .appColorBrown,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 0.2,
-                                            ),
-                                            Text(
-                                              "${detailAyahs.surah!.numberOfAyahs} Ayat",
-                                              style: const TextStyle(
-                                                color:
-                                                    ColorSystem.appColorBrown,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
+                                  ? HeaderJuzPortrait(
+                                      homeC: homeC, detailAyahs: detailAyahs)
+                                  : HeaderJuzLandscape(
+                                      homeC: homeC, detailAyahs: detailAyahs);
                             },
                           ),
                         Container(
@@ -512,6 +397,140 @@ class DetailJuzView extends GetView<DetailJuzController> {
             },
           ),
         ],
+      ),
+    );
+  }
+}
+
+class HeaderJuzPortrait extends StatelessWidget {
+  const HeaderJuzPortrait({
+    super.key,
+    required this.homeC,
+    required this.detailAyahs,
+  });
+
+  final HomeController homeC;
+  final juz.Ayah detailAyahs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(homeC.isDark.isTrue
+              ? "assets/images/header-dark.png"
+              : "assets/images/header-light.png"),
+          fit: BoxFit.fitWidth,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(22.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "${detailAyahs.surah!.revelationType}",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  "${detailAyahs.surah!.englishName}",
+                  style: const TextStyle(
+                    color: ColorSystem.appColorBrown,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Text(
+              "${detailAyahs.surah!.numberOfAyahs} Ayat",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HeaderJuzLandscape extends StatelessWidget {
+  const HeaderJuzLandscape({
+    super.key,
+    required this.homeC,
+    required this.detailAyahs,
+  });
+
+  final HomeController homeC;
+  final juz.Ayah detailAyahs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(homeC.isDark.isTrue
+              ? "assets/images/header-dark.png"
+              : "assets/images/header-light.png"),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(22.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "${detailAyahs.surah!.revelationType}",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 55.0,
+                ),
+                Text(
+                  "${detailAyahs.surah!.englishName}",
+                  style: const TextStyle(
+                    color: ColorSystem.appColorBrown,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 0.2,
+            ),
+            Text(
+              "${detailAyahs.surah!.numberOfAyahs} Ayat",
+              style: const TextStyle(
+                color: ColorSystem.appColorBrown,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

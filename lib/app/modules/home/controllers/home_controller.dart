@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../theme/custom_theme.dart';
+import '../../../../utils/color_system.dart';
 import '../../../data/db/database_instance.dart';
 import '../../../data/models/juz_model.dart';
 import '../../../data/models/surah_model.dart';
@@ -48,6 +49,7 @@ class HomeController extends GetxController {
       'Bookmark',
       'Delete data successfully',
       duration: const Duration(seconds: 1),
+      colorText: ColorSystem.appColorWhite,
     );
   }
 
