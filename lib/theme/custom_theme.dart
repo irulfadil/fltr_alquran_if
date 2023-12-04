@@ -13,6 +13,10 @@ ThemeData lightMode = ThemeData(
   appBarTheme: const AppBarTheme(
     elevation: 4,
     backgroundColor: ColorSystem.appColorGreen,
+    iconTheme: IconThemeData(
+      color: ColorSystem.appColorWhite,
+      size: 24.0,
+    ),
   ),
   textTheme: const TextTheme(
     headlineSmall: TextStyle(color: ColorSystem.appColorBrown),
@@ -35,10 +39,8 @@ ThemeData lightMode = ThemeData(
     labelColor: ColorSystem.appColorBrown,
   ),
   switchTheme: SwitchThemeData(
-    thumbColor: MaterialStateProperty.all(
-        ColorSystem.headerLight), // Warna untuk toggle switch
-    trackColor: MaterialStateProperty.all(
-        ColorSystem.appColorGray), // Warna untuk track switch
+    thumbColor: MaterialStateProperty.all(ColorSystem.headerLight),
+    trackColor: MaterialStateProperty.all(ColorSystem.appColorGray),
   ),
 );
 
@@ -52,6 +54,10 @@ ThemeData darkMode = ThemeData(
   appBarTheme: const AppBarTheme(
     elevation: 4,
     backgroundColor: ColorSystem.backgroundDark,
+    iconTheme: IconThemeData(
+      color: ColorSystem.appColorWhite,
+      size: 24.0,
+    ),
   ),
   textTheme: const TextTheme(
     headlineSmall: TextStyle(color: ColorSystem.appColorWhite),
@@ -74,9 +80,7 @@ ThemeData darkMode = ThemeData(
     labelColor: ColorSystem.appColorBrown,
   ),
   switchTheme: SwitchThemeData(
-    thumbColor: MaterialStateProperty.all(
-        ColorSystem.appColorTeal), // Warna untuk toggle switch
-    trackColor: MaterialStateProperty.all(
-        ColorSystem.appColorGray), // Warna untuk track switch
+    thumbColor: MaterialStateProperty.all(ColorSystem.appColorTeal),
+    trackColor: MaterialStateProperty.all(ColorSystem.appColorGray),
   ),
 );

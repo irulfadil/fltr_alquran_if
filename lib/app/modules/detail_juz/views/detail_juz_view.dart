@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../../../utils/color_system.dart';
+import '../../../../widgets/custom_elevated_button.dart';
 import '../../../../widgets/header_landscape.dart';
 import '../../../../widgets/header_portrait.dart';
 import '../../../data/models/juz_model.dart' as juz;
@@ -30,29 +31,28 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
   @override
   Widget build(BuildContext context) {
-    print("detailJuz.number: ${detailJuz.number}");
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Get.isDarkMode) {
         homeC.isDark.value = true;
       }
     });
 
-    List<dynamic> allSurahInJuz = [];
-    List<dynamic> allRevelationType = [];
-    List<dynamic> numberOfAyahs = [];
+    // List<dynamic> allSurahInJuz = [];
+    // List<dynamic> allRevelationType = [];
+    // List<dynamic> numberOfAyahs = [];
 
-    for (String elemn in surahInJuz) {
-      var allData = detailJuz.surahs?[elemn];
+    // for (String elemn in surahInJuz) {
+    //   var allData = detailJuz.surahs?[elemn];
 
-      if (allData != null) {
-        allSurahInJuz.add(allData.englishName.toString());
-        allRevelationType.add(allData.revelationType.toString());
-        numberOfAyahs.add(allData.numberOfAyahs.toString());
-      } else {
-        allSurahInJuz.add("Data Empty");
-        allRevelationType.add("Data Empty");
-      }
-    }
+    //   if (allData != null) {
+    //     allSurahInJuz.add(allData.englishName.toString());
+    //     allRevelationType.add(allData.revelationType.toString());
+    //     numberOfAyahs.add(allData.numberOfAyahs.toString());
+    //   } else {
+    //     allSurahInJuz.add("Data Empty");
+    //     allRevelationType.add("Data Empty");
+    //   }
+    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -259,6 +259,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                                             .appColorWhite
                                                         : ColorSystem
                                                             .appColorBrown,
+                                                    fontSize: 18.0,
                                                   ),
                                                   middleTextStyle: TextStyle(
                                                     color: homeC.isDark.isTrue
@@ -271,53 +272,43 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                                   middleText:
                                                       "Please, Choose LastRead or Bookmark ?",
                                                   actions: [
-                                                    ElevatedButton(
-                                                      onPressed: () async {
-                                                        await c.addBookmark(
-                                                            true,
-                                                            surahAyahs,
-                                                            index);
-                                                        homeC.update();
-                                                      },
-                                                      style: ElevatedButton
-                                                          .styleFrom(
+                                                    SizedBox(
+                                                      width: 110,
+                                                      child:
+                                                          CustomElevatedButton(
+                                                        onPressed: () async {
+                                                          await c.addBookmark(
+                                                              true,
+                                                              surahAyahs,
+                                                              index);
+                                                          homeC.update();
+                                                        },
+                                                        text: "LAST READ",
                                                         backgroundColor:
                                                             ColorSystem
                                                                 .appColorBrown,
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          color: ColorSystem
-                                                              .appColorWhite,
-                                                        ),
-                                                      ),
-                                                      child: const Text(
-                                                        "LAST READ",
-                                                        style: TextStyle(
-                                                          fontSize: 12.0,
-                                                        ),
+                                                        colorText: ColorSystem
+                                                            .appColorWhite,
+                                                        colorBorder:
+                                                            Colors.transparent,
                                                       ),
                                                     ),
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                        c.addBookmark(false,
-                                                            surahAyahs, index);
-                                                      },
-                                                      style: ElevatedButton
-                                                          .styleFrom(
+                                                    SizedBox(
+                                                      width: 110,
+                                                      child:
+                                                          CustomElevatedButton(
+                                                        onPressed: () async {
+                                                          await c.addBookmark(
+                                                              false,
+                                                              surahAyahs,
+                                                              index);
+                                                        },
+                                                        text: "BOOKMARK",
                                                         backgroundColor:
                                                             ColorSystem
                                                                 .appColorTeal,
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          color: ColorSystem
-                                                              .appColorWhite,
-                                                        ),
-                                                      ),
-                                                      child: const Text(
-                                                        "BOOKMARK",
-                                                        style: TextStyle(
-                                                          fontSize: 12.0,
-                                                        ),
+                                                        colorBorder:
+                                                            Colors.transparent,
                                                       ),
                                                     ),
                                                   ],

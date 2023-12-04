@@ -21,7 +21,7 @@ class SearchControl extends GetxController {
           queryStart.add(surah.toJson());
         }
       } else {
-        print('Get Data Surah Empty');
+        print('Get Data Empty');
       }
 
       surahSearch.assignAll(queryStart);

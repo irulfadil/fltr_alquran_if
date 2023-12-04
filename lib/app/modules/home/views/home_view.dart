@@ -3,17 +3,22 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/color_system.dart';
+import '../../../../widgets/custom_elevated_button.dart';
 import '../../../../widgets/custom_icon_button.dart';
 import '../../../data/models/juz_model.dart';
 import '../../../data/models/surah_model.dart';
 import '../../../routes/app_pages.dart';
 import '../../loading/loading_alljuz.dart';
 import '../controllers/home_controller.dart';
+import 'package:intl/intl.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({super.key});
   final indexTabHome = Get.arguments['indexTabHome'] ?? 0;
   final indexTabBookmark = Get.arguments['indexTabBokkmark'] ?? 0;
+
+  final now = DateTime.now();
+  final formatter = DateFormat('EEEE, MMMM d, y');
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +27,8 @@ class HomeView extends GetView<HomeController> {
         controller.isDark.value = true;
       }
     });
+
+    String formattedDate = formatter.format(now);
 
     return Scaffold(
       appBar: AppBar(
@@ -47,64 +54,82 @@ class HomeView extends GetView<HomeController> {
         ],
       ),
       drawer: Drawer(
-          child: ListView(
-        children: [
-          Obx(
-            () => Container(
-              height: 50,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: controller.isDark.isTrue
-                      ? [ColorSystem.headerDark, ColorSystem.headerDark]
-                      : [ColorSystem.headerLight, ColorSystem.headerLight],
-                ),
-              ),
-              child: Stack(children: [
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Opacity(
-                    opacity: 0.1,
-                    child: SizedBox(
-                        height: 80,
-                        width: 80,
-                        child: Image.asset(
-                          "assets/images/dark-logo-alquran-black.png",
-                          fit: BoxFit.cover,
-                        )),
+        child: ListView(
+          children: [
+            Obx(
+              () => Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: controller.isDark.isTrue
+                        ? [ColorSystem.headerDark, ColorSystem.headerDark]
+                        : [ColorSystem.headerLight, ColorSystem.headerLight],
                   ),
                 ),
-              ]),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      bottom: 10,
+                      left: 5,
+                      child: Center(
+                        child: Text(
+                          formattedDate,
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              color: controller.isDark.isTrue
+                                  ? ColorSystem.appColorGray
+                                  : ColorSystem.appColorWhite),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Opacity(
+                        opacity: 0.1,
+                        child: SizedBox(
+                          height: 80,
+                          width: 80,
+                          child: Image.asset(
+                            "assets/images/dark-logo-alquran-black.png",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text("Menu"),
-            onTap: () {
-              Get.offAllNamed(Routes.accessMenu);
-            },
-          ),
-          Obx(
-            () => SwitchListTile(
-              title: controller.isDark.isTrue
-                  ? const Text("Dark")
-                  : const Text("Light"),
-              value: controller.isDark.isTrue,
-              onChanged: (value) {
-                controller.changeTheme();
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text("Menu"),
+              onTap: () {
+                Get.offAllNamed(Routes.accessMenu);
               },
-              secondary: controller.isDark.isTrue
-                  ? const Icon(Icons.nightlight_round)
-                  : const Icon(Icons.wb_sunny),
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text("Setting"),
-            onTap: () {},
-          )
-        ],
-      )),
+            Obx(
+              () => SwitchListTile(
+                title: controller.isDark.isTrue
+                    ? const Text("Dark")
+                    : const Text("Light"),
+                value: controller.isDark.isTrue,
+                onChanged: (value) {
+                  controller.changeTheme();
+                },
+                secondary: controller.isDark.isTrue
+                    ? const Icon(Icons.nightlight_round)
+                    : const Icon(Icons.wb_sunny),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text("Setting"),
+              onTap: () {},
+            )
+          ],
+        ),
+      ),
       body: DefaultTabController(
         initialIndex: indexTabBookmark ?? indexTabHome,
         length: 3,
@@ -293,40 +318,42 @@ class HomeView extends GetView<HomeController> {
                                 if (lastRead != null) {
                                   Get.defaultDialog(
                                     title: "Message",
+                                    titleStyle: const TextStyle(
+                                      fontSize: 18.0,
+                                    ),
                                     middleText:
                                         "Are you sure delete last read ?",
                                     actions: [
-                                      OutlinedButton(
-                                        onPressed: () => Get.back(),
-                                        child: Text(
-                                          "CANCEL",
-                                          style: controller.isDark.isTrue
-                                              ? const TextStyle(
-                                                  color:
-                                                      ColorSystem.appColorWhite)
-                                              : Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall,
+                                      SizedBox(
+                                        width: 100,
+                                        child: CustomElevatedButton(
+                                          onPressed: () => Get.back(),
+                                          text: "CANCEL",
+                                          backgroundColor:
+                                              controller.isDark.isTrue
+                                                  ? Colors.transparent
+                                                  : ColorSystem.appColorWhite,
+                                          colorBorder:
+                                              ColorSystem.appColorWhite,
+                                          colorText: controller.isDark.isTrue
+                                              ? ColorSystem.appColorWhite
+                                              : ColorSystem.appColorTeal,
                                         ),
                                       ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          controller
-                                              .deletBookmark(lastRead['id']);
-                                          Get.back();
-                                        },
-                                        style: ElevatedButton.styleFrom(
+                                      SizedBox(
+                                        width: 100,
+                                        child: CustomElevatedButton(
+                                          onPressed: () {
+                                            controller
+                                                .deletBookmark(lastRead['id']);
+                                            Get.back();
+                                          },
+                                          text: "DELETE",
                                           backgroundColor:
                                               ColorSystem.appColorTeal,
-                                          textStyle: const TextStyle(
-                                            color: ColorSystem.appColorWhite,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                                          colorBorder: Colors.transparent,
                                         ),
-                                        child: const Text(
-                                          "DELETE",
-                                        ),
-                                      )
+                                      ),
                                     ],
                                   );
                                 }
@@ -369,6 +396,7 @@ class HomeView extends GetView<HomeController> {
                                     confirmTextColor: ColorSystem.appColorGray,
                                     titleStyle: const TextStyle(
                                       color: ColorSystem.appColorGray,
+                                      fontSize: 18.0,
                                     ),
                                     middleTextStyle: const TextStyle(
                                       color: ColorSystem.appColorGray,
@@ -377,17 +405,14 @@ class HomeView extends GetView<HomeController> {
                                     middleText:
                                         "Last read data in processing...",
                                     actions: [
-                                      OutlinedButton(
-                                        onPressed: () => Get.back(),
-                                        style: OutlinedButton.styleFrom(
-                                          side: const BorderSide(
-                                              color: ColorSystem.appColorGray),
-                                        ),
-                                        child: const Text(
-                                          "Back",
-                                          style: TextStyle(
-                                            color: ColorSystem.appColorGray,
-                                          ),
+                                      SizedBox(
+                                        width: 80,
+                                        child: CustomElevatedButton(
+                                          onPressed: () => Get.back(),
+                                          text: "BACK",
+                                          backgroundColor: Colors.transparent,
+                                          colorBorder:
+                                              ColorSystem.appColorWhite,
                                         ),
                                       ),
                                     ],
@@ -628,13 +653,25 @@ class HomeView extends GetView<HomeController> {
                             List<dynamic> surahInJuz =
                                 detailJuz.surahs!.keys.toList();
 
-                            String startSurah = detailJuz.surahs!.keys.first;
-                            String lastSurah = detailJuz.surahs!.keys.last;
+                            List<dynamic> nameSurahInJuz = [];
 
-                            String? startNameSurah =
-                                detailJuz.surahs![startSurah]!.englishName;
-                            String? lastNameSurah =
-                                detailJuz.surahs![lastSurah]!.englishName;
+                            for (String elemn in surahInJuz) {
+                              var allData = detailJuz.surahs?[elemn];
+
+                              if (allData != null) {
+                                nameSurahInJuz
+                                    .add(allData.englishName.toString());
+                              }
+                            }
+
+                            // String startSurah = detailJuz.surahs!.keys.first;
+                            // String lastSurah = detailJuz.surahs!.keys.last;
+
+                            // String? startNameSurah =
+                            //     detailJuz.surahs![startSurah]!.englishName;
+                            // String? lastNameSurah =
+                            //     detailJuz.surahs![lastSurah]!.englishName;
+
                             return Obx(
                               () => ListTile(
                                 onTap: () => Get.toNamed(
@@ -674,7 +711,9 @@ class HomeView extends GetView<HomeController> {
                                       fontSize: 16.0),
                                 ),
                                 subtitle: Text(
-                                  "$startNameSurah - $lastNameSurah",
+                                  // ignore: unnecessary_string_interpolations
+                                  "${nameSurahInJuz.join(', ')}",
+                                  // "$startNameSurah - $lastNameSurah",
                                   style: const TextStyle(
                                     color: Colors.grey,
                                   ),
@@ -798,40 +837,43 @@ class HomeView extends GetView<HomeController> {
                                   trailing: IconButton(
                                     onPressed: () {
                                       Get.defaultDialog(
+                                        titleStyle: const TextStyle(
+                                          fontSize: 18.0,
+                                        ),
                                         title: "Delete",
                                         middleText:
                                             "Are you sure delete bookmark ?",
                                         actions: [
-                                          OutlinedButton(
+                                          SizedBox(
+                                            width: 100,
+                                            child: CustomElevatedButton(
                                               onPressed: () => Get.back(),
-                                              child: Text(
-                                                "CANCEL",
-                                                style: controller.isDark.isTrue
-                                                    ? const TextStyle(
-                                                        color: ColorSystem
-                                                            .appColorWhite)
-                                                    : Theme.of(context)
-                                                        .textTheme
-                                                        .titleSmall,
-                                              )),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              c.deletBookmark(data['id']);
-                                              Get.back();
-                                            },
-                                            style: ElevatedButton.styleFrom(
+                                              text: "CANCEL",
+                                              backgroundColor: controller
+                                                      .isDark.isTrue
+                                                  ? Colors.transparent
+                                                  : ColorSystem.appColorWhite,
+                                              colorBorder:
+                                                  ColorSystem.appColorWhite,
+                                              colorText: controller
+                                                      .isDark.isTrue
+                                                  ? ColorSystem.appColorWhite
+                                                  : ColorSystem.appColorTeal,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 100,
+                                            child: CustomElevatedButton(
+                                              onPressed: () {
+                                                c.deletBookmark(data['id']);
+                                                Get.back();
+                                              },
+                                              text: "DELETE",
                                               backgroundColor:
                                                   ColorSystem.appColorTeal,
-                                              textStyle: const TextStyle(
-                                                color:
-                                                    ColorSystem.appColorWhite,
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                              colorBorder: Colors.transparent,
                                             ),
-                                            child: const Text(
-                                              "DELETE",
-                                            ),
-                                          )
+                                          ),
                                         ],
                                       );
                                     },

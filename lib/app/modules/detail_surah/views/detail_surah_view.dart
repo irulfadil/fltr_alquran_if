@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../../../utils/color_system.dart';
+import '../../../../widgets/custom_elevated_button.dart';
 import '../../../../widgets/header_landscape.dart';
 import '../../../../widgets/header_portrait.dart';
 import '../../../data/models/surah_detail_model.dart';
@@ -97,8 +98,6 @@ class DetailSurahView extends GetView<DetailSurahController> {
               // argument bookmark use index autoscroll
               if (Get.arguments['bookmark'] != null) {
                 bookmark = Get.arguments['bookmark'];
-                print("Databookmark: $bookmark");
-                print("index_ayah: ${bookmark!['index_ayah']}");
                 // index_ayah for autoscroll
                 if (bookmark!['index_ayah'] > 1) {
                   // +2 ini adalah angka index from autoScrollTag
@@ -107,7 +106,6 @@ class DetailSurahView extends GetView<DetailSurahController> {
                     bookmark!['index_ayah'],
                     preferPosition: AutoScrollPosition.begin,
                   );
-                  print("success");
                 }
               }
 
@@ -218,6 +216,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                                 color: homeC.isDark.isTrue
                                                     ? ColorSystem.appColorWhite
                                                     : ColorSystem.appColorBrown,
+                                                fontSize: 18.0,
                                               ),
                                               middleTextStyle: TextStyle(
                                                 color: homeC.isDark.isTrue
@@ -228,47 +227,35 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                               middleText:
                                                   "Please, Choose LastRead or Bookmark ?",
                                               actions: [
-                                                ElevatedButton(
-                                                  onPressed: () async {
-                                                    await c.addBookmark(true,
-                                                        surahAyahs, index);
-                                                    homeC.update();
-                                                  },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
+                                                SizedBox(
+                                                  width: 110,
+                                                  child: CustomElevatedButton(
+                                                    onPressed: () async {
+                                                      await c.addBookmark(true,
+                                                          surahAyahs, index);
+                                                      homeC.update();
+                                                    },
+                                                    text: "LAST READ",
                                                     backgroundColor: ColorSystem
                                                         .appColorBrown,
-                                                    textStyle: const TextStyle(
-                                                      color: ColorSystem
-                                                          .appColorWhite,
-                                                    ),
-                                                  ),
-                                                  child: const Text(
-                                                    "LAST READ",
-                                                    style: TextStyle(
-                                                      fontSize: 12.0,
-                                                    ),
+                                                    colorText: ColorSystem
+                                                        .appColorWhite,
+                                                    colorBorder:
+                                                        Colors.transparent,
                                                   ),
                                                 ),
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    c.addBookmark(false,
-                                                        surahAyahs, index);
-                                                  },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
+                                                SizedBox(
+                                                  width: 110,
+                                                  child: CustomElevatedButton(
+                                                    onPressed: () async {
+                                                      c.addBookmark(false,
+                                                          surahAyahs, index);
+                                                    },
+                                                    text: "BOOKMARK",
                                                     backgroundColor: ColorSystem
                                                         .appColorTeal,
-                                                    textStyle: const TextStyle(
-                                                      color: ColorSystem
-                                                          .appColorWhite,
-                                                    ),
-                                                  ),
-                                                  child: const Text(
-                                                    "BOOKMARK",
-                                                    style: TextStyle(
-                                                      fontSize: 12.0,
-                                                    ),
+                                                    colorBorder:
+                                                        Colors.transparent,
                                                   ),
                                                 ),
                                               ],

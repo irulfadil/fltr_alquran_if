@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 import 'package:get/get.dart';
 
 import '../../../../utils/color_system.dart';
+import '../../../../widgets/custom_elevated_button.dart';
 import '../../../data/models/juz_model.dart';
 import '../../../routes/app_pages.dart';
 import '../../home/controllers/home_controller.dart';
@@ -124,6 +125,7 @@ class AccessMenuView extends GetView<AccessMenuController> {
                                             ColorSystem.appColorGray,
                                         titleStyle: const TextStyle(
                                           color: ColorSystem.appColorGray,
+                                          fontSize: 18.0,
                                         ),
                                         middleTextStyle: const TextStyle(
                                           color: ColorSystem.appColorGray,
@@ -132,20 +134,33 @@ class AccessMenuView extends GetView<AccessMenuController> {
                                         middleText:
                                             "Last read data is empty or in processing...",
                                         actions: [
-                                          OutlinedButton(
-                                            onPressed: () => Get.back(),
-                                            style: OutlinedButton.styleFrom(
-                                              side: const BorderSide(
-                                                  color:
-                                                      ColorSystem.appColorGray),
-                                            ),
-                                            child: const Text(
-                                              "Back",
-                                              style: TextStyle(
-                                                color: ColorSystem.appColorGray,
-                                              ),
+                                          SizedBox(
+                                            width: 80,
+                                            child: CustomElevatedButton(
+                                              onPressed: () => Get.back(),
+                                              text: "BACK",
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              colorBorder:
+                                                  ColorSystem.appColorWhite,
                                             ),
                                           ),
+                                          // Row(
+                                          //   mainAxisAlignment:
+                                          //       MainAxisAlignment.center,
+                                          //   children: [
+                                          //     CustomIconButton(
+                                          //       onPressed: () {},
+                                          //       onTap: () {},
+                                          //       icon: Icons.arrow_back_sharp,
+                                          //     ),
+                                          //     CustomElevatedButton(
+                                          //       onPressed: () => Get.back(),
+                                          //       text: "BACK",
+                                          //       buttonWidth: 0.5,
+                                          //     ),
+                                          //   ],
+                                          // )
                                         ],
                                       );
                                     }
