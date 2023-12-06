@@ -35,6 +35,34 @@ class AccessMenuView extends GetView<AccessMenuController> {
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/light-logo-alquran-green.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/light-list-numb-surah-4pt.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20.0),
                         InkWell(
                           onTap: () {
                             Get.offAllNamed(
@@ -145,22 +173,6 @@ class AccessMenuView extends GetView<AccessMenuController> {
                                                   ColorSystem.appColorWhite,
                                             ),
                                           ),
-                                          // Row(
-                                          //   mainAxisAlignment:
-                                          //       MainAxisAlignment.center,
-                                          //   children: [
-                                          //     CustomIconButton(
-                                          //       onPressed: () {},
-                                          //       onTap: () {},
-                                          //       icon: Icons.arrow_back_sharp,
-                                          //     ),
-                                          //     CustomElevatedButton(
-                                          //       onPressed: () => Get.back(),
-                                          //       text: "BACK",
-                                          //       buttonWidth: 0.5,
-                                          //     ),
-                                          //   ],
-                                          // )
                                         ],
                                       );
                                     }

@@ -14,6 +14,9 @@ import '../../../data/models/surah_model.dart';
 
 class HomeController extends GetxController {
   RxBool isDark = false.obs;
+  RxBool isEnabledTranslate = true.obs;
+  RxDouble isfontSize = 16.0.obs;
+
   List<Juz> allJuz = [];
   final box = GetStorage();
 

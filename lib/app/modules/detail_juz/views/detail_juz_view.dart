@@ -9,12 +9,14 @@ import '../../../../widgets/header_landscape.dart';
 import '../../../../widgets/header_portrait.dart';
 import '../../../data/models/juz_model.dart' as juz;
 import '../../home/controllers/home_controller.dart';
+import '../../setting/controllers/setting_controller.dart';
 import '../controllers/detail_juz_controller.dart';
 
 // ignore: must_be_immutable
 class DetailJuzView extends GetView<DetailJuzController> {
   DetailJuzView({Key? key}) : super(key: key);
   final homeC = Get.find<HomeController>();
+  final settingC = Get.find<SettingController>();
   late Map<String, dynamic>? bookmark;
 
   final DetailJuzController juzSurah = Get.put(DetailJuzController());
@@ -37,6 +39,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
       }
     });
 
+    settingC.loadFontSizeArabic();
     // List<dynamic> allSurahInJuz = [];
     // List<dynamic> allRevelationType = [];
     // List<dynamic> numberOfAyahs = [];
@@ -378,17 +381,21 @@ class DetailJuzView extends GetView<DetailJuzController> {
                               const SizedBox(height: 20.0),
                               Text(
                                 "${detailAyahs.text}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                style: TextStyle(
+                                  color: homeC.isDark.isTrue
+                                      ? ColorSystem.appColorGray
+                                      : ColorSystem.appColorBrown,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: settingC.isfontSizeArabic.value
+                                      .toDouble(),
+                                ),
                                 textAlign: TextAlign.right,
                               ),
                               const SizedBox(height: 20.0),
                               Text(
-                                "${detailAyahsTranslate['text']}",
+                                homeC.isEnabledTranslate.isTrue
+                                    ? "${detailAyahsTranslate['text']}"
+                                    : "",
                                 style: TextStyle(
                                   color: homeC.isDark.isTrue
                                       ? ColorSystem.appColorGray

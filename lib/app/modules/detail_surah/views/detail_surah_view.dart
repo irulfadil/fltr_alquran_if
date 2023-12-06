@@ -8,12 +8,15 @@ import '../../../../widgets/header_portrait.dart';
 import '../../../data/models/surah_detail_model.dart';
 import '../../../data/models/surah_detail_translate_model.dart';
 import '../../home/controllers/home_controller.dart';
+import '../../setting/controllers/setting_controller.dart';
 import '../controllers/detail_surah_controller.dart';
 
 // ignore: must_be_immutable
 class DetailSurahView extends GetView<DetailSurahController> {
   DetailSurahView({Key? key}) : super(key: key);
   final homeC = Get.find<HomeController>();
+  // final settingC = Get.put(SettingController());
+  final settingC = Get.find<SettingController>();
   late Map<String, dynamic>? bookmark;
 
   Future<List<dynamic>> fetchData() async {
@@ -31,6 +34,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
         homeC.isDark.value = true;
       }
     });
+
+    settingC.loadFontSizeArabic();
 
     return Scaffold(
       appBar: AppBar(
@@ -318,18 +323,22 @@ class DetailSurahView extends GetView<DetailSurahController> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                ayahs.text.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                "${ayahs.text}",
+                                style: TextStyle(
+                                  color: homeC.isDark.isTrue
+                                      ? ColorSystem.appColorGray
+                                      : ColorSystem.appColorBrown,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: settingC.isfontSizeArabic.value
+                                      .toDouble(),
+                                ),
                                 textAlign: TextAlign.right,
                               ),
                               const SizedBox(height: 20.0),
                               Text(
-                                ayahsTranslate.text.toString(),
+                                homeC.isEnabledTranslate.isTrue
+                                    ? "${ayahsTranslate.text}"
+                                    : "",
                                 style: TextStyle(
                                   color: homeC.isDark.isTrue
                                       ? ColorSystem.appColorGray

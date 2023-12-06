@@ -64,20 +64,45 @@ class IntroductionView extends GetView<IntroductionController> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              "Read, even if just one verse.",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: ColorSystem.appColorWhite,
-                                fontSize: 14,
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                "Read, even if it's just one verse.",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: ColorSystem.appColorWhite,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 10.0),
                             Center(
-                              child: SizedBox(
-                                width: 125,
-                                child: Image.asset(
-                                    "assets/images/light-logo-alquran-green.png"),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Container(
+                                    width: 60,
+                                    height: 60,
+                                    decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/light-logo-alquran-green.png'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 100,
+                                    height: 100,
+                                    decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/light-list-numb-surah-4pt.png'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -113,7 +138,10 @@ class IntroductionView extends GetView<IntroductionController> {
                   },
                   child: const Text(
                     "IQRAA'",
-                    style: TextStyle(color: ColorSystem.appColorWhite),
+                    style: TextStyle(
+                      color: ColorSystem.appColorWhite,
+                      fontSize: 14.0,
+                    ),
                   ),
                 ),
               ),

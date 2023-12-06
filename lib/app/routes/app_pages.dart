@@ -8,10 +8,14 @@ import '../modules/detail_surah/bindings/detail_surah_binding.dart';
 import '../modules/detail_surah/views/detail_surah_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/information_privacy/bindings/information_privacy_binding.dart';
+import '../modules/information_privacy/views/information_privacy_view.dart';
 import '../modules/introduction/views/introduction_view.dart';
 import '../modules/loading/loading_alljuz.dart';
 import '../modules/search/bindings/search_binding.dart';
 import '../modules/search/views/search_view.dart';
+import '../modules/setting/bindings/setting_binding.dart';
+import '../modules/setting/views/setting_view.dart';
 
 part 'app_routes.dart';
 
@@ -50,6 +54,16 @@ class AppPages {
       name: Routes.accessMenu,
       page: () => AccessMenuView(),
       binding: AccessMenuBinding(),
+    ),
+    GetPage(
+      name: Routes.setting,
+      page: () => SettingView(),
+      binding: SettingBinding(),
+    ),
+    GetPage(
+      name: Routes.informationPrivacy,
+      page: () => const InformationPrivacyView(),
+      binding: InformationPrivacyBinding(),
     ),
   ];
 }

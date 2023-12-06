@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../setting/controllers/setting_controller.dart';
 import '../controllers/detail_juz_controller.dart';
 
 class DetailJuzBinding extends Bindings {
@@ -7,6 +8,9 @@ class DetailJuzBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<DetailJuzController>(
       () => DetailJuzController(),
+    );
+    Get.lazyPut<SettingController>(
+      () => SettingController(),
     );
   }
 }

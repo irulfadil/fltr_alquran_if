@@ -44,12 +44,27 @@ class HomeView extends GetView<HomeController> {
             icon: Icons.search,
             onTap: () {},
           ),
-          CustomIconButton(
-            onPressed: () {},
-            icon: Icons.more_vert,
-            onTap: () {
-              Scaffold.of(context).openDrawer();
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.more_vert),
+            onSelected: (value) {
+              if (value == 'setting') {
+                Get.toNamed(Routes.setting);
+              }
             },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'setting',
+                child: ListTile(
+                  title: Row(
+                    children: [
+                      Icon(Icons.settings),
+                      SizedBox(width: 8),
+                      Text("Setting"),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -108,6 +123,7 @@ class HomeView extends GetView<HomeController> {
                 Get.offAllNamed(Routes.accessMenu);
               },
             ),
+            // untuk color SwitchListTile bisa set default di custom_theme.
             Obx(
               () => SwitchListTile(
                 title: controller.isDark.isTrue
@@ -120,13 +136,11 @@ class HomeView extends GetView<HomeController> {
                 secondary: controller.isDark.isTrue
                     ? const Icon(Icons.nightlight_round)
                     : const Icon(Icons.wb_sunny),
+                activeColor: ColorSystem.appColorTeal,
+                inactiveThumbColor: ColorSystem.appColorGray,
+                inactiveTrackColor: Colors.grey[300],
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text("Setting"),
-              onTap: () {},
-            )
           ],
         ),
       ),
@@ -574,10 +588,11 @@ class HomeView extends GetView<HomeController> {
                                     child: Text(
                                       "${surah.number ?? 'Error'}",
                                       style: TextStyle(
-                                          color: controller.isDark.isTrue
-                                              ? ColorSystem.appColorBrown
-                                              : ColorSystem.appColorGreen,
-                                          fontSize: 14.0),
+                                        color: controller.isDark.isTrue
+                                            ? ColorSystem.appColorBrown
+                                            : ColorSystem.appColorGreen,
+                                        fontSize: 14.0,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -686,9 +701,11 @@ class HomeView extends GetView<HomeController> {
                                   width: 45,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(controller.isDark.isTrue
-                                          ? "assets/images/dark-list-numb-juz-4pt.png"
-                                          : "assets/images/light-list-numb-juz-4pt.png"),
+                                      image: AssetImage(
+                                        controller.isDark.isTrue
+                                            ? "assets/images/dark-list-numb-juz-4pt.png"
+                                            : "assets/images/light-list-numb-juz-4pt.png",
+                                      ),
                                     ),
                                   ),
                                   child: Center(

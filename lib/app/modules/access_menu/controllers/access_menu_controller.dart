@@ -21,7 +21,7 @@ class AccessMenuController extends GetxController {
   Future<void> getAllJuzCopy() async {
     try {
       isLoading.value = true;
-      List<Juz> juzList = await homeC.getAllJuz();
+      List<Juz> juzList = homeC.getAllJuz() as List<Juz>;
       if (juzList.isNotEmpty) {
         for (var juz in juzList) {
           if (!copyallJuz.contains(juz)) {
