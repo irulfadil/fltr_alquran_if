@@ -16,7 +16,7 @@ class SettingView extends GetView<SettingController> {
   Widget build(BuildContext context) {
     controller.loadFontSizeArabic();
 
-    String selectedValue = '';
+    String selectedValue = 'utsmani';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Setting'),
@@ -38,7 +38,12 @@ class SettingView extends GetView<SettingController> {
           ),
           ListTile(
             title: const Text("Jenis Penulisan Arabic"),
-            subtitle: const Text("Utsmani"),
+            subtitle: const Text(
+              "Utsmani",
+              style: TextStyle(
+                color: ColorSystem.appColorGray,
+              ),
+            ),
             onTap: () {
               Get.defaultDialog(
                 title: "Jenis Penulisan Arabic",
@@ -49,13 +54,10 @@ class SettingView extends GetView<SettingController> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     RadioListTile<String>(
-                      title: const Text('Asia'),
-                      value: 'asia',
-                      groupValue: selectedValue,
-                      onChanged: (value) {
-                        selectedValue = value!;
-                      },
-                    ),
+                        title: const Text('IndoPak / Asia'),
+                        value: 'asia',
+                        groupValue: selectedValue,
+                        onChanged: (value) {}),
                     RadioListTile<String>(
                       title: const Text('Utsmani'),
                       value: 'utsmani',
@@ -85,9 +87,15 @@ class SettingView extends GetView<SettingController> {
               );
             },
           ),
-          Obx(()=>ListTile(
+          Obx(
+            () => ListTile(
               title: const Text("Ukuran Font Arabic"),
-              subtitle: Text("${controller.isfontSizeArabic.value} px"),
+              subtitle: Text(
+                "${controller.isfontSizeArabic.value} px",
+                style: const TextStyle(
+                  color: ColorSystem.appColorGray,
+                ),
+              ),
               onTap: () {
                 Get.defaultDialog(
                   title: "Ukuran Font Arabic",
@@ -155,7 +163,8 @@ class SettingView extends GetView<SettingController> {
               onChanged: (value) {
                 homeC.isEnabledTranslate.toggle();
               },
-              secondary: const Icon(Icons.remove_red_eye_rounded),
+              secondary: const Icon(Icons.remove_red_eye_rounded,
+                  color: ColorSystem.appColorTeal),
               activeColor: ColorSystem.appColorTeal,
               inactiveThumbColor: ColorSystem.appColorGray,
               inactiveTrackColor: Colors.grey[300],
@@ -165,7 +174,8 @@ class SettingView extends GetView<SettingController> {
             title: const Text("Translate"),
             value: false,
             onChanged: (value) {},
-            secondary: const Icon(Icons.g_translate_outlined),
+            secondary: const Icon(Icons.g_translate_outlined,
+                color: ColorSystem.appColorTeal),
             // activeColor: ColorSystem.appColorTeal,
             inactiveThumbColor: ColorSystem.appColorGray,
             inactiveTrackColor: Colors.grey[300],
@@ -190,16 +200,51 @@ class SettingView extends GetView<SettingController> {
             height: 10.0,
           ),
           ListTile(
-            leading: const Icon(Icons.info_outlined),
-            title: const Text("Informasi & Privasi"),
+            leading: const Icon(Icons.info),
+            title: const Text("Information & Privacy"),
+            subtitle: const Text(
+              "Information & privacy term",
+              style: TextStyle(
+                color: ColorSystem.appColorGray,
+              ),
+            ),
             onTap: () {
               Get.toNamed(Routes.informationPrivacy);
             },
+            iconColor: ColorSystem.appColorTeal,
           ),
-          ListTile(
-            leading: const Icon(Icons.contact_mail_sharp),
-            title: const Text("Kontak"),
-            onTap: () {},
+          const SizedBox(
+            height: 20.0,
+          ),
+          const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Contact us",
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.web,
+                    size: 32,
+                    color: ColorSystem.appColorTeal,
+                  ),
+                  Icon(
+                    Icons.email,
+                    size: 32,
+                    color: ColorSystem.appColorBrown,
+                  ),
+                ],
+              )
+            ],
           ),
         ],
       ),

@@ -11,4 +11,6 @@ abstract class Routes {
   static const accessMenu = '/access-menu';
   static const setting = '/setting';
   static const informationPrivacy = '/information-privacy';
+  static const informationApp = '/information-app';
+  static const privacyApp = '/privacy-app';
 }

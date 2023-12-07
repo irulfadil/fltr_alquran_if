@@ -1,8 +1,9 @@
+import 'package:fltr_alquran_if/utils/color_system.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../utils/color_system.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/information_privacy_controller.dart';
 
 class InformationPrivacyView extends GetView<InformationPrivacyController> {
@@ -14,16 +15,37 @@ class InformationPrivacyView extends GetView<InformationPrivacyController> {
         title: const Text('Information & Privacy'),
         centerTitle: true,
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Text(
-          'Ini adalah contoh paragraf. Paragraf biasanya terdiri dari beberapa kalimat atau bagian yang berkaitan dan membentuk sebuah pikiran atau ide tertentu. Dalam pengembangan aplikasi, kita sering menggunakan widget Text untuk menampilkan teks seperti paragraf.',
-          textAlign: TextAlign.justify,
-          style: TextStyle(
-            fontSize: 16.0,
-            color: ColorSystem.appColorBrown,
+      body: ListView(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.info),
+            title: const Text("Informasi Aplikasi"),
+            subtitle: const Text(
+              "Info tentang aplikasi ini",
+              style: TextStyle(
+                color: ColorSystem.appColorGray,
+              ),
+            ),
+            onTap: () {
+              Get.toNamed(Routes.informationApp);
+            },
+            iconColor: ColorSystem.appColorTeal,
           ),
-        ),
+          ListTile(
+            leading: const Icon(Icons.lock_rounded),
+            title: const Text("Kebijakan Privasi"),
+            subtitle: const Text(
+              "Kebijakan privasi aplikasi ini",
+              style: TextStyle(
+                color: ColorSystem.appColorGray,
+              ),
+            ),
+            onTap: () {
+              Get.toNamed(Routes.privacyApp);
+            },
+            iconColor: ColorSystem.appColorTeal,
+          ),
+        ],
       ),
     );
   }

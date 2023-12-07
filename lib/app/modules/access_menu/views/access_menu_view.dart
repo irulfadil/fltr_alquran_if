@@ -282,6 +282,38 @@ class AccessMenuView extends GetView<AccessMenuController> {
                         const SizedBox(
                           height: 20.0,
                         ),
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed(Routes.setting);
+                          },
+                          child: Container(
+                            width: 200,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.5),
+                              ),
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Colors.white.withOpacity(0.30),
+                                  ColorSystem.appColorGold.withOpacity(0.15),
+                                ],
+                              ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                "Setting",
+                                style: TextStyle(
+                                  color: ColorSystem.appColorWhite,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     )
                   : const Center(
