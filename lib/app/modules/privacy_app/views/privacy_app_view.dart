@@ -27,7 +27,7 @@ class PrivacyAppView extends GetView<PrivacyAppController> {
             "Saat Anda menggunakan aplikasi ini, Anda mempercayai aplikasi ini dengan informasi Anda. Karena aplikasi ini sangat fokus dengan privasi Anda, maka Kebijakan Privasi ini dimaksudkan untuk membantu Anda memahami data apa yang kami gunakan dan mengapa kami memerlukannya.",
             textAlign: TextAlign.justify,
             style: TextStyle(
-              fontSize: 16.0,
+              fontSize: 12.0,
               letterSpacing: 0.5,
               height: 1.5,
             ),
@@ -51,7 +51,7 @@ class PrivacyAppView extends GetView<PrivacyAppController> {
             "Aplikasi Al-Qur'an ini memerlukan akses ke penyimpanan di perangkat Anda, sehingga salah satu fitur bekerja dengan baik.",
             textAlign: TextAlign.justify,
             style: TextStyle(
-              fontSize: 16.0,
+              fontSize: 12.0,
               letterSpacing: 0.5,
               height: 1.5,
             ),
