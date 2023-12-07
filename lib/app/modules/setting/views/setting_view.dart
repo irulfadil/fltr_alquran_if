@@ -203,7 +203,7 @@ class SettingView extends GetView<SettingController> {
             leading: const Icon(Icons.info),
             title: const Text("Information & Privacy"),
             subtitle: const Text(
-              "Information & privacy term",
+              "Information & Privacy policy",
               style: TextStyle(
                 color: ColorSystem.appColorGray,
               ),
@@ -235,7 +235,7 @@ class SettingView extends GetView<SettingController> {
                   Icon(
                     Icons.web,
                     size: 32,
-                    color: ColorSystem.appColorTeal,
+                    color: ColorSystem.appColorBrown,
                   ),
                   Icon(
                     Icons.email,

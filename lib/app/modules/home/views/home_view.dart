@@ -618,8 +618,10 @@ class HomeView extends GetView<HomeController> {
                                     color: controller.isDark.isTrue
                                         ? ColorSystem.appColorGray
                                         : ColorSystem.appColorBrown,
-                                    fontSize: 20.0,
+                                    fontSize: 18.0,
+                                    // fontSize: 20.0, //tanpa fontFamily
                                     fontWeight: FontWeight.w500,
+                                    fontFamily: "MUHAMMADIBold",
                                   ),
                                 ),
                               ),

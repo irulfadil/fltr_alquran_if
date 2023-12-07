@@ -40,6 +40,8 @@ class DetailJuzView extends GetView<DetailJuzController> {
     });
 
     settingC.loadFontSizeArabic();
+
+    // Diguakan untuk mencari nilai awal surah dan akhir
     // List<dynamic> allSurahInJuz = [];
     // List<dynamic> allRevelationType = [];
     // List<dynamic> numberOfAyahs = [];
@@ -403,7 +405,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                       : Colors.grey,
                                   fontSize: 16.0,
                                 ),
-                                textAlign: TextAlign.left,
+                                textAlign: TextAlign.justify,
                               ),
                               const SizedBox(height: 20.0),
                             ],

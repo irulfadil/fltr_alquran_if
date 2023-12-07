@@ -24,7 +24,7 @@ class PrivacyAppView extends GetView<PrivacyAppController> {
           ),
           SizedBox(height: 5.0),
           Text(
-            "Saat Anda menggunakan aplikasi ini, Anda mempercayai kami dengan informasi Anda. Karena kami sangat fokus dengan privasi Anda, maka Kebijakan Privasi ini dimaksudkan untuk membantu Anda memahami data apa yang kami kumpulkan dan mengapa kami memerlukannya.",
+            "Saat Anda menggunakan aplikasi ini, Anda mempercayai aplikasi ini dengan informasi Anda. Karena aplikasi ini sangat fokus dengan privasi Anda, maka Kebijakan Privasi ini dimaksudkan untuk membantu Anda memahami data apa yang kami gunakan dan mengapa kami memerlukannya.",
             textAlign: TextAlign.justify,
             style: TextStyle(
               fontSize: 16.0,

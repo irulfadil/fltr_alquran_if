@@ -10,6 +10,7 @@ ThemeData lightMode = ThemeData(
   ),
   primaryColor: ColorSystem.appColorGreen,
   scaffoldBackgroundColor: ColorSystem.backgroundLight,
+  fontFamily: "Poppins",
   appBarTheme: const AppBarTheme(
     elevation: 4,
     backgroundColor: ColorSystem.appColorGreen,
@@ -51,6 +52,7 @@ ThemeData darkMode = ThemeData(
       backgroundColor: ColorSystem.backgroundLight),
   primaryColor: ColorSystem.appColorGreen,
   scaffoldBackgroundColor: ColorSystem.backgroundDark,
+  fontFamily: "Poppins",
   appBarTheme: const AppBarTheme(
     elevation: 4,
     backgroundColor: ColorSystem.backgroundDark,
