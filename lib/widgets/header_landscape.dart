@@ -20,57 +20,75 @@ class HeaderLandscape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 145,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(homeC.isDark.isTrue
-              ? "assets/images/header-dark.png"
-              : "assets/images/header-light.png"),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(22.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              revelationType,
-              style: const TextStyle(
-                color: ColorSystem.appColorBrown,
-                fontSize: 14,
-              ),
+    return Column(
+      children: [
+        Container(
+          height: 110,
+          decoration: BoxDecoration(
+            color: homeC.isDark.isTrue
+                ? ColorSystem.backgroundDarkSecondary
+                : ColorSystem.appColorBrown.withOpacity(0.1),
+            image: DecorationImage(
+              image: AssetImage(homeC.isDark.isTrue
+                  ? "assets/images/header-dark.png"
+                  : "assets/images/header-light.png"),
+              fit: BoxFit.cover,
             ),
-            const SizedBox(
-              width: 0.1,
-            ),
-            Column(
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(22.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const SizedBox(
-                  height: 55.0,
+                Text(
+                  revelationType,
+                  style: const TextStyle(
+                    color: ColorSystem.appColorBrown,
+                    fontSize: 12.0,
+                  ),
                 ),
                 Text(
                   englishName,
                   style: const TextStyle(
                     color: ColorSystem.appColorBrown,
-                    fontSize: 14,
+                    fontSize: 14.0,
+                  ),
+                ),
+                Text(
+                  "$numberOfAyahs Ayat",
+                  style: const TextStyle(
+                    color: ColorSystem.appColorBrown,
+                    fontSize: 12.0,
                   ),
                 ),
               ],
             ),
-            const SizedBox(
-              width: 0.1,
-            ),
-            Text(
-              "$numberOfAyahs Ayat",
-              style: const TextStyle(
-                color: ColorSystem.appColorBrown,
-                fontSize: 14,
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: homeC.isDark.isTrue
+                ? ColorSystem.backgroundDarkSecondary
+                : ColorSystem.appColorBrown.withOpacity(0.1),
+          ),
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 5.0),
+              width: 300,
+              height: 50,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(homeC.isDark.isTrue
+                      ? "assets/images/bismillah-dark.png"
+                      : "assets/images/bismillah-light.png"),
+                  // fit: BoxFit.cover
+                ),
               ),
             ),
-          ],
+          ]),
         ),
-      ),
+      ],
     );
   }
 }

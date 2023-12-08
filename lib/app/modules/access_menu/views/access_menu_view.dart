@@ -76,13 +76,14 @@ class AccessMenuView extends GetView<AccessMenuController> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: Colors.white.withOpacity(0.5),
+                                color:
+                                    ColorSystem.appColorWhite.withOpacity(0.5),
                               ),
                               gradient: LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                                 colors: [
-                                  Colors.white.withOpacity(0.30),
+                                  ColorSystem.appColorWhite.withOpacity(0.30),
                                   ColorSystem.appColorGreen.withOpacity(0.5),
                                 ],
                               ),
@@ -183,13 +184,15 @@ class AccessMenuView extends GetView<AccessMenuController> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
-                                        color: Colors.white.withOpacity(0.5),
+                                        color: ColorSystem.appColorWhite
+                                            .withOpacity(0.5),
                                       ),
                                       gradient: LinearGradient(
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight,
                                         colors: [
-                                          Colors.white.withOpacity(0.30),
+                                          ColorSystem.appColorWhite
+                                              .withOpacity(0.30),
                                           ColorSystem.appColorGreen
                                               .withOpacity(0.5),
                                         ],
@@ -224,14 +227,15 @@ class AccessMenuView extends GetView<AccessMenuController> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: Colors.white.withOpacity(0.5),
+                                color:
+                                    ColorSystem.appColorWhite.withOpacity(0.5),
                               ),
                               gradient: LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                                 colors: [
-                                  Colors.white.withOpacity(0.15),
-                                  Colors.white.withOpacity(0.15),
+                                  ColorSystem.appColorWhite.withOpacity(0.15),
+                                  ColorSystem.appColorWhite.withOpacity(0.15),
                                 ],
                               ),
                             ),
@@ -258,13 +262,14 @@ class AccessMenuView extends GetView<AccessMenuController> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: Colors.white.withOpacity(0.5),
+                                color:
+                                    ColorSystem.appColorWhite.withOpacity(0.5),
                               ),
                               gradient: LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                                 colors: [
-                                  Colors.white.withOpacity(0.30),
+                                  ColorSystem.appColorWhite.withOpacity(0.30),
                                   ColorSystem.appColorGold.withOpacity(0.15),
                                 ],
                               ),
@@ -292,13 +297,14 @@ class AccessMenuView extends GetView<AccessMenuController> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: Colors.white.withOpacity(0.5),
+                                color:
+                                    ColorSystem.appColorWhite.withOpacity(0.5),
                               ),
                               gradient: LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                                 colors: [
-                                  Colors.white.withOpacity(0.30),
+                                  ColorSystem.appColorWhite.withOpacity(0.30),
                                   ColorSystem.appColorGold.withOpacity(0.15),
                                 ],
                               ),

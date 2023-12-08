@@ -6,6 +6,8 @@ import '../modules/detail_juz/bindings/detail_juz_binding.dart';
 import '../modules/detail_juz/views/detail_juz_view.dart';
 import '../modules/detail_surah/bindings/detail_surah_binding.dart';
 import '../modules/detail_surah/views/detail_surah_view.dart';
+import '../modules/help_app/bindings/help_app_binding.dart';
+import '../modules/help_app/views/help_app_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/information_app/bindings/information_app_binding.dart';
@@ -78,6 +80,11 @@ class AppPages {
       name: Routes.privacyApp,
       page: () => const PrivacyAppView(),
       binding: PrivacyAppBinding(),
+    ),
+    GetPage(
+      name: Routes.helpApp,
+      page: () => const HelpAppView(),
+      binding: HelpAppBinding(),
     ),
   ];
 }

@@ -203,13 +203,27 @@ class SettingView extends GetView<SettingController> {
             leading: const Icon(Icons.info),
             title: const Text("Information & Privacy"),
             subtitle: const Text(
-              "Information & Privacy policy",
+              "Information & Privacy policy App",
               style: TextStyle(
                 color: ColorSystem.appColorGray,
               ),
             ),
             onTap: () {
               Get.toNamed(Routes.informationPrivacy);
+            },
+            iconColor: ColorSystem.appColorTeal,
+          ),
+          ListTile(
+            leading: const Icon(Icons.help_outlined),
+            title: const Text("Help"),
+            subtitle: const Text(
+              "Aplication Help",
+              style: TextStyle(
+                color: ColorSystem.appColorGray,
+              ),
+            ),
+            onTap: () {
+              Get.toNamed(Routes.helpApp);
             },
             iconColor: ColorSystem.appColorTeal,
           ),
@@ -236,6 +250,9 @@ class SettingView extends GetView<SettingController> {
                     Icons.web,
                     size: 32,
                     color: ColorSystem.appColorBrown,
+                  ),
+                  SizedBox(
+                    width: 10.0,
                   ),
                   Icon(
                     Icons.email,

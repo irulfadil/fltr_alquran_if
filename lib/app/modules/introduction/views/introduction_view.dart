@@ -48,14 +48,15 @@ class IntroductionView extends GetView<IntroductionController> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             border: Border.all(
-                              color: Colors.white.withOpacity(0.13),
+                              color:
+                                  ColorSystem.appColorWhite.withOpacity(0.13),
                             ),
                             gradient: LinearGradient(
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                               colors: [
-                                Colors.white.withOpacity(0.15),
-                                Colors.white.withOpacity(0.15),
+                                ColorSystem.appColorWhite.withOpacity(0.15),
+                                ColorSystem.appColorWhite.withOpacity(0.15),
                               ],
                             ),
                           ),

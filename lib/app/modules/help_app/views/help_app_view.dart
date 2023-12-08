@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/privacy_app_controller.dart';
+import '../controllers/help_app_controller.dart';
 
-class PrivacyAppView extends GetView<PrivacyAppController> {
-  const PrivacyAppView({Key? key}) : super(key: key);
+class HelpAppView extends GetView<HelpAppController> {
+  const HelpAppView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kebijakan Privacy'),
+        title: const Text('Help'),
         centerTitle: true,
       ),
       body: ListView(
@@ -18,13 +18,13 @@ class PrivacyAppView extends GetView<PrivacyAppController> {
         children: const [
           Center(
             child: Icon(
-              Icons.lock_person,
+              Icons.live_help_outlined,
               size: 32,
             ),
           ),
           SizedBox(height: 5.0),
           Text(
-            "Saat Anda menggunakan aplikasi ini, Anda mempercayai aplikasi ini dengan informasi Anda. Karena aplikasi ini sangat fokus dengan privasi Anda, maka Kebijakan Privasi ini dimaksudkan untuk membantu Anda memahami data apa yang kami gunakan dan mengapa kami memerlukannya.",
+            "Deskripsi Help",
             textAlign: TextAlign.justify,
             style: TextStyle(
               fontSize: 12.0,
@@ -36,7 +36,7 @@ class PrivacyAppView extends GetView<PrivacyAppController> {
           ),
           SizedBox(height: 10.0),
           Text(
-            "Memerlukan Akses Penyimpanan",
+            "Panduan Pengguna:",
             textAlign: TextAlign.justify,
             style: TextStyle(
               fontSize: 14.0,
@@ -48,7 +48,7 @@ class PrivacyAppView extends GetView<PrivacyAppController> {
             maxLines: 10,
           ),
           Text(
-            "Aplikasi Al-Qur'an ini memerlukan akses ke penyimpanan di perangkat Anda, sehingga salah satu fitur bekerja dengan baik.",
+            "Penjelasan Menu",
             textAlign: TextAlign.justify,
             style: TextStyle(
               fontSize: 12.0,
