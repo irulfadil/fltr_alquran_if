@@ -6,6 +6,7 @@ class LoadAlljuz extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Widget load Shimmer
     return ListView.builder(
       itemCount: 10,
       itemBuilder: (BuildContext context, int index) {

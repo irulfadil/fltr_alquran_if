@@ -1,11 +1,15 @@
+import 'package:fltr_alquran_if/utils/color_system.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../home/controllers/home_controller.dart';
 import '../controllers/privacy_app_controller.dart';
 
 class PrivacyAppView extends GetView<PrivacyAppController> {
-  const PrivacyAppView({Key? key}) : super(key: key);
+  PrivacyAppView({Key? key}) : super(key: key);
+  final homeC = Get.find<HomeController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,15 +19,18 @@ class PrivacyAppView extends GetView<PrivacyAppController> {
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        children: const [
+        children: [
           Center(
             child: Icon(
               Icons.lock_person,
               size: 32,
+              color: homeC.isDark.isTrue
+                  ? ColorSystem.appColorWhite
+                  : ColorSystem.appColorTeal,
             ),
           ),
-          SizedBox(height: 5.0),
-          Text(
+          const Divider(),
+          const Text(
             "Saat Anda menggunakan aplikasi ini, Anda mempercayai aplikasi ini dengan informasi Anda. Karena aplikasi ini sangat fokus dengan privasi Anda, maka Kebijakan Privasi ini dimaksudkan untuk membantu Anda memahami data apa yang kami gunakan dan mengapa kami memerlukannya.",
             textAlign: TextAlign.justify,
             style: TextStyle(
@@ -34,20 +41,17 @@ class PrivacyAppView extends GetView<PrivacyAppController> {
             overflow: TextOverflow.ellipsis,
             maxLines: 10,
           ),
-          SizedBox(height: 10.0),
-          Text(
-            "Memerlukan Akses Penyimpanan",
+          const Divider(),
+          const Text(
+            "Akses Penyimpanan",
             textAlign: TextAlign.justify,
             style: TextStyle(
+              color: ColorSystem.appColorTeal,
               fontSize: 14.0,
               fontWeight: FontWeight.w500,
-              letterSpacing: 0.5,
-              height: 1.5,
             ),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 10,
           ),
-          Text(
+          const Text(
             "Aplikasi Al-Qur'an ini memerlukan akses ke penyimpanan di perangkat Anda, sehingga salah satu fitur bekerja dengan baik.",
             textAlign: TextAlign.justify,
             style: TextStyle(

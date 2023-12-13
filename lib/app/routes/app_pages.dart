@@ -54,7 +54,6 @@ class AppPages {
     GetPage(
       name: Routes.loading,
       page: () => const LoadAlljuz(),
-      // binding: DetailJuzBinding(),
     ),
     GetPage(
       name: Routes.accessMenu,
@@ -78,12 +77,12 @@ class AppPages {
     ),
     GetPage(
       name: Routes.privacyApp,
-      page: () => const PrivacyAppView(),
+      page: () => PrivacyAppView(),
       binding: PrivacyAppBinding(),
     ),
     GetPage(
       name: Routes.helpApp,
-      page: () => const HelpAppView(),
+      page: () => HelpAppView(),
       binding: HelpAppBinding(),
     ),
   ];

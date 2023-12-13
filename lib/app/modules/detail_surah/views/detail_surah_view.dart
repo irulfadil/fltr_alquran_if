@@ -15,10 +15,10 @@ import '../controllers/detail_surah_controller.dart';
 class DetailSurahView extends GetView<DetailSurahController> {
   DetailSurahView({Key? key}) : super(key: key);
   final homeC = Get.find<HomeController>();
-  // final settingC = Get.put(SettingController());
   final settingC = Get.find<SettingController>();
   late Map<String, dynamic>? bookmark;
 
+  // Function data collabotaion getSurahDetail & getSurahDetailTranslate
   Future<List<dynamic>> fetchData() async {
     Future<SurahDetail> surahDetails =
         controller.getSurahDetail(Get.arguments['number'].toString());
@@ -35,6 +35,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
       }
     });
 
+    // Controller load read fontSize in getStorage
     settingC.loadFontSizeArabic();
 
     return Scaffold(
@@ -167,8 +168,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                           ),
                         Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: homeC.isDark.isTrue
+                            color: homeC.isDark.isTrue && Get.isDarkMode
                                 ? ColorSystem.backgroundDarkSecondary
                                 : ColorSystem.appColorBrown.withOpacity(0.1),
                           ),
@@ -185,7 +185,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   width: 45,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(homeC.isDark.isTrue
+                                      image: AssetImage(homeC.isDark.isTrue &&
+                                              Get.isDarkMode
                                           ? "assets/images/dark-list-numb-surah-4pt.png"
                                           : "assets/images/light-list-numb-surah-4pt.png"),
                                       fit: BoxFit.contain,
@@ -194,7 +195,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   child: Center(
                                     child: Text(
                                       "${index + 1}",
-                                      style: homeC.isDark.isTrue
+                                      style: homeC.isDark.isTrue &&
+                                              Get.isDarkMode
                                           ? const TextStyle(
                                               color: ColorSystem.appColorBrown)
                                           : Theme.of(context)
@@ -211,8 +213,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         // kondisi => stop => button play
-                                        // kondisi => playing => button pause & button stop
-                                        // kondisi => pause => button resume & button stop
+                                        // kondisi => playing => button pause && button stop
+                                        // kondisi => pause => button resume && button stop
 
                                         IconButton(
                                           onPressed: () {
@@ -325,7 +327,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                               Text(
                                 "${ayahs.text}",
                                 style: TextStyle(
-                                  color: homeC.isDark.isTrue
+                                  color: homeC.isDark.isTrue && Get.isDarkMode
                                       ? ColorSystem.appColorGray
                                       : ColorSystem.appColorBrown,
                                   fontWeight: FontWeight.w500,
@@ -341,7 +343,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                     ? "${ayahsTranslate.text}"
                                     : "",
                                 style: TextStyle(
-                                  color: homeC.isDark.isTrue
+                                  color: homeC.isDark.isTrue && Get.isDarkMode
                                       ? ColorSystem.appColorGray
                                           .withOpacity(0.6)
                                       : Colors.grey,

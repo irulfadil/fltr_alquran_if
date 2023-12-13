@@ -16,9 +16,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData selectedTheme = AppTheme.lightMode;
+    String? savedTheme = box.read('darkMode');
+
+    if (savedTheme != null) {
+      if (savedTheme == "dark") {
+        selectedTheme = AppTheme.darkMode;
+      } else if (savedTheme == "light") {
+        selectedTheme = AppTheme.lightMode;
+      }
+    }
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: box.read('darkMode') == null ? lightMode : darkMode,
+      // theme:
+      //     box.read('darkMode') == null ? AppTheme.lightMode : AppTheme.darkMode,
+      theme: selectedTheme,
       title: 'Al Quran App',
       initialRoute: box.read('isSkipIntro') == null
           ? Routes.introduction

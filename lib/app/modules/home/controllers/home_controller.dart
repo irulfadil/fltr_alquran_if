@@ -15,13 +15,13 @@ import '../../../data/models/surah_model.dart';
 class HomeController extends GetxController {
   RxBool isDark = false.obs;
   RxBool isEnabledTranslate = true.obs;
-  RxDouble isfontSize = 16.0.obs;
-
-  List<Juz> allJuz = [];
   final box = GetStorage();
+  List<Juz> allJuz = [];
 
+  // Instance database sqflite
   DatabaseInstance database = DatabaseInstance.instance;
 
+  // Function data get Last Read
   Future<Map<String, dynamic>?> getLastRead() async {
     Database db = await database.database;
 
@@ -36,6 +36,7 @@ class HomeController extends GetxController {
     }
   }
 
+  // Function data get Bookmark
   Future<List<Map<String, dynamic>>> getBookmark() async {
     Database db = await database.database;
 
@@ -44,6 +45,7 @@ class HomeController extends GetxController {
     return allBookmark;
   }
 
+  // Function delete bookmark
   void deletBookmark(int id) async {
     Database db = await database.database;
     await db.delete('bookmark', where: "id = $id");
@@ -56,11 +58,16 @@ class HomeController extends GetxController {
     );
   }
 
-  // toggle theme
+  // Function toggle theme mode
   void changeTheme() async {
-    print(Get.isDarkMode);
-    Get.isDarkMode ? Get.changeTheme(lightMode) : Get.changeTheme(darkMode);
+    Get.isDarkMode
+        ? Get.changeTheme(AppTheme.lightMode)
+        : Get.changeTheme(AppTheme.darkMode);
+
     isDark.toggle();
+
+    print("isDarkMode: ${Get.isDarkMode}");
+    print("isDark: $isDark");
 
     // read & remove database in getStore
     if (Get.isDarkMode) {
@@ -70,7 +77,7 @@ class HomeController extends GetxController {
     }
   }
 
-  // get allSurah to Tab 'Surah'
+  // Function get allSurah to Tab 'Surah'
   Future<List<Surah>> getAllSurah() async {
     Uri url = Uri.parse("https://api.alquran.cloud/v1/surah");
     var res = await http.get(url);
@@ -82,7 +89,7 @@ class HomeController extends GetxController {
     return results;
   }
 
-  // get AllJuz to Tab 'Juz'
+  // Function get AllJuz to Tab 'Juz'
   Future<List<Juz>> getAllJuz() async {
     for (int i = 1; i <= 30; i++) {
       Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$i/ar.alafasy");

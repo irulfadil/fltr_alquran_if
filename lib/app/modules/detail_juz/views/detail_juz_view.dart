@@ -23,6 +23,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
   final juz.Juz detailJuz = Get.arguments["detailJuz"];
   final List<dynamic> surahInJuz = Get.arguments["surahInJuz"];
 
+  // Function collaboration getJuzDetail & getJuzDetailTranslate
   Future<List<dynamic>> fetchData() async {
     final juzDetail = juzSurah.getJuzDetail(detailJuz.number.toString());
     final juzDetailTranslate =
@@ -39,6 +40,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
       }
     });
 
+    // Controller load read FontSize in getStorage
     settingC.loadFontSizeArabic();
 
     // Diguakan untuk mencari nilai awal surah dan akhir

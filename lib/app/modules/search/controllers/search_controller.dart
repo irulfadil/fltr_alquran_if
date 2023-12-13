@@ -12,6 +12,7 @@ class SearchControl extends GetxController {
   var queryStart = [].obs;
   var isLoading = false.obs;
 
+  // Function data get SurahSearch
   void getSurahSearch() async {
     try {
       isLoading.value = true;
@@ -32,6 +33,7 @@ class SearchControl extends GetxController {
     }
   }
 
+  // Function data get searchData
   void searchData(String enteredKeyword) async {
     if (enteredKeyword.isEmpty) {
       surahSearch.value = queryStart;

@@ -14,9 +14,14 @@ class SettingView extends GetView<SettingController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.loadFontSizeArabic();
+    // ignore: unused_local_variable
+    Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
 
-    String selectedValue = 'utsmani';
+    // Controller load read FontSize in getStorage
+    controller.loadFontSizeArabic();
+    // Controller load read ThemeCurrent in getStorage
+    controller.loadThemeCurrent();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Setting'),
@@ -56,14 +61,14 @@ class SettingView extends GetView<SettingController> {
                     RadioListTile<String>(
                         title: const Text('IndoPak / Asia'),
                         value: 'asia',
-                        groupValue: selectedValue,
+                        groupValue: controller.selectdValueFontArabic.value,
                         onChanged: (value) {}),
                     RadioListTile<String>(
                       title: const Text('Utsmani'),
                       value: 'utsmani',
-                      groupValue: selectedValue,
+                      groupValue: controller.selectdValueFontArabic.value,
                       onChanged: (value) {
-                        selectedValue = value!;
+                        controller.selectdValueFontArabic.value = value!;
                       },
                     ),
                   ],
@@ -189,6 +194,92 @@ class SettingView extends GetView<SettingController> {
                 : ColorSystem.appColorBrown,
           ),
           const Text(
+            "Thema",
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.w500,
+              color: ColorSystem.appColorTeal,
+            ),
+          ),
+          Obx(
+            () => ListTile(
+              title: const Text("Thema Aplikasi"),
+              subtitle: Text(
+                controller.selectedThemeModeCurent.value,
+                style: const TextStyle(
+                  color: ColorSystem.appColorGray,
+                ),
+              ),
+              onTap: () {
+                Get.defaultDialog(
+                  title: "Pilih Thema Aplikasi",
+                  titleStyle: const TextStyle(
+                    fontSize: 16.0,
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      RadioListTile<String>(
+                          title: const Text('Mengikuti Perangkat'),
+                          value: 'device',
+                          groupValue: controller.selectedThemeModeCurent.value,
+                          onChanged: (value) {
+                            controller.selectedThemeModeCurent.value = value!;
+                            controller.saveThemeCurrent();
+                            deviceBrightness = Brightness.dark;
+                            // controller.changeThemeMode(value);
+                            Get.back();
+                          }),
+                      RadioListTile<String>(
+                        title: const Text('Terang (Light)'),
+                        value: 'light',
+                        groupValue: controller.selectedThemeModeCurent.value,
+                        onChanged: (value) {
+                          controller.selectedThemeModeCurent.value = value!;
+                          controller.saveThemeCurrent();
+                          controller.changeThemeMode(value);
+                          Get.back();
+                        },
+                      ),
+                      RadioListTile<String>(
+                        title: const Text('Gelap (Dark)'),
+                        value: 'dark',
+                        groupValue: controller.selectedThemeModeCurent.value,
+                        onChanged: (value) {
+                          controller.selectedThemeModeCurent.value = value!;
+                          controller.saveThemeCurrent();
+                          controller.changeThemeMode(value);
+                          Get.back();
+                        },
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    SizedBox(
+                      width: 100,
+                      child: CustomElevatedButton(
+                        onPressed: () => Get.back(),
+                        text: "CANCEL",
+                        backgroundColor: homeC.isDark.isTrue
+                            ? Colors.transparent
+                            : ColorSystem.appColorWhite,
+                        colorBorder: ColorSystem.appColorWhite,
+                        colorText: homeC.isDark.isTrue
+                            ? ColorSystem.appColorWhite
+                            : ColorSystem.appColorTeal,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+          Divider(
+            color: homeC.isDark.isTrue
+                ? ColorSystem.appColorGray
+                : ColorSystem.appColorBrown,
+          ),
+          const Text(
             "Lain-Lain",
             style: TextStyle(
               fontSize: 16.0,
@@ -263,6 +354,7 @@ class SettingView extends GetView<SettingController> {
               )
             ],
           ),
+          const Divider(),
         ],
       ),
     );

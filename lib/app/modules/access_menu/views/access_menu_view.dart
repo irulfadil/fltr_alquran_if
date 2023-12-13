@@ -19,6 +19,7 @@ class AccessMenuView extends GetView<AccessMenuController> {
   @override
   Widget build(BuildContext context) {
     print("check copyallJuz: ${accessC.copyallJuz}");
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

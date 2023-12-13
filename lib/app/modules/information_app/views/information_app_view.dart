@@ -24,7 +24,7 @@ class InformationAppView extends GetView<InformationAppController> {
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 5.0),
+          Divider(),
           Text(
             "Aplikasi Al Quran adalah aplikasi yang Anda butuhkan untuk membaca Al Quran dimanapun Anda inginkan. Inilah saat yang tepat untuk menjadikan diri Anda lebih jujur, relax dan mengistirahatkan pikiran sejenak untuk membaca Al-Qur'an.",
             textAlign: TextAlign.justify,
@@ -50,7 +50,7 @@ class InformationAppView extends GetView<InformationAppController> {
           ),
           SizedBox(height: 5.0),
           Text(
-            "Jika Anda menyukai dengan aplikasi ini, silahkan memberikan rating/feedback Anda tentang aplikasi ini di Google Play Store. Caranya sangat mudah dengan mengklik tombol Bintang terbaik adalah bintang yang kelima. Silahkan bagikan aplikasi ini ke keluarga, sahabat, rekan kerja, relasi dan sosial media Anda.",
+            "Jika Anda menyukai dengan aplikasi ini, silahkan memberikan rating/feedback Anda tentang aplikasi ini di Google Play Store. Caranya sangat mudah dengan mengklik tombol bintang terbaik adalah bintang yang kelima. Silahkan bagikan aplikasi ini ke keluarga, sahabat, rekan kerja, relasi dan sosial media Anda.",
             textAlign: TextAlign.justify,
             style: TextStyle(
               fontSize: 12.0,
@@ -60,7 +60,7 @@ class InformationAppView extends GetView<InformationAppController> {
             overflow: TextOverflow.ellipsis,
             maxLines: 10,
           ),
-          SizedBox(height: 5.0),
+          Divider(),
           Text(
             "Terima kasih atas kepercayaan Anda.",
             textAlign: TextAlign.center,

@@ -9,17 +9,12 @@ class ColorSystem {
   static const appColorTeal = Color(0xFF1d8e81);
 
   static const appColorWhite = Color(0xFFFFFFFF);
-  static const appColorGray = Color(0xFFB3B3B3);
   static const appColorBlack = Color(0xFF000000);
 
-  static const appColorDark = Color(0xFF6E6657); //which mode dark
-  static const appColorLight = Color(0xFF000000); //which mode light
-
-  static const headerLight = Color(0xFFc0bb9e);
-  static const headerDark = Color(0xFF6E6657);
+  static const appColorGray = Color(0xFFB3B3B3);
+  static const appColorGrayDark = Color(0xFF6E6657);
 
   static const backgroundLight = Color(0xFFFFFFFF);
-
   static const backgroundDark = Color(0xFF101010);
   static const backgroundDarkSecondary = Color(0xFF222224);
 }

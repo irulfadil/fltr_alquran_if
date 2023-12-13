@@ -17,8 +17,10 @@ class DetailJuzController extends GetxController {
   int index = 0;
   final player = AudioPlayer();
 
+  // Instance database sqflite
   DatabaseInstance database = DatabaseInstance.instance;
 
+  // Function addBookmark
   Future<void> addBookmark(bool lastRead, Ayah surah, int index) async {
     Database db = await database.database;
     bool flagExits = false;
@@ -81,7 +83,7 @@ class DetailJuzController extends GetxController {
     print(data);
   }
 
-  // get juzDetail
+  // Function data get juzDetail
   Future<Juz> getJuzDetail(String juzNum) async {
     Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$juzNum/ar.alafasy");
     var res = await http.get(url);
@@ -93,7 +95,7 @@ class DetailJuzController extends GetxController {
     return juz;
   }
 
-  // get juzDetail translate
+  // Function data get juzDetail translate
   Future<JuzTranslate> getJuzDetailTranslate(String juzNum) async {
     Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$juzNum/en.asad");
     var res = await http.get(url);
@@ -105,6 +107,7 @@ class DetailJuzController extends GetxController {
     return juzInTranslate;
   }
 
+  // Function play audio by juz
   void playAudio(Ayah ayahs) async {
     if (ayahs.audio != null) {
       try {
@@ -140,6 +143,7 @@ class DetailJuzController extends GetxController {
     }
   }
 
+  // Function pause audio by juz
   void pauseAudio(Ayah ayahs) async {
     try {
       await player.pause();
@@ -163,6 +167,7 @@ class DetailJuzController extends GetxController {
     }
   }
 
+  // Function resume audio by juz
   void resumeAudio(Ayah ayahs) async {
     try {
       ayahs.statusAudio = "playing";
@@ -188,6 +193,7 @@ class DetailJuzController extends GetxController {
     }
   }
 
+  // Function stop audio by juz
   void stopAudio(Ayah ayahs) async {
     try {
       await player.stop();
