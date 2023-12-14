@@ -4,7 +4,7 @@ import 'package:fltr_alquran_if/app/modules/home/controllers/home_controller.dar
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../../theme/custom_theme.dart';
+import '../../../../theme/widget_app_theme.dart';
 
 class SettingController extends GetxController {
   final homeC = Get.find<HomeController>();

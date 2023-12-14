@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:sqflite/sqflite.dart';
 
-import '../../../../theme/custom_theme.dart';
+import '../../../../theme/widget_app_theme.dart';
 import '../../../../utils/color_system.dart';
 import '../../../data/db/database_instance.dart';
 import '../../../data/models/juz_model.dart';

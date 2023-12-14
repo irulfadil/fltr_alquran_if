@@ -20,18 +20,21 @@ class HeaderLandscape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
+
     return Column(
       children: [
         Container(
           height: 110,
           decoration: BoxDecoration(
-            color: homeC.isDark.isTrue
+            color: homeC.isDark.isTrue && deviceBrightness == Brightness.dark
                 ? ColorSystem.backgroundDarkSecondary
                 : ColorSystem.appColorBrown.withOpacity(0.1),
             image: DecorationImage(
-              image: AssetImage(homeC.isDark.isTrue
-                  ? "assets/images/header-dark.png"
-                  : "assets/images/header-light.png"),
+              image: AssetImage(
+                  homeC.isDark.isTrue && deviceBrightness == Brightness.dark
+                      ? "assets/images/header-dark.png"
+                      : "assets/images/header-light.png"),
               fit: BoxFit.cover,
             ),
           ),
@@ -68,25 +71,29 @@ class HeaderLandscape extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: homeC.isDark.isTrue
+            color: homeC.isDark.isTrue && deviceBrightness == Brightness.dark
                 ? ColorSystem.backgroundDarkSecondary
                 : ColorSystem.appColorBrown.withOpacity(0.1),
           ),
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 5.0),
-              width: 300,
-              height: 50,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(homeC.isDark.isTrue
-                      ? "assets/images/bismillah-dark.png"
-                      : "assets/images/bismillah-light.png"),
-                  // fit: BoxFit.cover
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 5.0),
+                width: 300,
+                height: 50,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(homeC.isDark.isTrue &&
+                            deviceBrightness == Brightness.dark
+                        ? "assets/images/bismillah-dark.png"
+                        : "assets/images/bismillah-light.png"),
+                    // fit: BoxFit.cover
+                  ),
                 ),
               ),
-            ),
-          ]),
+            ],
+          ),
         ),
       ],
     );

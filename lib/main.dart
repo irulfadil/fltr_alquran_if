@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'theme/custom_theme.dart';
+import 'theme/widget_app_theme.dart';
 import 'package:get_storage/get_storage.dart';
 import 'app/routes/app_pages.dart';
 
