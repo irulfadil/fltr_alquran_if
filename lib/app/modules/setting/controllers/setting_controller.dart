@@ -4,7 +4,7 @@ import 'package:fltr_alquran_if/app/modules/home/controllers/home_controller.dar
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../../theme/widget_app_theme.dart';
+import '../../../../theme/app_theme.dart';
 
 class SettingController extends GetxController {
   final homeC = Get.find<HomeController>();
@@ -31,11 +31,12 @@ class SettingController extends GetxController {
 
   // Function read themeCurrent in getStore
   void loadThemeCurrent() {
-    selectedThemeModeCurent.value = box.read('isThemeCurrent') ?? 'light';
+    selectedThemeModeCurent.value = box.read('isThemeCurrent') ?? 'device';
   }
 
   // Function Toggle Theme Mode
   void changeThemeMode(value) {
+    print('Get.isDarkMode: ${Get.isDarkMode}');
     homeC.isDark.toggle();
     switch (value) {
       case "light":
@@ -47,7 +48,8 @@ class SettingController extends GetxController {
         } else {
           box.write('darkMode', value);
         }
-
+        print('Thema: $value');
+        break;
       case "dark":
         homeC.isDark.value = true;
         Get.changeTheme(AppTheme.darkMode);
@@ -57,16 +59,18 @@ class SettingController extends GetxController {
         } else {
           box.write('darkMode', value);
         }
-
+        print('Thema: $value');
+        break;
       case "device":
         if (Get.isDarkMode) {
           box.remove('darkMode');
         } else {
           box.write('darkMode', value);
         }
+        print('Thema: $value');
         break;
       default:
-        null;
+        break;
     }
   }
 }

@@ -27,12 +27,12 @@ class HeaderLandscape extends StatelessWidget {
         Container(
           height: 110,
           decoration: BoxDecoration(
-            color: homeC.isDark.isTrue && deviceBrightness == Brightness.dark
+            color: homeC.isDark.isTrue || deviceBrightness == Brightness.dark
                 ? ColorSystem.backgroundDarkSecondary
                 : ColorSystem.appColorBrown.withOpacity(0.1),
             image: DecorationImage(
               image: AssetImage(
-                  homeC.isDark.isTrue && deviceBrightness == Brightness.dark
+                  homeC.isDark.isTrue || deviceBrightness == Brightness.dark
                       ? "assets/images/header-dark.png"
                       : "assets/images/header-light.png"),
               fit: BoxFit.cover,
@@ -71,7 +71,7 @@ class HeaderLandscape extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: homeC.isDark.isTrue && deviceBrightness == Brightness.dark
+            color: homeC.isDark.isTrue || deviceBrightness == Brightness.dark
                 ? ColorSystem.backgroundDarkSecondary
                 : ColorSystem.appColorBrown.withOpacity(0.1),
           ),
@@ -84,7 +84,7 @@ class HeaderLandscape extends StatelessWidget {
                 height: 50,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(homeC.isDark.isTrue &&
+                    image: AssetImage(homeC.isDark.isTrue ||
                             deviceBrightness == Brightness.dark
                         ? "assets/images/bismillah-dark.png"
                         : "assets/images/bismillah-light.png"),

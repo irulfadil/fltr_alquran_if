@@ -19,7 +19,6 @@ class AccessMenuView extends GetView<AccessMenuController> {
   @override
   Widget build(BuildContext context) {
     print("check copyallJuz: ${accessC.copyallJuz}");
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -66,7 +65,7 @@ class AccessMenuView extends GetView<AccessMenuController> {
                         const SizedBox(height: 20.0),
                         InkWell(
                           onTap: () {
-                            Get.offAllNamed(
+                            Get.toNamed(
                               Routes.home,
                               arguments: {"indexTabHome": 0},
                             );
@@ -219,7 +218,7 @@ class AccessMenuView extends GetView<AccessMenuController> {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.offAllNamed(Routes.home,
+                            Get.toNamed(Routes.home,
                                 arguments: {"indexTabBokkmark": 2});
                           },
                           child: Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/custom_elevated_button.dart';
@@ -11,6 +12,7 @@ import '../controllers/setting_controller.dart';
 class SettingView extends GetView<SettingController> {
   SettingView({Key? key}) : super(key: key);
   final homeC = Get.find<HomeController>();
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class SettingView extends GetView<SettingController> {
     controller.loadFontSizeArabic();
     // Controller load read ThemeCurrent in getStorage
     controller.loadThemeCurrent();
-
+    // print('Setting isDarkMode: ${Get.isDarkMode}');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Setting'),
@@ -42,12 +44,11 @@ class SettingView extends GetView<SettingController> {
             height: 10.0,
           ),
           ListTile(
-            title: const Text("Jenis Penulisan Arabic"),
+            title: const Text(
+              "Jenis Penulisan Arabic",
+            ),
             subtitle: const Text(
               "Utsmani",
-              style: TextStyle(
-                color: ColorSystem.appColorGray,
-              ),
             ),
             onTap: () {
               Get.defaultDialog(
@@ -80,9 +81,11 @@ class SettingView extends GetView<SettingController> {
                       onPressed: () => Get.back(),
                       text: "CANCEL",
                       backgroundColor: homeC.isDark.isTrue
-                          ? Colors.transparent
+                          ? ColorSystem.backgroundDarkSecondary
                           : ColorSystem.appColorWhite,
-                      colorBorder: ColorSystem.appColorWhite,
+                      colorBorder: homeC.isDark.isTrue
+                          ? ColorSystem.appColorWhite
+                          : ColorSystem.appColorTeal,
                       colorText: homeC.isDark.isTrue
                           ? ColorSystem.appColorWhite
                           : ColorSystem.appColorTeal,
@@ -97,9 +100,6 @@ class SettingView extends GetView<SettingController> {
               title: const Text("Ukuran Font Arabic"),
               subtitle: Text(
                 "${controller.isfontSizeArabic.value} px",
-                style: const TextStyle(
-                  color: ColorSystem.appColorGray,
-                ),
               ),
               onTap: () {
                 Get.defaultDialog(
@@ -132,9 +132,11 @@ class SettingView extends GetView<SettingController> {
                         onPressed: () => Get.back(),
                         text: "CANCEL",
                         backgroundColor: homeC.isDark.isTrue
-                            ? Colors.transparent
+                            ? ColorSystem.backgroundDarkSecondary
                             : ColorSystem.appColorWhite,
-                        colorBorder: ColorSystem.appColorWhite,
+                        colorBorder: homeC.isDark.isTrue
+                            ? ColorSystem.appColorWhite
+                            : ColorSystem.appColorTeal,
                         colorText: homeC.isDark.isTrue
                             ? ColorSystem.appColorWhite
                             : ColorSystem.appColorTeal,
@@ -163,7 +165,10 @@ class SettingView extends GetView<SettingController> {
           ),
           Obx(
             () => SwitchListTile(
-              title: const Text("Perlihatkan Terjemahan"),
+              title: const Text(
+                "Perlihatkan Terjemahan",
+                style: TextStyle(fontSize: 16.0),
+              ),
               value: homeC.isEnabledTranslate.isTrue,
               onChanged: (value) {
                 homeC.isEnabledTranslate.toggle();
@@ -176,12 +181,14 @@ class SettingView extends GetView<SettingController> {
             ),
           ),
           SwitchListTile(
-            title: const Text("Translate"),
+            title: const Text(
+              "Translate",
+              style: TextStyle(fontSize: 16.0),
+            ),
             value: false,
             onChanged: (value) {},
             secondary: const Icon(Icons.g_translate_outlined,
                 color: ColorSystem.appColorTeal),
-            // activeColor: ColorSystem.appColorTeal,
             inactiveThumbColor: ColorSystem.appColorGray,
             inactiveTrackColor: Colors.grey[300],
           ),
@@ -206,10 +213,10 @@ class SettingView extends GetView<SettingController> {
               title: const Text("Thema Aplikasi"),
               subtitle: Text(
                 controller.selectedThemeModeCurent.value,
-                style: const TextStyle(
-                  color: ColorSystem.appColorGray,
-                ),
               ),
+              leading: homeC.isDark.isTrue
+                  ? const Icon(Icons.nightlight_round)
+                  : const Icon(Icons.wb_sunny),
               onTap: () {
                 Get.defaultDialog(
                   title: "Pilih Thema Aplikasi",
@@ -226,8 +233,10 @@ class SettingView extends GetView<SettingController> {
                           onChanged: (value) {
                             controller.selectedThemeModeCurent.value = value!;
                             controller.saveThemeCurrent();
-                            deviceBrightness = Brightness.dark;
-                            // controller.changeThemeMode(value);
+                            deviceBrightness == Brightness.dark
+                                ? box.write('darkMode', value)
+                                : box.write('darkMode', 'light');
+
                             Get.back();
                           }),
                       RadioListTile<String>(
@@ -261,9 +270,11 @@ class SettingView extends GetView<SettingController> {
                         onPressed: () => Get.back(),
                         text: "CANCEL",
                         backgroundColor: homeC.isDark.isTrue
-                            ? Colors.transparent
+                            ? ColorSystem.backgroundDarkSecondary
                             : ColorSystem.appColorWhite,
-                        colorBorder: ColorSystem.appColorWhite,
+                        colorBorder: homeC.isDark.isTrue
+                            ? ColorSystem.appColorWhite
+                            : ColorSystem.appColorTeal,
                         colorText: homeC.isDark.isTrue
                             ? ColorSystem.appColorWhite
                             : ColorSystem.appColorTeal,
@@ -295,9 +306,6 @@ class SettingView extends GetView<SettingController> {
             title: const Text("Information & Privacy"),
             subtitle: const Text(
               "Information & Privacy policy App",
-              style: TextStyle(
-                color: ColorSystem.appColorGray,
-              ),
             ),
             onTap: () {
               Get.toNamed(Routes.informationPrivacy);
@@ -308,10 +316,7 @@ class SettingView extends GetView<SettingController> {
             leading: const Icon(Icons.help_outlined),
             title: const Text("Help"),
             subtitle: const Text(
-              "Aplication Help",
-              style: TextStyle(
-                color: ColorSystem.appColorGray,
-              ),
+              "Panduan Pengguna",
             ),
             onTap: () {
               Get.toNamed(Routes.helpApp);

@@ -29,6 +29,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
 
   @override
   Widget build(BuildContext context) {
+    // Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Get.isDarkMode) {
         homeC.isDark.value = true;
@@ -43,12 +45,20 @@ class DetailSurahView extends GetView<DetailSurahController> {
         title: SizedBox(
           child: Column(
             children: [
-              Text(Get.arguments['englishName'] ?? "error"),
+              Text(
+                Get.arguments['englishName'] ?? "error",
+                style: const TextStyle(
+                  color: ColorSystem.appColorWhite,
+                  fontSize: 16.0,
+                ),
+              ),
               const SizedBox(height: 3.0),
               Text(
                 Get.arguments['englishNameTranslation'] ?? "error",
                 style: const TextStyle(
-                    color: ColorSystem.appColorGray, fontSize: 12),
+                  color: ColorSystem.appColorWhite,
+                  fontSize: 12.0,
+                ),
               ),
             ],
           ),
@@ -168,7 +178,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                           ),
                         Container(
                           decoration: BoxDecoration(
-                            color: homeC.isDark.isTrue && Get.isDarkMode
+                            color: homeC.isDark.isTrue
                                 ? ColorSystem.backgroundDarkSecondary
                                 : ColorSystem.appColorBrown.withOpacity(0.1),
                           ),
@@ -185,8 +195,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   width: 45,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(homeC.isDark.isTrue &&
-                                              Get.isDarkMode
+                                      image: AssetImage(homeC.isDark.isTrue
                                           ? "assets/images/dark-list-numb-surah-4pt.png"
                                           : "assets/images/light-list-numb-surah-4pt.png"),
                                       fit: BoxFit.contain,
@@ -195,13 +204,9 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   child: Center(
                                     child: Text(
                                       "${index + 1}",
-                                      style: homeC.isDark.isTrue &&
-                                              Get.isDarkMode
-                                          ? const TextStyle(
-                                              color: ColorSystem.appColorBrown)
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
                                     ),
                                   ),
                                 ),
@@ -219,17 +224,12 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                         IconButton(
                                           onPressed: () {
                                             Get.defaultDialog(
-                                              titleStyle: TextStyle(
-                                                color: homeC.isDark.isTrue
-                                                    ? ColorSystem.appColorWhite
-                                                    : ColorSystem.appColorBrown,
-                                                fontSize: 18.0,
-                                              ),
-                                              middleTextStyle: TextStyle(
-                                                color: homeC.isDark.isTrue
-                                                    ? ColorSystem.appColorWhite
-                                                    : ColorSystem.appColorBrown,
-                                              ),
+                                              titleStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge,
+                                              middleTextStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium,
                                               title: "Save as",
                                               middleText:
                                                   "Please, Choose LastRead or Bookmark ?",
@@ -269,7 +269,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                             );
                                           },
                                           icon: const Icon(
-                                              Icons.bookmark_add_outlined),
+                                            Icons.bookmark_add_outlined,
+                                          ),
                                         ),
                                         (ayahs.statusAudio == 'stop')
                                             ? (IconButton(
@@ -304,9 +305,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                                     onPressed: () {
                                                       c.stopAudio(ayahs);
                                                     },
-                                                    icon: const Icon(
-                                                      Icons.stop,
-                                                    ),
+                                                    icon:
+                                                        const Icon(Icons.stop),
                                                   )
                                                 ],
                                               )
@@ -327,7 +327,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                               Text(
                                 "${ayahs.text}",
                                 style: TextStyle(
-                                  color: homeC.isDark.isTrue && Get.isDarkMode
+                                  color: homeC.isDark.isTrue
                                       ? ColorSystem.appColorGray
                                       : ColorSystem.appColorBrown,
                                   fontWeight: FontWeight.w500,
@@ -342,13 +342,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                 homeC.isEnabledTranslate.isTrue
                                     ? "${ayahsTranslate.text}"
                                     : "",
-                                style: TextStyle(
-                                  color: homeC.isDark.isTrue && Get.isDarkMode
-                                      ? ColorSystem.appColorGray
-                                          .withOpacity(0.6)
-                                      : Colors.grey,
-                                  fontSize: 16.0,
-                                ),
+                                style: Theme.of(context).textTheme.bodyLarge,
                                 textAlign: TextAlign.justify,
                               ),
                             ],

@@ -2,6 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/custom_elevated_button.dart';
 import '../../../../widgets/custom_icon_button.dart';
@@ -16,6 +17,7 @@ class HomeView extends GetView<HomeController> {
   HomeView({super.key});
   final indexTabHome = Get.arguments['indexTabHome'] ?? 0;
   final indexTabBookmark = Get.arguments['indexTabBokkmark'] ?? 0;
+  final box = GetStorage();
 
   final now = DateTime.now();
   final formatter = DateFormat('EEEE, MMMM d, y');
@@ -32,7 +34,7 @@ class HomeView extends GetView<HomeController> {
 
     // Setting date
     String formattedDate = formatter.format(now);
-
+    print("storage theme: ${box.read('darkMode')}");
     return Scaffold(
       appBar: AppBar(
         elevation: controller.isDark.isTrue ? 0 : 4,
@@ -72,6 +74,7 @@ class HomeView extends GetView<HomeController> {
         ],
       ),
       drawer: Drawer(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         child: ListView(
           children: [
             Obx(
@@ -86,8 +89,8 @@ class HomeView extends GetView<HomeController> {
                             ColorSystem.appColorBrown
                           ]
                         : [
-                            ColorSystem.appColorGrayDark,
-                            ColorSystem.appColorGreen
+                            ColorSystem.appColorGreen,
+                            ColorSystem.appColorGrayDark
                           ],
                   ),
                 ),
@@ -97,14 +100,8 @@ class HomeView extends GetView<HomeController> {
                       bottom: 10,
                       left: 5,
                       child: Center(
-                        child: Text(
-                          formattedDate,
-                          style: TextStyle(
-                              fontSize: 14.0,
-                              color: controller.isDark.isTrue
-                                  ? ColorSystem.appColorGray
-                                  : ColorSystem.appColorWhite),
-                        ),
+                        child: Text(formattedDate,
+                            style: Theme.of(context).textTheme.labelMedium),
                       ),
                     ),
                     Positioned(
@@ -130,32 +127,24 @@ class HomeView extends GetView<HomeController> {
               leading: const Icon(Icons.home),
               title: const Text("Menu"),
               onTap: () {
-                Get.offAllNamed(Routes.accessMenu);
+                Get.toNamed(Routes.accessMenu);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.mosque),
+              title: const Text("Jadwal Sholat"),
+              onTap: () {
+                Get.toNamed(Routes.prayerSchedule);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.compass_calibration),
+              title: const Text("Qiblah"),
+              onTap: () {
+                Get.toNamed(Routes.qiblah);
               },
             ),
             // untuk color SwitchListTile bisa set default di custom_theme.
-            Obx(
-              () => SwitchListTile(
-                title: controller.isDark.isTrue ||
-                        deviceBrightness == Brightness.dark
-                    ? const Text("Dark")
-                    : const Text("Light"),
-                value: controller.isDark.isTrue,
-                onChanged: null,
-                //onChanged: (value) {
-                // deviceBrightness == Brightness.dark
-                //     ? null
-                //     : controller.changeTheme();
-                //},
-                secondary: controller.isDark.isTrue ||
-                        deviceBrightness == Brightness.dark
-                    ? const Icon(Icons.nightlight_round)
-                    : const Icon(Icons.wb_sunny),
-                activeColor: ColorSystem.appColorTeal,
-                inactiveThumbColor: ColorSystem.appColorGray,
-                inactiveTrackColor: Colors.grey[300],
-              ),
-            ),
           ],
         ),
       ),
@@ -183,7 +172,7 @@ class HomeView extends GetView<HomeController> {
                                       ColorSystem.appColorBrown
                                     ]
                                   : [
-                                      ColorSystem.appColorGrayDark,
+                                      ColorSystem.appColorWhite,
                                       ColorSystem.appColorGreen
                                     ],
                             ),
@@ -206,44 +195,37 @@ class HomeView extends GetView<HomeController> {
                                         )),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.all(10.0),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.menu_book,
                                             color: ColorSystem.appColorWhite,
                                           ),
-                                          SizedBox(width: 5.0),
-                                          Text(
-                                            "Last Read",
-                                            style: TextStyle(
-                                              color: ColorSystem.appColorWhite,
-                                              fontSize: 16.0,
-                                            ),
-                                          ),
+                                          const SizedBox(width: 5.0),
+                                          Text("Last Read",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge),
                                         ],
                                       ),
-                                      SizedBox(height: 10.0),
+                                      const SizedBox(height: 10.0),
                                       Text(
                                         "...Loading",
-                                        style: TextStyle(
-                                            color: ColorSystem.appColorWhite,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge,
                                       ),
-                                      SizedBox(height: 5.0),
-                                      Text(
-                                        "",
-                                        style: TextStyle(
-                                          color: ColorSystem.appColorWhite,
-                                          fontSize: 14.0,
-                                        ),
-                                      ),
+                                      const SizedBox(height: 5.0),
+                                      Text("",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium),
                                     ],
                                   ),
                                 ),
@@ -287,44 +269,39 @@ class HomeView extends GetView<HomeController> {
                                         )),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.all(10.0),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.menu_book,
                                             color: ColorSystem.appColorWhite,
                                           ),
-                                          SizedBox(width: 5.0),
+                                          const SizedBox(width: 5.0),
                                           Text(
                                             "Last Read",
-                                            style: TextStyle(
-                                                color:
-                                                    ColorSystem.appColorWhite,
-                                                fontSize: 16.0),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge,
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 10.0),
+                                      const SizedBox(height: 10.0),
                                       Text(
                                         "Data Empty",
-                                        style: TextStyle(
-                                          color: ColorSystem.appColorWhite,
-                                          fontSize: 14.0,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge,
                                       ),
-                                      SizedBox(height: 5.0),
-                                      Text(
-                                        "",
-                                        style: TextStyle(
-                                          color: ColorSystem.appColorWhite,
-                                          fontSize: 14.0,
-                                        ),
-                                      ),
+                                      const SizedBox(height: 5.0),
+                                      Text("",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium),
                                     ],
                                   ),
                                 ),
@@ -345,8 +322,8 @@ class HomeView extends GetView<HomeController> {
                                       ColorSystem.appColorBrown
                                     ]
                                   : [
-                                      ColorSystem.appColorGrayDark,
-                                      ColorSystem.appColorGreen
+                                      ColorSystem.appColorGreen,
+                                      ColorSystem.appColorBrown
                                     ],
                             ),
                           ),
@@ -357,9 +334,10 @@ class HomeView extends GetView<HomeController> {
                                 if (lastRead != null) {
                                   Get.defaultDialog(
                                     title: "Message",
-                                    titleStyle: const TextStyle(
-                                      fontSize: 18.0,
-                                    ),
+                                    titleStyle:
+                                        Theme.of(context).textTheme.titleLarge,
+                                    middleTextStyle:
+                                        Theme.of(context).textTheme.titleMedium,
                                     middleText:
                                         "Are you sure delete last read ?",
                                     actions: [
@@ -431,13 +409,10 @@ class HomeView extends GetView<HomeController> {
                                     backgroundColor:
                                         ColorSystem.backgroundDarkSecondary,
                                     confirmTextColor: ColorSystem.appColorGray,
-                                    titleStyle: const TextStyle(
-                                      color: ColorSystem.appColorGray,
-                                      fontSize: 18.0,
-                                    ),
-                                    middleTextStyle: const TextStyle(
-                                      color: ColorSystem.appColorGray,
-                                    ),
+                                    titleStyle:
+                                        Theme.of(context).textTheme.titleLarge,
+                                    middleTextStyle:
+                                        Theme.of(context).textTheme.titleMedium,
                                     title: "Message",
                                     middleText:
                                         "Last read data in processing...",
@@ -479,19 +454,18 @@ class HomeView extends GetView<HomeController> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Row(
+                                        Row(
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.menu_book,
                                               color: ColorSystem.appColorWhite,
                                             ),
-                                            SizedBox(width: 5.0),
+                                            const SizedBox(width: 5.0),
                                             Text(
                                               "Last Read",
-                                              style: TextStyle(
-                                                  color:
-                                                      ColorSystem.appColorWhite,
-                                                  fontSize: 16.0),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge,
                                             ),
                                           ],
                                         ),
@@ -500,20 +474,18 @@ class HomeView extends GetView<HomeController> {
                                           lastRead == null
                                               ? ""
                                               : "${lastRead['surah'].replaceAll("+", "'")}",
-                                          style: const TextStyle(
-                                              color: ColorSystem.appColorWhite,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge,
                                         ),
                                         const SizedBox(height: 5.0),
                                         Text(
                                           lastRead == null
                                               ? ""
                                               : "Juz ${lastRead['juz']} | Ayat ${lastRead['ayah']}",
-                                          style: const TextStyle(
-                                            color: ColorSystem.appColorWhite,
-                                            fontSize: 14.0,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium,
                                         ),
                                       ],
                                     ),
@@ -612,35 +584,30 @@ class HomeView extends GetView<HomeController> {
                                   child: Center(
                                     child: Text(
                                       "${surah.number ?? 'Error'}",
-                                      style: TextStyle(
-                                        color: controller.isDark.isTrue
-                                            ? ColorSystem.appColorBrown
-                                            : ColorSystem.appColorGreen,
-                                        fontSize: 14.0,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
                                     ),
                                   ),
                                 ),
                                 title: Text(
                                   surah.englishName ?? 'Error',
-                                  style: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
                                 ),
                                 subtitle: Text(
                                   "${surah.revelationType ?? 'Error'} | ${surah.numberOfAyahs ?? 'Error'} Ayat",
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleSmall,
                                 ),
                                 trailing: Text(
                                   surah.name ?? 'Error',
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "MUHAMMADIBold",
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "MUHAMMADIBold",
+                                      ),
                                 ),
                               ),
                             );
@@ -733,23 +700,22 @@ class HomeView extends GetView<HomeController> {
                                   child: Center(
                                     child: Text(
                                       "${detailJuz.number}",
-                                      style: TextStyle(
-                                          color: controller.isDark.isTrue
-                                              ? ColorSystem.appColorBrown
-                                              : ColorSystem.appColorGreen,
-                                          fontSize: 14.0),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
                                     ),
                                   ),
                                 ),
                                 title: Text(
                                   "Juz ${detailJuz.number}",
-                                  style: const TextStyle(fontSize: 16.0),
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
                                 ),
                                 subtitle: Text(
                                   // ignore: unnecessary_string_interpolations
                                   "${nameSurahInJuz.join(', ')}",
                                   // "$startNameSurah - $lastNameSurah",
-                                  style: const TextStyle(fontSize: 14.0),
+                                  style: Theme.of(context).textTheme.titleSmall,
                                 ),
                               ),
                             );
@@ -846,31 +812,34 @@ class HomeView extends GetView<HomeController> {
                                     backgroundColor: controller.isDark.isTrue ||
                                             deviceBrightness == Brightness.dark
                                         ? ColorSystem.appColorTeal
-                                        : ColorSystem.appColorBrown,
+                                        : ColorSystem.appColorBrown
+                                            .withOpacity(0.5),
                                     child: Text(
                                       "${index + 1}",
-                                      style: const TextStyle(
-                                        color: ColorSystem.appColorWhite,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
                                     ),
                                   ),
                                   title: Text(
-                                    "Surah ${data['surah'].replaceAll("+", "'")}",
-                                    style: const TextStyle(fontSize: 16.0),
+                                    "${data['surah'].replaceAll("+", "'")}",
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
                                   ),
                                   subtitle: Text(
-                                    "Ayah ${data['ayah']} - by ${data['via']}",
-                                    style: const TextStyle(
-                                      // color: Colors.grey,
-                                      fontSize: 14.0,
-                                    ),
+                                    "Ayat ${data['ayah']} - by ${data['via']}",
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
                                   ),
                                   trailing: IconButton(
                                     onPressed: () {
                                       Get.defaultDialog(
-                                        titleStyle: const TextStyle(
-                                          fontSize: 18.0,
-                                        ),
+                                        titleStyle: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge,
+                                        middleTextStyle: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium,
                                         title: "Delete",
                                         middleText:
                                             "Are you sure delete bookmark ?",
@@ -908,7 +877,9 @@ class HomeView extends GetView<HomeController> {
                                         ],
                                       );
                                     },
-                                    icon: const Icon(Icons.delete),
+                                    icon: const Icon(
+                                      Icons.delete,
+                                    ),
                                   ),
                                 ),
                               );

@@ -16,12 +16,17 @@ import '../modules/information_privacy/bindings/information_privacy_binding.dart
 import '../modules/information_privacy/views/information_privacy_view.dart';
 import '../modules/introduction/views/introduction_view.dart';
 import '../modules/loading/loading_alljuz.dart';
+import '../modules/prayer_schedule/bindings/prayer_schedule_binding.dart';
+import '../modules/prayer_schedule/views/prayer_schedule_view.dart';
 import '../modules/privacy_app/bindings/privacy_app_binding.dart';
 import '../modules/privacy_app/views/privacy_app_view.dart';
+import '../modules/qiblah/bindings/qiblah_binding.dart';
+import '../modules/qiblah/views/qiblah_view.dart';
 import '../modules/search/bindings/search_binding.dart';
 import '../modules/search/views/search_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
+// import '../modules/qiblah/views/qiblah_view.dart';
 
 part 'app_routes.dart';
 
@@ -84,6 +89,16 @@ class AppPages {
       name: Routes.helpApp,
       page: () => HelpAppView(),
       binding: HelpAppBinding(),
+    ),
+    GetPage(
+      name: Routes.prayerSchedule,
+      page: () => const PrayerScheduleView(),
+      binding: PrayerScheduleBinding(),
+    ),
+    GetPage(
+      name: Routes.qiblah,
+      page: () => QiblahView(),
+      binding: QiblahBinding(),
     ),
   ];
 }

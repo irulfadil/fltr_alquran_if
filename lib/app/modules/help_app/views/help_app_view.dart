@@ -31,29 +31,26 @@ class HelpAppView extends GetView<HelpAppController> {
               ),
             ),
             const Divider(),
-            const Text(
+            Text(
               "Menyediakan panduan aplikasi kepada Anda agar lebik mudah dalam mengoperasikan aplikasi ini.",
               textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontSize: 12.0,
-                letterSpacing: 0.5,
-                height: 1.5,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    letterSpacing: 0.5,
+                    height: 1.5,
+                  ),
               overflow: TextOverflow.ellipsis,
               maxLines: 10,
             ),
             const SizedBox(
               height: 10.0,
             ),
-            const Text(
+            Text(
               "Fitur Pengguna:",
               textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w500,
-                letterSpacing: 0.5,
-                height: 1.5,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    letterSpacing: 0.5,
+                    height: 1.5,
+                  ),
               overflow: TextOverflow.ellipsis,
               maxLines: 10,
             ),
@@ -82,15 +79,19 @@ class HelpAppView extends GetView<HelpAppController> {
             RichText(
               textAlign: TextAlign.justify,
               text: TextSpan(
-                style: TextStyle(
-                  color: homeC.isDark.isTrue
-                      ? ColorSystem.appColorWhite
-                      : ColorSystem.appColorBrown,
-                  fontFamily: "Poppins",
-                  fontSize: 12.0,
-                  letterSpacing: 0.5,
-                  height: 1.5,
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      letterSpacing: 0.5,
+                      height: 1.5,
+                    ),
+                // TextStyle(
+                //   color: homeC.isDark.isTrue
+                //       ? ColorSystem.appColorWhite
+                //       : ColorSystem.appColorBrown,
+                //   fontFamily: "Poppins",
+                //   fontSize: 12.0,
+                //   letterSpacing: 0.5,
+                //   height: 1.5,
+                // ),
                 children: [
                   const TextSpan(
                     text:
@@ -112,19 +113,21 @@ class HelpAppView extends GetView<HelpAppController> {
               ),
             ),
             const SizedBox(height: 5.0),
-            const Text(
+            Text(
               "- Open last read: Klik sekali di seluruh bagian headernya untuk membuka bagian ayat Al-Quran yang terkahir dibaca.",
               textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontSize: 12.0,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    letterSpacing: 0.5,
+                    height: 1.5,
+                  ),
             ),
-            const Text(
+            Text(
               "- Delete last read: Tekan agak lama nanti muncul sebuah message option delete dan cancel.",
               textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontSize: 12.0,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    letterSpacing: 0.5,
+                    height: 1.5,
+                  ),
             ),
             Divider(
               color: homeC.isDark.isTrue
@@ -150,14 +153,13 @@ class HelpAppView extends GetView<HelpAppController> {
                 ),
               ],
             ),
-            const Text(
+            Text(
               "Fitur ini dapat ditemukan di pembatas ayat pada saat membaca Al-Qura'an. Bookmark membantu dalam penyimpanan data dengan jenis last read dan bookmark.\n Untuk melihat data bookmark Anda bisa pergi ke Tab Bookmark.",
               textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontSize: 12.0,
-                letterSpacing: 0.5,
-                height: 1.5,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    letterSpacing: 0.5,
+                    height: 1.5,
+                  ),
             ),
             Divider(
               color: homeC.isDark.isTrue
@@ -186,15 +188,10 @@ class HelpAppView extends GetView<HelpAppController> {
             RichText(
               textAlign: TextAlign.justify,
               text: TextSpan(
-                style: TextStyle(
-                  color: homeC.isDark.isTrue
-                      ? ColorSystem.appColorWhite
-                      : ColorSystem.appColorBrown,
-                  fontFamily: "Poppins",
-                  fontSize: 12.0,
-                  letterSpacing: 0.5,
-                  height: 1.5,
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      letterSpacing: 0.5,
+                      height: 1.5,
+                    ),
                 children: [
                   const TextSpan(
                     text:
@@ -243,15 +240,10 @@ class HelpAppView extends GetView<HelpAppController> {
             RichText(
               textAlign: TextAlign.justify,
               text: TextSpan(
-                style: TextStyle(
-                  color: homeC.isDark.isTrue
-                      ? ColorSystem.appColorWhite
-                      : ColorSystem.appColorBrown,
-                  fontFamily: "Poppins",
-                  fontSize: 12.0,
-                  letterSpacing: 0.5,
-                  height: 1.5,
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      letterSpacing: 0.5,
+                      height: 1.5,
+                    ),
                 children: [
                   const TextSpan(
                     text: "Klik icon ",
@@ -299,15 +291,10 @@ class HelpAppView extends GetView<HelpAppController> {
             RichText(
               textAlign: TextAlign.justify,
               text: TextSpan(
-                style: TextStyle(
-                  color: homeC.isDark.isTrue
-                      ? ColorSystem.appColorWhite
-                      : ColorSystem.appColorBrown,
-                  fontFamily: "Poppins",
-                  fontSize: 12.0,
-                  letterSpacing: 0.5,
-                  height: 1.5,
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      letterSpacing: 0.5,
+                      height: 1.5,
+                    ),
                 children: [
                   const TextSpan(
                     text:

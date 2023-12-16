@@ -20,17 +20,17 @@ class HeaderPortrait extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
+    // Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
 
     return Column(
       children: [
         Container(
           decoration: BoxDecoration(
-            color: homeC.isDark.isTrue && deviceBrightness == Brightness.dark
+            color: homeC.isDark.isTrue
                 ? ColorSystem.backgroundDarkSecondary
                 : ColorSystem.appColorBrown.withOpacity(0.1),
             image: DecorationImage(
-                image: AssetImage(deviceBrightness == Brightness.dark
+                image: AssetImage(homeC.isDark.isTrue
                     ? "assets/images/header-dark.png"
                     : "assets/images/header-light.png"),
                 fit: BoxFit.fitWidth),
@@ -67,7 +67,7 @@ class HeaderPortrait extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            color: homeC.isDark.isTrue & Get.isDarkMode
+            color: homeC.isDark.isTrue
                 ? ColorSystem.backgroundDarkSecondary
                 : ColorSystem.appColorBrown.withOpacity(0.1),
           ),
@@ -79,7 +79,7 @@ class HeaderPortrait extends StatelessWidget {
                 height: 50,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(homeC.isDark.isTrue & Get.isDarkMode
+                    image: AssetImage(homeC.isDark.isTrue
                         ? "assets/images/bismillah-dark.png"
                         : "assets/images/bismillah-light.png"),
                     // fit: BoxFit.cover

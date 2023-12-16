@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../utils/color_system.dart';
 
 class TTabBarTheme {
-  static TabBarTheme tabBarLightTheme = const TabBarTheme(
+  static TabBarTheme lightTabBarTheme = const TabBarTheme(
     indicator: BoxDecoration(
       border: Border(
         bottom: BorderSide(
@@ -15,7 +15,7 @@ class TTabBarTheme {
     labelColor: ColorSystem.appColorBrown,
   );
 
-  static TabBarTheme tabBarDarkTheme = const TabBarTheme(
+  static TabBarTheme darkTabBarTheme = const TabBarTheme(
     indicator: BoxDecoration(
       border: Border(
         bottom: BorderSide(

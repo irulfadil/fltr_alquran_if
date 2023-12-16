@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'theme/widget_app_theme.dart';
+import 'theme/app_theme.dart';
 import 'package:get_storage/get_storage.dart';
 import 'app/routes/app_pages.dart';
 
@@ -24,6 +24,10 @@ class MyApp extends StatelessWidget {
         selectedTheme = AppTheme.darkMode;
       } else if (savedTheme == "light") {
         selectedTheme = AppTheme.lightMode;
+      } else if (savedTheme == "device") {
+        selectedTheme = AppTheme.darkMode;
+      } else {
+        selectedTheme = AppTheme.lightMode;
       }
     }
 
@@ -31,6 +35,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // theme:
       //     box.read('darkMode') == null ? AppTheme.lightMode : AppTheme.darkMode,
+      // themeMode: ThemeMode.system,
       theme: selectedTheme,
       title: 'Al Quran App',
       initialRoute: box.read('isSkipIntro') == null

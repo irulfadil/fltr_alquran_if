@@ -2,23 +2,77 @@ import 'package:flutter/material.dart';
 import '../utils/color_system.dart';
 
 class TTextTheme {
-  static TextTheme textLightTheme = const TextTheme(
+  static TextTheme lightTextTheme = const TextTheme(
+    // fontSize: 34
+    displayLarge: TextStyle(color: ColorSystem.appColorBrown),
+    // fontSize: 28
+    displayMedium: TextStyle(color: ColorSystem.appColorBrown),
+    // fontSize: 22
+    displaySmall: TextStyle(fontSize: 22),
+
+    // fontSize: 20
+    headlineLarge: TextStyle(color: ColorSystem.appColorBrown),
+    // fontSize: 18
+    headlineMedium: TextStyle(color: ColorSystem.appColorBrown),
+    // fontSize: 16
     headlineSmall: TextStyle(color: ColorSystem.appColorBrown),
+
+    // fontSize: 24
     titleLarge: TextStyle(color: ColorSystem.appColorBrown),
+    // fontSize: 20
     titleMedium: TextStyle(color: ColorSystem.appColorBrown),
-    titleSmall: TextStyle(color: ColorSystem.appColorTeal),
+    // fontSize: 18
+    titleSmall: TextStyle(color: ColorSystem.appColorBrown),
+
+    // fontSize: 18
     bodyLarge: TextStyle(color: ColorSystem.appColorBrown),
+    // fontSize: 16
     bodyMedium: TextStyle(color: ColorSystem.appColorBrown),
+    // fontSize: 14
     bodySmall: TextStyle(color: ColorSystem.appColorBrown),
+
+    // fontSize: 18
+    labelLarge: TextStyle(color: ColorSystem.appColorWhite),
+    // fontSize: 16
+    labelMedium: TextStyle(color: ColorSystem.appColorWhite),
+    // fontSize: 14
+    labelSmall: TextStyle(color: ColorSystem.appColorTeal),
   );
 
-  static TextTheme textDarkTheme = const TextTheme(
-    headlineSmall: TextStyle(color: ColorSystem.appColorWhite),
-    titleLarge: TextStyle(color: ColorSystem.appColorWhite),
-    titleMedium: TextStyle(color: ColorSystem.appColorWhite),
-    titleSmall: TextStyle(color: ColorSystem.appColorTeal),
-    bodyLarge: TextStyle(color: ColorSystem.appColorWhite),
-    bodyMedium: TextStyle(color: ColorSystem.appColorWhite),
-    bodySmall: TextStyle(color: ColorSystem.appColorWhite),
+  static TextTheme darkTextTheme = const TextTheme(
+    // fontSize: 34
+    displayLarge: TextStyle(color: ColorSystem.appColorGray),
+    // fontSize: 28
+    displayMedium: TextStyle(color: ColorSystem.appColorGray),
+    // fontSize: 22
+    displaySmall: TextStyle(fontSize: 22),
+
+    // fontSize: 20
+    headlineLarge: TextStyle(color: ColorSystem.appColorGray),
+    // fontSize: 18
+    headlineMedium: TextStyle(color: ColorSystem.appColorGray),
+    // fontSize: 16
+    headlineSmall: TextStyle(color: ColorSystem.appColorGray),
+
+    // fontSize: 24
+    titleLarge: TextStyle(color: ColorSystem.appColorGray),
+    // fontSize: 20
+    titleMedium: TextStyle(color: ColorSystem.appColorGray),
+    // fontSize: 18
+    titleSmall: TextStyle(color: ColorSystem.appColorGray),
+
+    // fontSize: 18
+    bodyLarge: TextStyle(color: ColorSystem.appColorGray),
+    // fontSize: 16
+    bodyMedium: TextStyle(color: ColorSystem.appColorGray),
+    // fontSize: 14
+    bodySmall: TextStyle(color: ColorSystem.appColorGray),
+
+    // fontSize: 18
+    labelLarge: TextStyle(color: ColorSystem.appColorGray),
+    // fontSize: 16
+    labelMedium: TextStyle(color: ColorSystem.appColorGray),
+    // fontSize: 14
+    labelSmall: TextStyle(color: ColorSystem.appColorTeal),
   );
 }

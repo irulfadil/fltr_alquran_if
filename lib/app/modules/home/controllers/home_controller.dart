@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:sqflite/sqflite.dart';
 
-import '../../../../theme/widget_app_theme.dart';
+import '../../../../theme/app_theme.dart';
 import '../../../../utils/color_system.dart';
 import '../../../data/db/database_instance.dart';
 import '../../../data/models/juz_model.dart';
@@ -20,6 +20,19 @@ class HomeController extends GetxController {
 
   // Instance database sqflite
   DatabaseInstance database = DatabaseInstance.instance;
+
+  @override
+  void onInit() {
+    super.onInit();
+    cekTheme();
+  }
+
+  void cekTheme() {
+    if (box.read('darkMode') == 'dark') {
+      isDark.value = true;
+      print(isDark.value);
+    }
+  }
 
   // Function data get Last Read
   Future<Map<String, dynamic>?> getLastRead() async {

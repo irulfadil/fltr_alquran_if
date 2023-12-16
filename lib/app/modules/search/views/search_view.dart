@@ -55,10 +55,8 @@ class SearchView extends GetView<SearchControl> {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   hintText: "Search",
-                  hintStyle: TextStyle(
-                    color: homeC.isDark.isTrue
-                        ? ColorSystem.appColorGray
-                        : ColorSystem.appColorGray,
+                  hintStyle: const TextStyle(
+                    color: ColorSystem.appColorGray,
                   ),
                   contentPadding: const EdgeInsets.symmetric(
                       horizontal: 10.0, vertical: 10.0),
@@ -78,7 +76,7 @@ class SearchView extends GetView<SearchControl> {
         ),
       ),
       body: Obx(
-        () => controller.isLoading.value
+        () => controller.isLoading.isTrue
             ? Container(
                 margin: const EdgeInsets.only(top: 20.0),
                 child: const Center(
@@ -119,41 +117,24 @@ class SearchView extends GetView<SearchControl> {
                       child: Center(
                         child: Text(
                           "${surah['number']}",
-                          style: TextStyle(
-                              color: homeC.isDark.isTrue
-                                  ? ColorSystem.appColorBrown
-                                  : ColorSystem.appColorGreen,
-                              fontSize: 14.0),
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ),
                     ),
-                    title: Obx(
-                      () => Text(
-                        surah["englishName"].toString(),
-                        style: TextStyle(
-                          color: homeC.isDark.isTrue
-                              ? ColorSystem.appColorWhite
-                              : ColorSystem.appColorBrown,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                    title: Text(
+                      surah["englishName"].toString(),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                     subtitle: Text(
                       "${surah["revelationType"]} | ${surah["numberOfAyahs"]} Ayah",
-                      style: const TextStyle(
-                        color: ColorSystem.appColorGray,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                     trailing: Text(
                       surah['name'],
-                      style: TextStyle(
-                        color: homeC.isDark.isTrue
-                            ? ColorSystem.appColorWhite
-                            : ColorSystem.appColorBrown,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "MUHAMMADIBold",
+                          ),
                     ),
                   );
                 },

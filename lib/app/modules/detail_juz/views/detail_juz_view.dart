@@ -63,7 +63,13 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Juz ${detailJuz.number.toString()}"),
+        title: Text(
+          "Juz ${detailJuz.number.toString()}",
+          style: const TextStyle(
+            color: ColorSystem.appColorWhite,
+            fontSize: 16.0,
+          ),
+        ),
         centerTitle: true,
       ),
       body: ListView(
@@ -220,26 +226,17 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                       child: Center(
                                         child: Text(
                                           "${detailAyahs.numberInSurah}",
-                                          style: homeC.isDark.isTrue
-                                              ? const TextStyle(
-                                                  color:
-                                                      ColorSystem.appColorWhite)
-                                              : Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
                                         ),
                                       ),
                                     ),
                                     Text(
                                       "${detailAyahs.surah!.englishName}",
-                                      style: homeC.isDark.isTrue
-                                          ? TextStyle(
-                                              color: ColorSystem.appColorWhite
-                                                  .withOpacity(0.5),
-                                            )
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
                                     ),
                                   ],
                                 ),
@@ -260,21 +257,13 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                             IconButton(
                                               onPressed: () {
                                                 Get.defaultDialog(
-                                                  titleStyle: TextStyle(
-                                                    color: homeC.isDark.isTrue
-                                                        ? ColorSystem
-                                                            .appColorWhite
-                                                        : ColorSystem
-                                                            .appColorBrown,
-                                                    fontSize: 18.0,
-                                                  ),
-                                                  middleTextStyle: TextStyle(
-                                                    color: homeC.isDark.isTrue
-                                                        ? ColorSystem
-                                                            .appColorWhite
-                                                        : ColorSystem
-                                                            .appColorBrown,
-                                                  ),
+                                                  titleStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge,
+                                                  middleTextStyle:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium,
                                                   title: "Save as",
                                                   middleText:
                                                       "Please, Choose LastRead or Bookmark ?",
@@ -400,13 +389,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                 homeC.isEnabledTranslate.isTrue
                                     ? "${detailAyahsTranslate['text']}"
                                     : "",
-                                style: TextStyle(
-                                  color: homeC.isDark.isTrue
-                                      ? ColorSystem.appColorGray
-                                          .withOpacity(0.5)
-                                      : Colors.grey,
-                                  fontSize: 16.0,
-                                ),
+                                style: Theme.of(context).textTheme.bodyLarge,
                                 textAlign: TextAlign.justify,
                               ),
                               const SizedBox(height: 20.0),

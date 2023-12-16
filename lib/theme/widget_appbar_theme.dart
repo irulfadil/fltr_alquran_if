@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../utils/color_system.dart';
 
 class AappBarTheme {
-  static AppBarTheme appBarLightTheme = const AppBarTheme(
+  static AppBarTheme lightAppBarTheme = const AppBarTheme(
     elevation: 4,
     backgroundColor: ColorSystem.appColorGreen,
     iconTheme: IconThemeData(
@@ -12,7 +12,7 @@ class AappBarTheme {
     ),
   );
 
-  static AppBarTheme appBarDarkTheme = const AppBarTheme(
+  static AppBarTheme darkAppBarTheme = const AppBarTheme(
     elevation: 4,
     backgroundColor: ColorSystem.backgroundDark,
     iconTheme: IconThemeData(

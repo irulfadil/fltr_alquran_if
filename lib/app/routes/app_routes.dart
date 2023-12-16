@@ -14,4 +14,6 @@ abstract class Routes {
   static const informationApp = '/information-app';
   static const privacyApp = '/privacy-app';
   static const helpApp = '/help-app';
+  static const prayerSchedule = '/prayer-schedule';
+  static const qiblah = '/qiblah';
 }

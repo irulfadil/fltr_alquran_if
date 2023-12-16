@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../utils/color_system.dart';
 
 class SSwitchTheme {
-  static SwitchThemeData switchlightTheme = SwitchThemeData(
+  static SwitchThemeData lightSwitchTheme = SwitchThemeData(
     thumbColor: MaterialStateProperty.all(ColorSystem.appColorGrayDark),
     trackColor: MaterialStateProperty.all(ColorSystem.appColorGray),
   );
-  static SwitchThemeData switchDarkTheme = SwitchThemeData(
+  static SwitchThemeData darkSwitchTheme = SwitchThemeData(
     thumbColor: MaterialStateProperty.all(ColorSystem.appColorTeal),
     trackColor: MaterialStateProperty.all(ColorSystem.appColorGray),
   );

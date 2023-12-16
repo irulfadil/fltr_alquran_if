@@ -20,12 +20,7 @@ class InformationPrivacyView extends GetView<InformationPrivacyController> {
           ListTile(
             leading: const Icon(Icons.info),
             title: const Text("Informasi Aplikasi"),
-            subtitle: const Text(
-              "Info tentang aplikasi ini",
-              style: TextStyle(
-                color: ColorSystem.appColorGray,
-              ),
-            ),
+            subtitle: const Text("Info tentang aplikasi ini"),
             onTap: () {
               Get.toNamed(Routes.informationApp);
             },
@@ -34,12 +29,7 @@ class InformationPrivacyView extends GetView<InformationPrivacyController> {
           ListTile(
             leading: const Icon(Icons.lock_rounded),
             title: const Text("Kebijakan Privasi"),
-            subtitle: const Text(
-              "Kebijakan privasi aplikasi ini",
-              style: TextStyle(
-                color: ColorSystem.appColorGray,
-              ),
-            ),
+            subtitle: const Text("Kebijakan privasi aplikasi ini"),
             onTap: () {
               Get.toNamed(Routes.privacyApp);
             },
