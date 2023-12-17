@@ -97,7 +97,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.qiblah,
-      page: () => QiblahView(),
+      page: () => const QiblahView(),
       binding: QiblahBinding(),
     ),
   ];

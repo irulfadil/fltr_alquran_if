@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
-import '../../../../utils/color_system.dart';
+
+import 'widget_location_error.dart';
+// import 'package:geocoding/geocoding.dart';
 
 class QiblahScreen extends StatefulWidget {
   const QiblahScreen({super.key});
@@ -19,10 +21,16 @@ class _QiblahScreenState extends State<QiblahScreen>
 
   @override
   void initState() {
+    super.initState();
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));
     animation = Tween(begin: 0.0, end: 0.0).animate(_animationController!);
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    FlutterQiblah().dispose();
+    super.dispose();
   }
 
   @override
@@ -37,18 +45,27 @@ class _QiblahScreenState extends State<QiblahScreen>
             }
 
             if (snapshot.hasError) {
-              return Center(
-                child: Text("Error: ${snapshot.error.toString()}"),
+              return const Center(
+                child: LocationErrorWidget(),
               );
             }
 
             final qiblahDirection = snapshot.data;
+            // ignore: avoid_print
+            print(
+                "qiblah: ${qiblahDirection!.qiblah} + direction: ${qiblahDirection.direction} + offset: ${qiblahDirection.offset}");
             animation = Tween(
                     begin: begin,
-                    end: (qiblahDirection!.qiblah * (pi / 180) * -1))
+                    end: (qiblahDirection.qiblah * (pi / 180) * -1))
                 .animate(_animationController!);
             begin = (qiblahDirection.qiblah * (pi / 180) * -1);
             _animationController!.forward(from: 0);
+
+            // Get name qiblah direction
+            // final latitude = double.parse(_latitudeController.text);
+            //       final longitude = double.parse(_longitudeController.text);
+            // final List<Placemark> placemarks =
+            //     placemarkFromCoordinates(latitude, longitude);
 
             return Center(
               child: Column(
@@ -56,21 +73,19 @@ class _QiblahScreenState extends State<QiblahScreen>
                 children: [
                   Text(
                     "${qiblahDirection.direction.toInt()}",
-                    style: const TextStyle(
-                      color: ColorSystem.appColorGray,
-                      fontSize: 24,
-                    ),
+                    // placemarks.isNotEmpty ? placemarks[0].name:"",
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 20.0),
                   SizedBox(
-                    height: 300,
+                    width: 300,
                     child: AnimatedBuilder(
                       animation: animation!,
                       builder: (BuildContext context, Widget? child) {
                         return Transform.rotate(
                           angle: animation!.value,
                           child: Image.asset(
-                              "assets/images/dark-logo-alquran-black.png"),
+                              "assets/images/qiblah_compas_kabah.png"),
                         );
                       },
                     ),

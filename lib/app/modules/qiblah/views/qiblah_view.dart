@@ -12,7 +12,12 @@ class QiblahView extends GetView<QiblahController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Qiblah'),
+        title: const Text(
+          'Arah Qiblat',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
         centerTitle: true,
       ),
       body: FutureBuilder(
