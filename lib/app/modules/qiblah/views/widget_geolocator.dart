@@ -1,36 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 
-class QiblahController extends GetxController {
+class GeolocatorScreen extends StatefulWidget {
+  const GeolocatorScreen({super.key});
+
+  @override
+  State<GeolocatorScreen> createState() => _GeolocatorScreenState();
+}
+
+class _GeolocatorScreenState extends State<GeolocatorScreen> {
   Position? currentLocation;
   late bool servicePermission = false;
   late LocationPermission permission;
 
-  RxString currentAddress = ''.obs;
-
-  bool hasPermission = false;
-
-  @override
-  void onInit() {
-    _initLocationAndAddress();
-    super.onInit();
-  }
-
-  // Function permission for lokasi device.
-  Future getPermission() async {
-    if (await Permission.location.serviceStatus.isEnabled) {
-      var status = await Permission.location.status;
-      if (status.isGranted) {
-        hasPermission = true;
-      } else {
-        Permission.location.request().then((value) {
-          hasPermission = (value == PermissionStatus.granted);
-        });
-      }
-    }
-  }
+  String currentAddress = "";
 
   Future<Position> _getCurrentLocation() async {
     servicePermission = await Geolocator.isLocationServiceEnabled();
@@ -55,7 +39,9 @@ class QiblahController extends GetxController {
           currentLocation!.latitude, currentLocation!.longitude);
       Placemark place = placemarks[0];
 
-      currentAddress.value = "${place.locality}, ${place.country}";
+      setState(() {
+        currentAddress = "${place.locality}, ${place.country}";
+      });
     } catch (e) {
       // ignore: avoid_print
       print(e);
@@ -66,5 +52,30 @@ class QiblahController extends GetxController {
     currentLocation = await _getCurrentLocation();
 
     await _getAdressFromCoordinates();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initLocationAndAddress();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Get User Location"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text("_latitude:  ${currentLocation?.latitude}"),
+            Text("_longitude: ${currentLocation?.longitude}"),
+            Text(currentAddress),
+          ],
+        ),
+      ),
+    );
   }
 }

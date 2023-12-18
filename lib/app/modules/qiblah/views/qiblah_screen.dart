@@ -2,9 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
+import 'package:get/get.dart';
 
+import '../../../../utils/color_system.dart';
+import '../controllers/qiblah_controller.dart';
 import 'widget_location_error.dart';
-// import 'package:geocoding/geocoding.dart';
 
 class QiblahScreen extends StatefulWidget {
   const QiblahScreen({super.key});
@@ -15,6 +17,8 @@ class QiblahScreen extends StatefulWidget {
 
 class _QiblahScreenState extends State<QiblahScreen>
     with SingleTickerProviderStateMixin {
+  final qiblahC = Get.put(QiblahController());
+
   Animation<double>? animation;
   AnimationController? _animationController;
   double begin = 0.0;
@@ -37,6 +41,7 @@ class _QiblahScreenState extends State<QiblahScreen>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: ColorSystem.backgroundDarkSecondary,
         body: StreamBuilder<QiblahDirection>(
           stream: FlutterQiblah.qiblahStream,
           builder: (contex, snapshot) {
@@ -51,47 +56,58 @@ class _QiblahScreenState extends State<QiblahScreen>
             }
 
             final qiblahDirection = snapshot.data;
-            // ignore: avoid_print
-            print(
-                "qiblah: ${qiblahDirection!.qiblah} + direction: ${qiblahDirection.direction} + offset: ${qiblahDirection.offset}");
+
             animation = Tween(
                     begin: begin,
-                    end: (qiblahDirection.qiblah * (pi / 180) * -1))
+                    end: (qiblahDirection!.qiblah * (pi / 180) * -1))
                 .animate(_animationController!);
             begin = (qiblahDirection.qiblah * (pi / 180) * -1);
             _animationController!.forward(from: 0);
 
-            // Get name qiblah direction
-            // final latitude = double.parse(_latitudeController.text);
-            //       final longitude = double.parse(_longitudeController.text);
-            // final List<Placemark> placemarks =
-            //     placemarkFromCoordinates(latitude, longitude);
-
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "${qiblahDirection.direction.toInt()}",
-                    // placemarks.isNotEmpty ? placemarks[0].name:"",
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 20.0),
-                  SizedBox(
-                    width: 300,
-                    child: AnimatedBuilder(
-                      animation: animation!,
-                      builder: (BuildContext context, Widget? child) {
-                        return Transform.rotate(
-                          angle: animation!.value,
-                          child: Image.asset(
-                              "assets/images/qiblah_compas_kabah.png"),
-                        );
-                      },
+            return Stack(
+              // fit: StackFit.expand,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/bg_compas.png'),
+                      fit: BoxFit.fill,
+                      opacity: 0.2,
+                      scale: 2.0,
                     ),
                   ),
-                ],
-              ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${qiblahDirection.direction.toInt()}",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 20.0),
+                        SizedBox(
+                          width: 300,
+                          child: AnimatedBuilder(
+                            animation: animation!,
+                            builder: (BuildContext context, Widget? child) {
+                              return Transform.rotate(
+                                angle: animation!.value,
+                                child: Image.asset(
+                                    "assets/images/qiblah_compas_kabah.png"),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 20.0),
+                        Text(
+                          qiblahC.currentAddress.value,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             );
           },
         ),
