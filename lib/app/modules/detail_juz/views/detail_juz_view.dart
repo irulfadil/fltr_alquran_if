@@ -268,44 +268,38 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                                   middleText:
                                                       "Please, Choose LastRead or Bookmark ?",
                                                   actions: [
-                                                    SizedBox(
-                                                      width: 110,
-                                                      child:
-                                                          CustomElevatedButton(
-                                                        onPressed: () async {
-                                                          await c.addBookmark(
-                                                              true,
-                                                              surahAyahs,
-                                                              index);
-                                                          homeC.update();
-                                                        },
-                                                        text: "LAST READ",
-                                                        backgroundColor:
-                                                            ColorSystem
-                                                                .appColorBrown,
-                                                        colorText: ColorSystem
-                                                            .appColorWhite,
-                                                        colorBorder:
-                                                            Colors.transparent,
-                                                      ),
+                                                    CustomElevatedButton(
+                                                      onPressed: () async {
+                                                        await c.addBookmark(
+                                                            true,
+                                                            surahAyahs,
+                                                            index);
+                                                        homeC.update();
+                                                      },
+                                                      text: "LAST READ",
+                                                      backgroundColor:
+                                                          ColorSystem
+                                                              .appColorBrown,
+                                                      colorText: ColorSystem
+                                                          .appColorWhite,
+                                                      colorBorder:
+                                                          Colors.transparent,
                                                     ),
-                                                    SizedBox(
-                                                      width: 110,
-                                                      child:
-                                                          CustomElevatedButton(
-                                                        onPressed: () async {
-                                                          await c.addBookmark(
-                                                              false,
-                                                              surahAyahs,
-                                                              index);
-                                                        },
-                                                        text: "BOOKMARK",
-                                                        backgroundColor:
-                                                            ColorSystem
-                                                                .appColorTeal,
-                                                        colorBorder:
-                                                            Colors.transparent,
-                                                      ),
+                                                    CustomElevatedButton(
+                                                      onPressed: () async {
+                                                        await c.addBookmark(
+                                                            false,
+                                                            surahAyahs,
+                                                            index);
+                                                      },
+                                                      text: "BOOKMARK",
+                                                      colorText: ColorSystem
+                                                          .appColorWhite,
+                                                      backgroundColor:
+                                                          ColorSystem
+                                                              .appColorTeal,
+                                                      colorBorder:
+                                                          Colors.transparent,
                                                     ),
                                                   ],
                                                 );

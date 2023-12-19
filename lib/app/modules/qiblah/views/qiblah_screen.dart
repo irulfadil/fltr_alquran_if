@@ -19,8 +19,8 @@ class _QiblahScreenState extends State<QiblahScreen>
     with SingleTickerProviderStateMixin {
   final qiblahC = Get.put(QiblahController());
 
-  Animation<double>? animation;
-  AnimationController? _animationController;
+  late Animation<double>? animation;
+  late AnimationController? _animationController;
   double begin = 0.0;
 
   @override
@@ -33,7 +33,7 @@ class _QiblahScreenState extends State<QiblahScreen>
 
   @override
   void dispose() {
-    FlutterQiblah().dispose();
+    _animationController?.dispose();
     super.dispose();
   }
 

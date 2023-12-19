@@ -100,7 +100,7 @@ class DetailSurahController extends GetxController {
   // Function data get detailSurah translate
   Future<SurahDetailTranslate> getSurahDetailTranslate(String surahNumb) async {
     Uri url =
-        Uri.parse("https://api.alquran.cloud/v1/surah/$surahNumb/en.asad");
+        Uri.parse("https://api.alquran.cloud/v1/surah/$surahNumb/en.pickthall");
     var res = await http.get(url);
 
     Map<String, dynamic>? data =

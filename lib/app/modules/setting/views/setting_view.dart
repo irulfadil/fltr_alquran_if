@@ -75,21 +75,18 @@ class SettingView extends GetView<SettingController> {
                   ],
                 ),
                 actions: [
-                  SizedBox(
-                    width: 100,
-                    child: CustomElevatedButton(
-                      onPressed: () => Get.back(),
-                      text: "CANCEL",
-                      backgroundColor: homeC.isDark.isTrue
-                          ? ColorSystem.backgroundDarkSecondary
-                          : ColorSystem.appColorWhite,
-                      colorBorder: homeC.isDark.isTrue
-                          ? ColorSystem.appColorWhite
-                          : ColorSystem.appColorTeal,
-                      colorText: homeC.isDark.isTrue
-                          ? ColorSystem.appColorWhite
-                          : ColorSystem.appColorTeal,
-                    ),
+                  CustomElevatedButton(
+                    onPressed: () => Get.back(),
+                    text: "CANCEL",
+                    backgroundColor: homeC.isDark.isTrue
+                        ? ColorSystem.backgroundDarkSecondary
+                        : ColorSystem.appColorWhite,
+                    colorBorder: homeC.isDark.isTrue
+                        ? ColorSystem.appColorGray
+                        : ColorSystem.appColorTeal,
+                    colorText: homeC.isDark.isTrue
+                        ? ColorSystem.appColorWhite
+                        : ColorSystem.appColorTeal,
                   ),
                 ],
               );
@@ -126,21 +123,18 @@ class SettingView extends GetView<SettingController> {
                     ),
                   ),
                   actions: [
-                    SizedBox(
-                      width: 100,
-                      child: CustomElevatedButton(
-                        onPressed: () => Get.back(),
-                        text: "CANCEL",
-                        backgroundColor: homeC.isDark.isTrue
-                            ? ColorSystem.backgroundDarkSecondary
-                            : ColorSystem.appColorWhite,
-                        colorBorder: homeC.isDark.isTrue
-                            ? ColorSystem.appColorWhite
-                            : ColorSystem.appColorTeal,
-                        colorText: homeC.isDark.isTrue
-                            ? ColorSystem.appColorWhite
-                            : ColorSystem.appColorTeal,
-                      ),
+                    CustomElevatedButton(
+                      onPressed: () => Get.back(),
+                      text: "CANCEL",
+                      backgroundColor: homeC.isDark.isTrue
+                          ? ColorSystem.backgroundDarkSecondary
+                          : ColorSystem.appColorWhite,
+                      colorBorder: homeC.isDark.isTrue
+                          ? ColorSystem.appColorGray
+                          : ColorSystem.appColorTeal,
+                      colorText: homeC.isDark.isTrue
+                          ? ColorSystem.appColorWhite
+                          : ColorSystem.appColorTeal,
                     ),
                   ],
                 );
@@ -176,8 +170,8 @@ class SettingView extends GetView<SettingController> {
               secondary: const Icon(Icons.remove_red_eye_rounded,
                   color: ColorSystem.appColorTeal),
               activeColor: ColorSystem.appColorTeal,
-              inactiveThumbColor: ColorSystem.appColorGray,
-              inactiveTrackColor: Colors.grey[300],
+              inactiveThumbColor: Colors.grey[500],
+              inactiveTrackColor: Colors.grey[400],
             ),
           ),
           SwitchListTile(
@@ -189,8 +183,8 @@ class SettingView extends GetView<SettingController> {
             onChanged: (value) {},
             secondary: const Icon(Icons.g_translate_outlined,
                 color: ColorSystem.appColorTeal),
-            inactiveThumbColor: ColorSystem.appColorGray,
-            inactiveTrackColor: Colors.grey[300],
+            inactiveThumbColor: Colors.grey[500],
+            inactiveTrackColor: Colors.grey[400],
           ),
           const SizedBox(
             height: 10.0,
@@ -264,21 +258,18 @@ class SettingView extends GetView<SettingController> {
                     ],
                   ),
                   actions: [
-                    SizedBox(
-                      width: 100,
-                      child: CustomElevatedButton(
-                        onPressed: () => Get.back(),
-                        text: "CANCEL",
-                        backgroundColor: homeC.isDark.isTrue
-                            ? ColorSystem.backgroundDarkSecondary
-                            : ColorSystem.appColorWhite,
-                        colorBorder: homeC.isDark.isTrue
-                            ? ColorSystem.appColorWhite
-                            : ColorSystem.appColorTeal,
-                        colorText: homeC.isDark.isTrue
-                            ? ColorSystem.appColorWhite
-                            : ColorSystem.appColorTeal,
-                      ),
+                    CustomElevatedButton(
+                      onPressed: () => Get.back(),
+                      text: "CANCEL",
+                      backgroundColor: homeC.isDark.isTrue
+                          ? ColorSystem.backgroundDarkSecondary
+                          : ColorSystem.appColorWhite,
+                      colorBorder: homeC.isDark.isTrue
+                          ? ColorSystem.appColorGray
+                          : ColorSystem.appColorTeal,
+                      colorText: homeC.isDark.isTrue
+                          ? ColorSystem.appColorWhite
+                          : ColorSystem.appColorTeal,
                     ),
                   ],
                 );

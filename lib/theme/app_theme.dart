@@ -4,6 +4,7 @@ import '../utils/color_system.dart';
 import 'widget_appbar_theme.dart';
 import 'widget_iconbutton_theme.dart';
 import 'widget_listtile_theme.dart';
+import 'widget_popmenu.dart';
 import 'widget_radio_theme.dart';
 import 'widget_switch_theme.dart';
 import 'widget_tabbar_theme.dart';
@@ -23,9 +24,7 @@ class AppTheme {
     switchTheme: SSwitchTheme.lightSwitchTheme,
     iconTheme: IiconButtonTheme.lightIconTheme,
     radioTheme: RradioTheme.lightRadioTheme,
-    popupMenuTheme: const PopupMenuThemeData(
-      color: ColorSystem.backgroundLight,
-    ),
+   popupMenuTheme: PpopMenuTheme.lightPopupMenuTheme,
   );
 
   // Theme darkMode
@@ -41,8 +40,6 @@ class AppTheme {
     switchTheme: SSwitchTheme.darkSwitchTheme,
     iconTheme: IiconButtonTheme.darkIconTheme,
     radioTheme: RradioTheme.darkRadioTheme,
-    popupMenuTheme: const PopupMenuThemeData(
-      color: ColorSystem.backgroundDarkSecondary,
-    ),
+    popupMenuTheme: PpopMenuTheme.darkPopupMenuTheme,
   );
 }

@@ -19,9 +19,6 @@ class HomeView extends GetView<HomeController> {
   final indexTabBookmark = Get.arguments['indexTabBokkmark'] ?? 0;
   final box = GetStorage();
 
-  final now = DateTime.now();
-  final formatter = DateFormat('EEEE, MMMM d, y');
-
   @override
   Widget build(BuildContext context) {
     Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
@@ -33,14 +30,17 @@ class HomeView extends GetView<HomeController> {
     });
 
     // Setting date
+    final now = DateTime.now();
+    final formatter = DateFormat('EEEE, MMMM d, y');
     String formattedDate = formatter.format(now);
+
     print("storage theme: ${box.read('darkMode')}");
+
     return Scaffold(
       appBar: AppBar(
         elevation: controller.isDark.isTrue ? 0 : 4,
         title: const Text(
           "Al Qur'an",
-          style: TextStyle(color: ColorSystem.appColorWhite),
           textAlign: TextAlign.left,
         ),
         actions: [
@@ -57,14 +57,17 @@ class HomeView extends GetView<HomeController> {
               }
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              const PopupMenuItem<String>(
+              PopupMenuItem<String>(
                 value: 'setting',
                 child: ListTile(
                   title: Row(
                     children: [
-                      Icon(Icons.settings),
-                      SizedBox(width: 8),
-                      Text("Setting"),
+                      const Icon(Icons.settings),
+                      const SizedBox(width: 8),
+                      Text(
+                        "Setting",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ],
                   ),
                 ),
@@ -342,7 +345,7 @@ class HomeView extends GetView<HomeController> {
                                         "Are you sure delete last read ?",
                                     actions: [
                                       SizedBox(
-                                        width: 100,
+                                        width: 110,
                                         child: CustomElevatedButton(
                                           onPressed: () => Get.back(),
                                           text: "CANCEL",
@@ -358,7 +361,7 @@ class HomeView extends GetView<HomeController> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 100,
+                                        width: 110,
                                         child: CustomElevatedButton(
                                           onPressed: () {
                                             controller
@@ -369,6 +372,7 @@ class HomeView extends GetView<HomeController> {
                                           backgroundColor:
                                               ColorSystem.appColorTeal,
                                           colorBorder: Colors.transparent,
+                                          colorText: ColorSystem.appColorWhite,
                                         ),
                                       ),
                                     ],
@@ -845,7 +849,7 @@ class HomeView extends GetView<HomeController> {
                                             "Are you sure delete bookmark ?",
                                         actions: [
                                           SizedBox(
-                                            width: 100,
+                                            width: 110,
                                             child: CustomElevatedButton(
                                               onPressed: () => Get.back(),
                                               text: "CANCEL",
@@ -862,7 +866,7 @@ class HomeView extends GetView<HomeController> {
                                             ),
                                           ),
                                           SizedBox(
-                                            width: 100,
+                                            width: 110,
                                             child: CustomElevatedButton(
                                               onPressed: () {
                                                 c.deletBookmark(data['id']);
@@ -871,6 +875,8 @@ class HomeView extends GetView<HomeController> {
                                               text: "DELETE",
                                               backgroundColor:
                                                   ColorSystem.appColorTeal,
+                                              colorText:
+                                                  ColorSystem.appColorWhite,
                                               colorBorder: Colors.transparent,
                                             ),
                                           ),

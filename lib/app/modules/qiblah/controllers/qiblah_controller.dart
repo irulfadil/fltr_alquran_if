@@ -9,7 +9,6 @@ class QiblahController extends GetxController {
   late LocationPermission permission;
 
   RxString currentAddress = ''.obs;
-
   bool hasPermission = false;
 
   @override
@@ -32,11 +31,12 @@ class QiblahController extends GetxController {
     }
   }
 
+  // Function current location
   Future<Position> _getCurrentLocation() async {
     servicePermission = await Geolocator.isLocationServiceEnabled();
     if (!servicePermission) {
       // ignore: avoid_print
-      print("Service disabed");
+      print("Service disabled");
     }
 
     // The service is enabled on major phones, but it's ok to check it
@@ -48,7 +48,7 @@ class QiblahController extends GetxController {
     return await Geolocator.getCurrentPosition();
   }
 
-  //let's geocode the coordinate and convert them into address.
+  // Function get geocode the coordinate and convert them into address.
   _getAdressFromCoordinates() async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(
@@ -62,6 +62,7 @@ class QiblahController extends GetxController {
     }
   }
 
+  // Function init location address.
   Future<void> _initLocationAndAddress() async {
     currentLocation = await _getCurrentLocation();
 
