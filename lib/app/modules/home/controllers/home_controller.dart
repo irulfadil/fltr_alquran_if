@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:sqflite/sqflite.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../theme/app_theme.dart';
 import '../../../../utils/color_system.dart';
@@ -21,9 +23,15 @@ class HomeController extends GetxController {
   // Instance database sqflite
   DatabaseInstance database = DatabaseInstance.instance;
 
+  late DateFormat formattedDate = DateFormat('EEEE, d MMMM y', 'id');
+
   @override
   void onInit() {
     cekTheme();
+    initializeDateFormatting('id', null).then((_) {
+      formattedDate;
+      update();
+    });
     super.onInit();
   }
 

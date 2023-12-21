@@ -17,6 +17,6 @@ class AccessMenuController extends GetxController {
     homeC.getAllJuz().then((juzList) {
       copyallJuz.addAll(juzList);
     });
-    print("procesing done...");
+    print("procesing access done...");
   }
 }

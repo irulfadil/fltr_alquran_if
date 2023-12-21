@@ -83,15 +83,6 @@ class HelpAppView extends GetView<HelpAppController> {
                       letterSpacing: 0.5,
                       height: 1.5,
                     ),
-                // TextStyle(
-                //   color: homeC.isDark.isTrue
-                //       ? ColorSystem.appColorWhite
-                //       : ColorSystem.appColorBrown,
-                //   fontFamily: "Poppins",
-                //   fontSize: 12.0,
-                //   letterSpacing: 0.5,
-                //   height: 1.5,
-                // ),
                 children: [
                   const TextSpan(
                     text:

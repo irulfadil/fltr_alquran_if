@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class QiblahController extends GetxController {
-  Position? currentLocation;
+  // Position? currentLocation;
+  Rx<Position?> currentLocation = Rx<Position?>(null);
   late bool servicePermission = false;
   late LocationPermission permission;
 
@@ -13,8 +14,8 @@ class QiblahController extends GetxController {
 
   @override
   void onInit() {
-    _initLocationAndAddress();
     super.onInit();
+    _initLocationAndAddress();
   }
 
   // Function permission for lokasi device.
@@ -52,7 +53,7 @@ class QiblahController extends GetxController {
   _getAdressFromCoordinates() async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(
-          currentLocation!.latitude, currentLocation!.longitude);
+          currentLocation.value!.latitude, currentLocation.value!.longitude);
       Placemark place = placemarks[0];
 
       if (placemarks.isNotEmpty) {
@@ -66,7 +67,7 @@ class QiblahController extends GetxController {
 
   // Function init location address.
   Future<void> _initLocationAndAddress() async {
-    currentLocation = await _getCurrentLocation();
+    currentLocation.value = await _getCurrentLocation();
 
     await _getAdressFromCoordinates();
   }

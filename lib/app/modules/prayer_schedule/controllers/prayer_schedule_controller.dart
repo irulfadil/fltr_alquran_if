@@ -1,7 +1,8 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
-// import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class PrayerScheduleController extends GetxController {
   Rx<Position?> currentLocation = Rx<Position?>(null);
@@ -10,11 +11,16 @@ class PrayerScheduleController extends GetxController {
   late bool servicePermission = false;
   late LocationPermission permission;
 
+  late DateFormat formattedDate = DateFormat('EEEE, d MMMM y', 'id');
+
   @override
   void onInit() {
-    super.onInit();
+    initializeDateFormatting('id', null).then((_) {
+      formattedDate;
+      update();
+    });
     initLocationAndAddress();
-    // initializeDateFormatting('id_ID', null);
+    super.onInit();
   }
 
   // Function init location address.

@@ -11,7 +11,6 @@ import '../../../data/models/surah_model.dart';
 import '../../../routes/app_pages.dart';
 import '../../loading/loading_alljuz.dart';
 import '../controllers/home_controller.dart';
-import 'package:intl/intl.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({super.key});
@@ -31,8 +30,7 @@ class HomeView extends GetView<HomeController> {
 
     // Setting datetime
     final now = DateTime.now();
-    final formatter = DateFormat('EEEE, MMMM d, y');
-    String formattedDate = formatter.format(now);
+    String formattedDate = controller.formattedDate.format(now);
 
     print("storage theme: ${box.read('darkMode')}");
 
