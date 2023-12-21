@@ -92,7 +92,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.prayerSchedule,
-      page: () => PrayerScheduleView(),
+      page: () => const PrayerScheduleView(),
       binding: PrayerScheduleBinding(),
     ),
     GetPage(

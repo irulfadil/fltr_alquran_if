@@ -23,8 +23,8 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
     cekTheme();
+    super.onInit();
   }
 
   void cekTheme() {

@@ -55,7 +55,9 @@ class QiblahController extends GetxController {
           currentLocation!.latitude, currentLocation!.longitude);
       Placemark place = placemarks[0];
 
-      currentAddress.value = "${place.locality}, ${place.country}";
+      if (placemarks.isNotEmpty) {
+        currentAddress.value = "${place.locality}, ${place.country}";
+      }
     } catch (e) {
       // ignore: avoid_print
       print(e);

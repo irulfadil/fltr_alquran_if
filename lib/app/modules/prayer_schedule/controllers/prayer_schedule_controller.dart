@@ -1,55 +1,67 @@
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
-// import 'package:geocoding/geocoding.dart';
-// import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
+// import 'package:intl/date_symbol_data_local.dart';
 
 class PrayerScheduleController extends GetxController {
-//   Position? currentLocation;
-//   late bool servicePermission = false;
-//   late LocationPermission permission;
+  Rx<Position?> currentLocation = Rx<Position?>(null);
+  RxString currentAddress = ''.obs;
 
-//   RxString currentAddress = ''.obs;
+  late bool servicePermission = false;
+  late LocationPermission permission;
 
-//   @override
-//   void onInit() {
-//     _initLocationAndAddress();
-//     super.onInit();
-//   }
+  @override
+  void onInit() {
+    super.onInit();
+    initLocationAndAddress();
+    // initializeDateFormatting('id_ID', null);
+  }
 
-// // Function init location address.
-//   Future<void> _initLocationAndAddress() async {
-//     currentLocation = await _getCurrentLocation();
+  // Function init location address.
+  Future<void> initLocationAndAddress() async {
+    currentLocation.value = await getCurrentLocation();
+    await _getAdressFromCoordinates();
+  }
 
-//     await _getAdressFromCoordinates();
-//   }
+  // Function current location
+  Future<Position> getCurrentLocation() async {
+    servicePermission = await Geolocator.isLocationServiceEnabled();
+    if (!servicePermission) {
+      // ignore: avoid_print
+      print("Location services are disabled.");
+    }
 
-//   // Function current location
-//   Future<Position> _getCurrentLocation() async {
-//     servicePermission = await Geolocator.isLocationServiceEnabled();
-//     if (!servicePermission) {
-//       // ignore: avoid_print
-//       print("Service disabled");
-//     }
+    // The service is enabled on major phones, but it's ok to check it
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
 
-//     // The service is enabled on major phones, but it's ok to check it
-//     permission = await Geolocator.checkPermission();
-//     if (permission == LocationPermission.denied) {
-//       permission = await Geolocator.requestPermission();
-//     }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
 
-//     return await Geolocator.getCurrentPosition();
-//   }
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
 
-//   // Function get geocode the coordinate and convert them into address.
-//   _getAdressFromCoordinates() async {
-//     try {
-//       List<Placemark> placemarks = await placemarkFromCoordinates(
-//           currentLocation!.latitude, currentLocation!.longitude);
-//       Placemark place = placemarks[0];
+  // Function get geocode the coordinate and convert them into address.
+  _getAdressFromCoordinates() async {
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          currentLocation.value!.latitude, currentLocation.value!.longitude);
+      Placemark place = placemarks[0];
 
-//       currentAddress.value = "${place.locality}, ${place.country}";
-//     } catch (e) {
-//       // ignore: avoid_print
-//       print(e);
-//     }
-//   }
+      if (placemarks.isNotEmpty) {
+        currentAddress.value = "${place.locality}, ${place.country}";
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+  }
 }

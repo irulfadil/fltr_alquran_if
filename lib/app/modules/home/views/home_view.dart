@@ -29,7 +29,7 @@ class HomeView extends GetView<HomeController> {
       }
     });
 
-    // Setting date
+    // Setting datetime
     final now = DateTime.now();
     final formatter = DateFormat('EEEE, MMMM d, y');
     String formattedDate = formatter.format(now);
@@ -357,7 +357,7 @@ class HomeView extends GetView<HomeController> {
                                               ColorSystem.appColorWhite,
                                           colorText: controller.isDark.isTrue
                                               ? ColorSystem.appColorWhite
-                                              : ColorSystem.appColorTeal,
+                                              : ColorSystem.appColorBrown,
                                         ),
                                       ),
                                       SizedBox(
@@ -369,8 +369,7 @@ class HomeView extends GetView<HomeController> {
                                             Get.back();
                                           },
                                           text: "DELETE",
-                                          backgroundColor:
-                                              ColorSystem.appColorTeal,
+                                          backgroundColor: Colors.red[700],
                                           colorBorder: Colors.transparent,
                                           colorText: ColorSystem.appColorWhite,
                                         ),
@@ -862,7 +861,7 @@ class HomeView extends GetView<HomeController> {
                                               colorText: controller
                                                       .isDark.isTrue
                                                   ? ColorSystem.appColorWhite
-                                                  : ColorSystem.appColorTeal,
+                                                  : ColorSystem.appColorBrown,
                                             ),
                                           ),
                                           SizedBox(
@@ -873,8 +872,7 @@ class HomeView extends GetView<HomeController> {
                                                 Get.back();
                                               },
                                               text: "DELETE",
-                                              backgroundColor:
-                                                  ColorSystem.appColorTeal,
+                                              backgroundColor: Colors.red[700],
                                               colorText:
                                                   ColorSystem.appColorWhite,
                                               colorBorder: Colors.transparent,

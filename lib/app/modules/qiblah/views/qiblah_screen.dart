@@ -5,8 +5,8 @@ import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/color_system.dart';
+import '../../../../widgets/widget_location_error.dart';
 import '../controllers/qiblah_controller.dart';
-import 'widget_location_error.dart';
 
 class QiblahScreen extends StatefulWidget {
   const QiblahScreen({super.key});
@@ -46,13 +46,24 @@ class _QiblahScreenState extends State<QiblahScreen>
           stream: FlutterQiblah.qiblahStream,
           builder: (contex, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return Container(
+                margin: const EdgeInsets.only(top: 20.0),
+                child: const Center(
+                  child: SizedBox(
+                    width: 35.0,
+                    height: 35.0,
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          ColorSystem.appColorTeal),
+                      strokeWidth: 5.0,
+                    ),
+                  ),
+                ),
+              );
             }
 
             if (snapshot.hasError) {
-              return const Center(
-                child: LocationErrorWidget(),
-              );
+              return const LocationErrorWidget();
             }
 
             final qiblahDirection = snapshot.data;
@@ -99,8 +110,15 @@ class _QiblahScreenState extends State<QiblahScreen>
                           ),
                         ),
                         const SizedBox(height: 20.0),
+                        Icon(
+                          Icons.location_pin,
+                          color: Colors.red[700],
+                        ),
+                        const SizedBox(height: 10.0),
                         Text(
-                          qiblahC.currentAddress.value,
+                          qiblahC.currentAddress.value.isNotEmpty
+                              ? qiblahC.currentAddress.value
+                              : "loading location...",
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ],

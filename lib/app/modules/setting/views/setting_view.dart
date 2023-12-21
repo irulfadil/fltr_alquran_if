@@ -75,18 +75,21 @@ class SettingView extends GetView<SettingController> {
                   ],
                 ),
                 actions: [
-                  CustomElevatedButton(
-                    onPressed: () => Get.back(),
-                    text: "CANCEL",
-                    backgroundColor: homeC.isDark.isTrue
-                        ? ColorSystem.backgroundDarkSecondary
-                        : ColorSystem.appColorWhite,
-                    colorBorder: homeC.isDark.isTrue
-                        ? ColorSystem.appColorGray
-                        : ColorSystem.appColorTeal,
-                    colorText: homeC.isDark.isTrue
-                        ? ColorSystem.appColorWhite
-                        : ColorSystem.appColorTeal,
+                  SizedBox(
+                    width: 120,
+                    child: CustomElevatedButton(
+                      onPressed: () => Get.back(),
+                      text: "CANCEL",
+                      backgroundColor: homeC.isDark.isTrue
+                          ? ColorSystem.backgroundDarkSecondary
+                          : ColorSystem.appColorWhite,
+                      colorBorder: homeC.isDark.isTrue
+                          ? ColorSystem.appColorGray
+                          : ColorSystem.appColorBrown,
+                      colorText: homeC.isDark.isTrue
+                          ? ColorSystem.appColorWhite
+                          : ColorSystem.appColorBrown,
+                    ),
                   ),
                 ],
               );
@@ -123,18 +126,21 @@ class SettingView extends GetView<SettingController> {
                     ),
                   ),
                   actions: [
-                    CustomElevatedButton(
-                      onPressed: () => Get.back(),
-                      text: "CANCEL",
-                      backgroundColor: homeC.isDark.isTrue
-                          ? ColorSystem.backgroundDarkSecondary
-                          : ColorSystem.appColorWhite,
-                      colorBorder: homeC.isDark.isTrue
-                          ? ColorSystem.appColorGray
-                          : ColorSystem.appColorTeal,
-                      colorText: homeC.isDark.isTrue
-                          ? ColorSystem.appColorWhite
-                          : ColorSystem.appColorTeal,
+                    SizedBox(
+                      width: 120,
+                      child: CustomElevatedButton(
+                        onPressed: () => Get.back(),
+                        text: "CANCEL",
+                        backgroundColor: homeC.isDark.isTrue
+                            ? ColorSystem.backgroundDarkSecondary
+                            : ColorSystem.appColorWhite,
+                        colorBorder: homeC.isDark.isTrue
+                            ? ColorSystem.appColorGray
+                            : ColorSystem.appColorBrown,
+                        colorText: homeC.isDark.isTrue
+                            ? ColorSystem.appColorWhite
+                            : ColorSystem.appColorBrown,
+                      ),
                     ),
                   ],
                 );
@@ -258,18 +264,21 @@ class SettingView extends GetView<SettingController> {
                     ],
                   ),
                   actions: [
-                    CustomElevatedButton(
-                      onPressed: () => Get.back(),
-                      text: "CANCEL",
-                      backgroundColor: homeC.isDark.isTrue
-                          ? ColorSystem.backgroundDarkSecondary
-                          : ColorSystem.appColorWhite,
-                      colorBorder: homeC.isDark.isTrue
-                          ? ColorSystem.appColorGray
-                          : ColorSystem.appColorTeal,
-                      colorText: homeC.isDark.isTrue
-                          ? ColorSystem.appColorWhite
-                          : ColorSystem.appColorTeal,
+                    SizedBox(
+                      width: 120,
+                      child: CustomElevatedButton(
+                        onPressed: () => Get.back(),
+                        text: "CANCEL",
+                        backgroundColor: homeC.isDark.isTrue
+                            ? ColorSystem.backgroundDarkSecondary
+                            : ColorSystem.appColorWhite,
+                        colorBorder: homeC.isDark.isTrue
+                            ? ColorSystem.appColorGray
+                            : ColorSystem.appColorBrown,
+                        colorText: homeC.isDark.isTrue
+                            ? ColorSystem.appColorWhite
+                            : ColorSystem.appColorBrown,
+                      ),
                     ),
                   ],
                 );
