@@ -15,7 +15,7 @@ class QiblahController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _initLocationAndAddress();
+    initLocationAndAddress();
   }
 
   // Function permission for lokasi device.
@@ -66,7 +66,7 @@ class QiblahController extends GetxController {
   }
 
   // Function init location address.
-  Future<void> _initLocationAndAddress() async {
+  Future<void> initLocationAndAddress() async {
     currentLocation.value = await _getCurrentLocation();
 
     await _getAdressFromCoordinates();

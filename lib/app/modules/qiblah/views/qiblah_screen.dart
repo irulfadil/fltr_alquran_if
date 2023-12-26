@@ -27,6 +27,7 @@ class _QiblahScreenState extends State<QiblahScreen>
   @override
   void initState() {
     super.initState();
+    qiblahC.initLocationAndAddress();
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));
     animation = Tween(begin: 0.0, end: 0.0).animate(_animationController!);
@@ -79,8 +80,16 @@ class _QiblahScreenState extends State<QiblahScreen>
             return Obx(
               () {
                 // Current koordinat
-                double latitude = qiblahC.currentLocation.value!.latitude;
-                double longitude = qiblahC.currentLocation.value!.longitude;
+                double? latitude = qiblahC.currentLocation.value?.latitude;
+                double? longitude = qiblahC.currentLocation.value?.longitude;
+
+                if (latitude != null && longitude != null) {
+                  latitude = qiblahC.currentLocation.value?.latitude;
+                  longitude = qiblahC.currentLocation.value?.longitude;
+                } else {
+                  latitude = 0;
+                  longitude = 0;
+                }
 
                 // Koorinat Latitude/longitude Ka'bah Mecca
                 double mekahLatitude = 21.422487;
@@ -88,8 +97,8 @@ class _QiblahScreenState extends State<QiblahScreen>
 
                 // Distance KM from the location point to the Kaaba in Mecca
                 double distanceInMeters = Geolocator.distanceBetween(
-                  latitude,
-                  longitude,
+                  latitude!,
+                  longitude!,
                   mekahLatitude,
                   mekahLongitude,
                 );

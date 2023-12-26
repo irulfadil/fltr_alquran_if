@@ -226,19 +226,19 @@ class SettingView extends GetView<SettingController> {
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      RadioListTile<String>(
-                          title: const Text('Mengikuti Perangkat'),
-                          value: 'device',
-                          groupValue: controller.selectedThemeModeCurent.value,
-                          onChanged: (value) {
-                            controller.selectedThemeModeCurent.value = value!;
-                            controller.saveThemeCurrent();
-                            deviceBrightness == Brightness.dark
-                                ? box.write('darkMode', value)
-                                : box.write('darkMode', 'light');
+                      // RadioListTile<String>(
+                      //     title: const Text('Mengikuti Perangkat'),
+                      //     value: 'device',
+                      //     groupValue: controller.selectedThemeModeCurent.value,
+                      //     onChanged: (value) {
+                      //       controller.selectedThemeModeCurent.value = value!;
+                      //       controller.saveThemeCurrent();
+                      //       deviceBrightness == Brightness.dark
+                      //           ? box.write('darkMode', value)
+                      //           : box.write('darkMode', 'light');
 
-                            Get.back();
-                          }),
+                      //       Get.back();
+                      //     }),
                       RadioListTile<String>(
                         title: const Text('Terang (Light)'),
                         value: 'light',

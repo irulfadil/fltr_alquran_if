@@ -19,4 +19,6 @@ class AccessMenuController extends GetxController {
     });
     print("procesing access done...");
   }
+
+  navigateToHometab(int i) {}
 }

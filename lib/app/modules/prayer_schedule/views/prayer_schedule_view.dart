@@ -51,9 +51,15 @@ class PrayerScheduleView extends GetView<PrayerScheduleController> {
           return Obx(
             () {
               // Get latitude & longtitude
-              double latitude = controller.currentLocation.value!.latitude;
-              double longitude = controller.currentLocation.value!.longitude;
-              Coordinates myCoordinates = Coordinates(latitude, longitude);
+              double? latitude = controller.currentLocation.value?.latitude;
+              double? longitude = controller.currentLocation.value?.longitude;
+              Coordinates myCoordinates;
+
+              if (latitude != null && longitude != null) {
+                myCoordinates = Coordinates(latitude, longitude);
+              } else {
+                myCoordinates = Coordinates(0, 0);
+              }
 
               print("latitude: $latitude + longitude: $longitude");
 
@@ -61,12 +67,12 @@ class PrayerScheduleView extends GetView<PrayerScheduleController> {
               params.madhab = Madhab.shafi;
               final prayerTimes = PrayerTimes.today(myCoordinates, params);
 
-              String subuh = DateFormat.jm().format(prayerTimes.fajr);
-              String terbit = DateFormat.jm().format(prayerTimes.sunrise);
-              String dzuhur = DateFormat.jm().format(prayerTimes.dhuhr);
-              String asyar = DateFormat.jm().format(prayerTimes.asr);
-              String maghrib = DateFormat.jm().format(prayerTimes.maghrib);
-              String isya = DateFormat.jm().format(prayerTimes.isha);
+              String subuh = DateFormat.jm('id').format(prayerTimes.fajr);
+              String terbit = DateFormat.jm('id').format(prayerTimes.sunrise);
+              String dzuhur = DateFormat.jm('id').format(prayerTimes.dhuhr);
+              String asyar = DateFormat.jm('id').format(prayerTimes.asr);
+              String maghrib = DateFormat.jm('id').format(prayerTimes.maghrib);
+              String isya = DateFormat.jm('id').format(prayerTimes.isha);
 
               return ListView(
                 padding: const EdgeInsets.symmetric(
