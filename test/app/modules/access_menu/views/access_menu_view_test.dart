@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
@@ -10,10 +12,46 @@ class MockGet extends Mock implements GetInterface {}
 
 void main() {
   setUp(() {
-    Get.testMode = true; // Mengaktifkan mode uji GetX
+    Get.testMode = true; 
   });
 
   group('Group Display Container backgroud, logo, logo_2', () {
+    testWidgets('Widget Container with BackdropFilter Test',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+            home: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/bg_access_menu.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+            child: const Center(),
+          ),
+        )),
+      );
+
+      // Verify if Container with BackdropFilter is present
+      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(BackdropFilter), findsOneWidget);
+
+      // Verify if DecorationImage is applied to the Container
+      final containerFinder = find.byType(Container);
+      final containerWidget = tester.widget<Container>(containerFinder);
+      final BoxDecoration? decoration =
+          containerWidget.decoration as BoxDecoration?;
+      expect(decoration?.image, isA<DecorationImage>());
+
+      // Verify if BackdropFilter has ImageFilter.blur applied
+      final backdropFilterFinder = find.byType(BackdropFilter);
+      final backdropFilterWidget =
+          tester.widget<BackdropFilter>(backdropFilterFinder);
+      expect(backdropFilterWidget.filter, isA<ImageFilter>());
+    });
+
     testWidgets('Container show decoration background test',
         (WidgetTester tester) async {
       await tester.pumpWidget(

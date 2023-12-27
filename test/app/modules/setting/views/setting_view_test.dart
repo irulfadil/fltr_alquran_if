@@ -7,66 +7,61 @@ void main() {
     Get.testMode = true;
   });
 
-  // testWidgets('Test ListTile onTap opens Get.defaultDialog',
-  //     (WidgetTester tester) async {
-  //   // Build ListTile widget
-  //   await tester.pumpWidget(
-  //     MaterialApp(
-  //       home: Material(
-  //         child: ListTile(
-  //           title: const Text("Jenis Penulisan Arabic"),
-  //           subtitle: const Text("Utsmani"),
-  //           onTap: () {
-  //             Get.defaultDialog(
-  //               title: "Jenis Penulisan Arabic",
-  //               titleStyle: const TextStyle(
-  //                 fontSize: 16.0,
-  //               ),
-  //               content: Column(
-  //                 mainAxisSize: MainAxisSize.min,
-  //                 children: <Widget>[
-  //                   RadioListTile<String>(
-  //                     title: const Text('IndoPak / Asia'),
-  //                     value: 'asia',
-  //                     groupValue: 'utsmani',
-  //                     onChanged: (value) {},
-  //                   ),
-  //                   RadioListTile<String>(
-  //                     title: const Text('Utsmani'),
-  //                     value: 'utsmani',
-  //                     groupValue: 'utsmani',
-  //                     onChanged: (value) {},
-  //                   ),
-  //                 ],
-  //               ),
-  //               actions: [
-  //                 const SizedBox(
-  //                   width: 120,
-  //                   child: Text('CANCEL'),
-  //                 ),
-  //               ],
-  //             );
-  //           },
-  //         ),
-  //       ),
-  //     ),
-  //   );
+  testWidgets('Test ListTile onTap opens Get.defaultDialog',
+      (WidgetTester tester) async {
+    // Build ListTile widget
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: ListTile(
+            title: const Text("Jenis Penulisan Arabic"),
+            subtitle: const Text("Utsmani"),
+            onTap: () {
+              Get.defaultDialog(
+                title: "Jenis Penulisan Arabic",
+                titleStyle: const TextStyle(
+                  fontSize: 16.0,
+                ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    RadioListTile<String>(
+                      title: const Text('IndoPak / Asia'),
+                      value: 'asia',
+                      groupValue: 'utsmani',
+                      onChanged: (value) {},
+                    ),
+                    RadioListTile<String>(
+                      title: const Text('Utsmani'),
+                      value: 'utsmani',
+                      groupValue: 'utsmani',
+                      onChanged: (value) {},
+                    ),
+                  ],
+                ),
+                actions: [
+                  const SizedBox(
+                    width: 120,
+                    child: Text('CANCEL'),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+    );
 
-  //   // Tap the ListTile
-  //   // await tester.tap(find.byType(ListTile));
-  //   // await tester.pumpAndSettle();
+    // Tap the ListTile
+    await tester.tap(find.byType(ListTile));
+    await tester.pumpAndSettle();
 
-  //   // // Verify the appearance of Get.defaultDialog
-  //   // expect(find.text('Jenis Penulisan Arabic'), findsOneWidget);
-  //   // expect(find.text('IndoPak / Asia'), findsOneWidget);
-  //   // expect(find.text('Utsmani'), findsOneWidget);
-  //   // expect(find.text('CANCEL'), findsOneWidget);
-
-  //   await tester.tap(find.byType(ListTile));
-  //   await tester.pumpAndSettle();
-
-  //   expect(find.text('IndoPak / Asia'), findsOneWidget);
-  // });
+    // Verify the appearance of Get.defaultDialog
+    expect(find.text('Jenis Penulisan Arabic'), findsOneWidget);
+    expect(find.text('IndoPak / Asia'), findsOneWidget);
+    expect(find.text('Utsmani'), findsOneWidget);
+    expect(find.text('CANCEL'), findsOneWidget);
+  });
 
   testWidgets('Widget SwitchListTile Terjemahan Test',
       (WidgetTester tester) async {
@@ -194,6 +189,7 @@ void main() {
     // Verifikasi navigasi ke rute yang diharapkan
     // expect(Get.currentRoute, '/information-privacy');
   });
+
   testWidgets('Widget ListTile onTap navigates to Help route test',
       (WidgetTester tester) async {
     // Setup test

@@ -1,67 +1,50 @@
+<!-- PROJECT LOGO -->
+<p align="center">
+  <a href="https://github.com/irulfadil/fltr_alquran_if">
+    <img src="images/light-logo-alquran-green.png" alt="" width="90" height="90">
+  </a>
+  <h3 align="center">Al Quran</h3>
+  <p align="center">Al Quran App for Android<br /></p>
+</p>
+
 ## Al-Qur’an App
 
-an Flutter App. Al Quran App is the app that all you need for Reading Al Quran Anywhere you wanted. it is the good time to make yourself to be more vaith, and rest your thought for an while to read Qur’an.
+An Flutter App. Al Quran App is the app that all you need for Reading Al Quran Anywhere you wanted.
+It is the good time to make yourself to be more vaith, and rest your thought for an while to read Qur’an.
 
-## API Information
+### API Information
 
-API Used: ...
+API Used: https://alquran.cloud/
 
-## Screenshots
+### Screenshots
 
 Include some attractive screenshots of your app to give potential users a visual preview of your project’s interface.
 
-## Features
+### Features
 
-- Contains All 114 Surah and 30 Juz, and with the translated Indonesian.
-- Beautiful UI for better experience using the app.
-- Bookmarks your verse in the Surah.
-- Searching the Surah that you wanted.
-- Read some of the Articles about the Muslim Happening in indonesian.
-- Reversed Counting time for the Next Adzan Time.
-- can see all the Adzan Time for this Month.
-- Qiblah Direction.
-- Notification For Adzan Time.
+- [x] Contains All 114 Surah and 30 Juz, and with the translated English.
+- [x] Beautiful UI for better experience using the app.
+- [x] Able to save the last page read.
+- [x] There is an audio player of verses' recitation on each page.
+- [x] Bookmarks your verse in the Surah.
+- [x] Searching the Surah that you wanted.
+- [x] Can see prayer schedule according to the current location.
+- [x] Qiblah Direction.
 
-## Getting Started
-
-## Dependencies
-
-## Installing
-
-Updated to Flutter 3.10.0 Now!
-Dart SDK 3.0.5 with Sound Null Safety!
-
-Open CMD where you want to clone the project & run the following commands
-
-git clone ...
-cd alquran_app_if
-
-1. Run flutter pub get to install the required dependencies.
-2. Connect your device or start an emulator.
-3. Run flutter run to launch the app.
-
-## Contributing
-
-<!-- Contributions are welcome! If you encounter bugs or have suggestions, please open an issue or submit a pull request. Follow these steps:
-
-1. Fork the project.
-2. Create your feature branch: git checkout -b feature/new-feature
-3. Commit your changes: git commit -am 'Add a new feature'
-4. Push to the branch: git push origin feature/new-feature
-5. Open a pull request. -->
-
-## Desing Credits
-
-an link to this Design "..."
-
-## Contact
+### Contact
 
     LinkedIn
     E-mail
 
-## Author
+### Author
 
-## GitHub
+by irulfadil @DjonkCreative
+
+### GitHub
 
 View Github
 #Quran #Apps
+
+## Contact
+
+[fadilirul](https://www.instagram.com/fadilirul/)

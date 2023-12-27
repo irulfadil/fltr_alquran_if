@@ -176,8 +176,8 @@ class SettingView extends GetView<SettingController> {
               secondary: const Icon(Icons.remove_red_eye_rounded,
                   color: ColorSystem.appColorTeal),
               activeColor: ColorSystem.appColorTeal,
-              inactiveThumbColor: Colors.grey[500],
-              inactiveTrackColor: Colors.grey[400],
+              inactiveThumbColor: Colors.grey[300],
+              inactiveTrackColor: Colors.grey[300],
             ),
           ),
           SwitchListTile(
@@ -189,8 +189,9 @@ class SettingView extends GetView<SettingController> {
             onChanged: (value) {},
             secondary: const Icon(Icons.g_translate_outlined,
                 color: ColorSystem.appColorTeal),
+            activeColor: ColorSystem.appColorTeal,
             inactiveThumbColor: Colors.grey[500],
-            inactiveTrackColor: Colors.grey[400],
+            inactiveTrackColor: Colors.grey[300],
           ),
           const SizedBox(
             height: 10.0,

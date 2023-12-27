@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/color_system.dart';

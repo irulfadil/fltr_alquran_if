@@ -20,8 +20,6 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Get.isDarkMode) {
         controller.isDark.value = true;
@@ -83,8 +81,7 @@ class HomeView extends GetView<HomeController> {
                 height: 50,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: controller.isDark.isTrue ||
-                            deviceBrightness == Brightness.dark
+                    colors: controller.isDark.isTrue
                         ? [
                             ColorSystem.backgroundDarkSecondary,
                             ColorSystem.appColorBrown
@@ -166,8 +163,7 @@ class HomeView extends GetView<HomeController> {
                         () => Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: controller.isDark.isTrue ||
-                                      deviceBrightness == Brightness.dark
+                              colors: controller.isDark.isTrue
                                   ? [
                                       ColorSystem.backgroundDarkSecondary,
                                       ColorSystem.appColorBrown
@@ -240,8 +236,7 @@ class HomeView extends GetView<HomeController> {
                         () => Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: controller.isDark.isTrue ||
-                                      deviceBrightness == Brightness.dark
+                              colors: controller.isDark.isTrue
                                   ? [
                                       ColorSystem.backgroundDarkSecondary,
                                       ColorSystem.appColorBrown
@@ -316,8 +311,7 @@ class HomeView extends GetView<HomeController> {
                         () => Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: controller.isDark.isTrue ||
-                                      deviceBrightness == Brightness.dark
+                              colors: controller.isDark.isTrue
                                   ? [
                                       ColorSystem.backgroundDarkSecondary,
                                       ColorSystem.appColorBrown
@@ -575,9 +569,7 @@ class HomeView extends GetView<HomeController> {
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                         image: AssetImage(controller
-                                                    .isDark.isTrue ||
-                                                deviceBrightness ==
-                                                    Brightness.dark
+                                                .isDark.isTrue
                                             ? "assets/images/dark-list-numb-surah-4pt.png"
                                             : "assets/images/light-list-numb-surah-4pt.png"),
                                         fit: BoxFit.contain),
@@ -690,9 +682,7 @@ class HomeView extends GetView<HomeController> {
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage(
-                                        controller.isDark.isTrue ||
-                                                deviceBrightness ==
-                                                    Brightness.dark
+                                        controller.isDark.isTrue
                                             ? "assets/images/dark-list-numb-juz-4pt.png"
                                             : "assets/images/light-list-numb-juz-4pt.png",
                                       ),
@@ -810,8 +800,7 @@ class HomeView extends GetView<HomeController> {
                                     }
                                   },
                                   leading: CircleAvatar(
-                                    backgroundColor: controller.isDark.isTrue ||
-                                            deviceBrightness == Brightness.dark
+                                    backgroundColor: controller.isDark.isTrue
                                         ? ColorSystem.appColorTeal
                                         : ColorSystem.appColorBrown
                                             .withOpacity(0.5),
@@ -819,7 +808,8 @@ class HomeView extends GetView<HomeController> {
                                       "${index + 1}",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .titleSmall,
+                                          .titleSmall
+                                          ?.copyWith(color: Colors.white),
                                     ),
                                   ),
                                   title: Text(
