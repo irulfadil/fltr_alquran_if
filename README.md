@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <p align="center">
   <a href="https://github.com/irulfadil/fltr_alquran_if">
-    <img src="assets/images/logo_alquran.png" alt="" width="90" height="90">
+    <img src="assets/images/logo_alquran.png" alt="irulfadil" width="90" height="90">
   </a>
   <h3 align="center">Al-Quran</h3>
   <p align="center">Al-Qur'an For Android<br /></p>
@@ -18,11 +18,10 @@ API Used: https://alquran.cloud/
 
 ### Screenshots
 
-Include some attractive screenshots of your app to give potential users a visual preview of your project’s interface.
-
 <p align="center">
   <a href="#">
-    <img src="https://drive.google.com/drive/folders/1jBcEXPTILmDExdQ_HDub7nDy-RriKE2w?hl=id" alt="">
+    <img src="assets/images/light_mode.png" alt="irulfadil">
+    <img src="assets/images/dark_mode.png" alt="irulfadil">
   </a>
 </p>
 
@@ -46,6 +45,6 @@ by irulfadil @DjonkCreative
 View Github
 #Quran #Apps
 
-## Contact
+### Contact
 
 [fadilirul](https://www.instagram.com/fadilirul/)
