@@ -1,10 +1,10 @@
 <!-- PROJECT LOGO -->
 <p align="center">
   <a href="https://github.com/irulfadil/fltr_alquran_if">
-    <img src="images/light-logo-alquran-green.png" alt="" width="90" height="90">
+    <img src="assets/images/logo_alquran.png" alt="" width="90" height="90">
   </a>
-  <h3 align="center">Al Quran</h3>
-  <p align="center">Al Quran App for Android<br /></p>
+  <h3 align="center">Al-Quran</h3>
+  <p align="center">Al-Qur'an For Android<br /></p>
 </p>
 
 ## Al-Qur’an App
@@ -20,6 +20,12 @@ API Used: https://alquran.cloud/
 
 Include some attractive screenshots of your app to give potential users a visual preview of your project’s interface.
 
+<p align="center">
+  <a href="#">
+    <img src="https://drive.google.com/drive/folders/1jBcEXPTILmDExdQ_HDub7nDy-RriKE2w?hl=id" alt="">
+  </a>
+</p>
+
 ### Features
 
 - [x] Contains All 114 Surah and 30 Juz, and with the translated English.
@@ -30,11 +36,6 @@ Include some attractive screenshots of your app to give potential users a visual
 - [x] Searching the Surah that you wanted.
 - [x] Can see prayer schedule according to the current location.
 - [x] Qiblah Direction.
-
-### Contact
-
-    LinkedIn
-    E-mail
 
 ### Author
 
