@@ -25,7 +25,7 @@ class InformationAppView extends GetView<InformationAppController> {
           ),
           const Divider(),
           Text(
-            "Aplikasi Al Quran adalah aplikasi yang Anda butuhkan untuk membaca Al Quran dimanapun Anda inginkan. Inilah saat yang tepat untuk menjadikan diri Anda lebih jujur, relax dan mengistirahatkan pikiran sejenak untuk membaca Al-Qur'an.",
+            "Aplikasi Al Quran adalah aplikasi yang Anda butuhkan untuk membaca Al Quran dimanapun Anda inginkan. Inilah saat yang tepat untuk menjadikan diri Anda lebih beriman, relax dan mengistirahatkan pikiran sejenak untuk membaca Al-Qur'an.",
             textAlign: TextAlign.justify,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   letterSpacing: 0.5,

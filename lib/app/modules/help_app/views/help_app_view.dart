@@ -105,7 +105,7 @@ class HelpAppView extends GetView<HelpAppController> {
             ),
             const SizedBox(height: 5.0),
             Text(
-              "- Open last read: Klik sekali di seluruh bagian headernya untuk membuka bagian ayat Al-Quran yang terkahir dibaca.",
+              "- Open last read: Klik sekali di seluruh bagian headernya untuk membuka bagian ayat Al-Quran yang terakhir dibaca.",
               textAlign: TextAlign.justify,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     letterSpacing: 0.5,
