@@ -140,206 +140,216 @@ class DetailSurahView extends GetView<DetailSurahController> {
                     key: ValueKey(index),
                     index: index,
                     controller: controller.autoScrollSurahCon,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        if (numbAyahs == 1)
-                          OrientationBuilder(
-                            builder: (context, orientation) {
-                              final orientation =
-                                  MediaQuery.of(context).orientation;
+                    child: Obx(
+                      () => Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          if (numbAyahs == 1)
+                            OrientationBuilder(
+                              builder: (context, orientation) {
+                                final orientation =
+                                    MediaQuery.of(context).orientation;
 
-                              return orientation == Orientation.portrait
-                                  ? HeaderPortrait(
-                                      homeC: homeC,
-                                      revelationType:
-                                          surahAyahs.revelationType.toString(),
-                                      englishName:
-                                          surahAyahs.englishName.toString(),
-                                      numberOfAyahs:
-                                          surahAyahs.numberOfAyahs.toString(),
-                                    )
-                                  : HeaderLandscape(
-                                      homeC: homeC,
-                                      revelationType:
-                                          surahAyahs.revelationType.toString(),
-                                      englishName:
-                                          surahAyahs.englishName.toString(),
-                                      numberOfAyahs:
-                                          surahAyahs.numberOfAyahs.toString(),
-                                    );
-                            },
-                          ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: homeC.isDark.isTrue
-                                ? ColorSystem.backgroundDarkSecondary
-                                : ColorSystem.appColorBrown.withOpacity(0.1),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal: 10,
+                                return orientation == Orientation.portrait
+                                    ? HeaderPortrait(
+                                        homeC: homeC,
+                                        revelationType: surahAyahs
+                                            .revelationType
+                                            .toString(),
+                                        englishName:
+                                            surahAyahs.englishName.toString(),
+                                        numberOfAyahs:
+                                            surahAyahs.numberOfAyahs.toString(),
+                                      )
+                                    : HeaderLandscape(
+                                        homeC: homeC,
+                                        revelationType: surahAyahs
+                                            .revelationType
+                                            .toString(),
+                                        englishName:
+                                            surahAyahs.englishName.toString(),
+                                        numberOfAyahs:
+                                            surahAyahs.numberOfAyahs.toString(),
+                                      );
+                              },
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  height: 45,
-                                  width: 45,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(homeC.isDark.isTrue
-                                          ? "assets/images/dark-list-numb-surah-4pt.png"
-                                          : "assets/images/light-list-numb-surah-4pt.png"),
-                                      fit: BoxFit.contain,
+                          Container(
+                            decoration: BoxDecoration(
+                              color: homeC.isDark.isTrue
+                                  ? ColorSystem.backgroundDarkSecondary
+                                  : ColorSystem.appColorBrown.withOpacity(0.1),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 10,
+                                horizontal: 10,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    height: 45,
+                                    width: 45,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(homeC.isDark.isTrue
+                                            ? "assets/images/dark-list-numb-surah-4pt.png"
+                                            : "assets/images/light-list-numb-surah-4pt.png"),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "${index + 1}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
                                     ),
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      "${index + 1}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    ),
-                                  ),
-                                ),
-                                Opacity(
-                                  opacity: 0.5,
-                                  child: GetBuilder<DetailSurahController>(
-                                    builder: (c) => Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        // kondisi => stop => button play
-                                        // kondisi => playing => button pause && button stop
-                                        // kondisi => pause => button resume && button stop
+                                  Opacity(
+                                    opacity: 0.5,
+                                    child: GetBuilder<DetailSurahController>(
+                                      builder: (c) => Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          // kondisi => stop => button play
+                                          // kondisi => playing => button pause && button stop
+                                          // kondisi => pause => button resume && button stop
 
-                                        IconButton(
-                                          onPressed: () {
-                                            Get.defaultDialog(
-                                              titleStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge,
-                                              middleTextStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium,
-                                              title: "Save as",
-                                              middleText:
-                                                  "Please, Choose LastRead or Bookmark ?",
-                                              actions: [
-                                                CustomElevatedButton(
-                                                  onPressed: () async {
-                                                    await c.addBookmark(true,
-                                                        surahAyahs, index);
-                                                    homeC.update();
-                                                  },
-                                                  text: "LAST READ",
-                                                  colorText:
-                                                      ColorSystem.appColorWhite,
-                                                  colorBorder:
-                                                      Colors.transparent,
-                                                  backgroundColor:
-                                                      ColorSystem.appColorBrown,
-                                                ),
-                                                CustomElevatedButton(
-                                                  onPressed: () async {
-                                                    c.addBookmark(false,
-                                                        surahAyahs, index);
-                                                  },
-                                                  text: "BOOKMARK",
-                                                  colorText:
-                                                      ColorSystem.appColorWhite,
-                                                  colorBorder:
-                                                      Colors.transparent,
-                                                  backgroundColor:
-                                                      ColorSystem.appColorTeal,
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                          icon: const Icon(
-                                            Icons.bookmark_add_outlined,
-                                          ),
-                                        ),
-                                        (ayahs.statusAudio == 'stop')
-                                            ? (IconButton(
-                                                onPressed: () {
-                                                  c.playAudio(ayahs);
-                                                },
-                                                icon: const Icon(
-                                                    Icons.play_arrow_rounded),
-                                              ))
-                                            : Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  (ayahs.statusAudio ==
-                                                          'playing')
-                                                      ? (IconButton(
-                                                          onPressed: () {
-                                                            c.pauseAudio(ayahs);
-                                                          },
-                                                          icon: const Icon(
-                                                            Icons.pause,
-                                                          ),
-                                                        ))
-                                                      : (IconButton(
-                                                          onPressed: () {
-                                                            c.resumeAudio(
-                                                                ayahs);
-                                                          },
-                                                          icon: const Icon(
-                                                              Icons.play_arrow),
-                                                        )),
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      c.stopAudio(ayahs);
+                                          IconButton(
+                                            onPressed: () {
+                                              Get.defaultDialog(
+                                                titleStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge,
+                                                middleTextStyle:
+                                                    Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium,
+                                                title: "Save as",
+                                                middleText:
+                                                    "Please, Choose LastRead or Bookmark ?",
+                                                actions: [
+                                                  CustomElevatedButton(
+                                                    onPressed: () async {
+                                                      await c.addBookmark(true,
+                                                          surahAyahs, index);
+                                                      homeC.update();
                                                     },
-                                                    icon:
-                                                        const Icon(Icons.stop),
-                                                  )
+                                                    text: "LAST READ",
+                                                    colorText: ColorSystem
+                                                        .appColorWhite,
+                                                    colorBorder:
+                                                        Colors.transparent,
+                                                    backgroundColor: ColorSystem
+                                                        .appColorBrown,
+                                                  ),
+                                                  CustomElevatedButton(
+                                                    onPressed: () async {
+                                                      c.addBookmark(false,
+                                                          surahAyahs, index);
+                                                    },
+                                                    text: "BOOKMARK",
+                                                    colorText: ColorSystem
+                                                        .appColorWhite,
+                                                    colorBorder:
+                                                        Colors.transparent,
+                                                    backgroundColor: ColorSystem
+                                                        .appColorTeal,
+                                                  ),
                                                 ],
-                                              )
-                                      ],
+                                              );
+                                            },
+                                            icon: const Icon(
+                                              Icons.bookmark_add_outlined,
+                                            ),
+                                          ),
+                                          (ayahs.statusAudio == 'stop')
+                                              ? (IconButton(
+                                                  onPressed: () {
+                                                    c.playAudio(ayahs);
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons.play_arrow_rounded),
+                                                ))
+                                              : Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    (ayahs.statusAudio ==
+                                                            'playing')
+                                                        ? (IconButton(
+                                                            onPressed: () {
+                                                              c.pauseAudio(
+                                                                  ayahs);
+                                                            },
+                                                            icon: const Icon(
+                                                              Icons.pause,
+                                                            ),
+                                                          ))
+                                                        : (IconButton(
+                                                            onPressed: () {
+                                                              c.resumeAudio(
+                                                                  ayahs);
+                                                            },
+                                                            icon: const Icon(
+                                                                Icons
+                                                                    .play_arrow),
+                                                          )),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        c.stopAudio(ayahs);
+                                                      },
+                                                      icon: const Icon(
+                                                          Icons.stop),
+                                                    )
+                                                  ],
+                                                )
+                                        ],
+                                      ),
                                     ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20.0),
+                          Container(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "${ayahs.text}",
+                                  style: TextStyle(
+                                    color: homeC.isDark.isTrue
+                                        ? ColorSystem.appColorGray
+                                        : ColorSystem.appColorBrown,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: settingC.isfontSizeArabic.value
+                                        .toDouble(),
+                                    // fontFamily: "",
                                   ),
-                                )
+                                  textAlign: TextAlign.right,
+                                ),
+                                const SizedBox(height: 20.0),
+                                Text(
+                                  homeC.isEnabledTranslate.isTrue
+                                      ? "${ayahsTranslate.text}"
+                                      : "",
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                  textAlign: TextAlign.justify,
+                                ),
                               ],
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 20.0),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "${ayahs.text}",
-                                style: TextStyle(
-                                  color: homeC.isDark.isTrue
-                                      ? ColorSystem.appColorGray
-                                      : ColorSystem.appColorBrown,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: settingC.isfontSizeArabic.value
-                                      .toDouble(),
-                                  // fontFamily: "",
-                                ),
-                                textAlign: TextAlign.right,
-                              ),
-                              const SizedBox(height: 20.0),
-                              Text(
-                                homeC.isEnabledTranslate.isTrue
-                                    ? "${ayahsTranslate.text}"
-                                    : "",
-                                style: Theme.of(context).textTheme.bodyLarge,
-                                textAlign: TextAlign.justify,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 20.0),
-                      ],
+                          const SizedBox(height: 20.0),
+                        ],
+                      ),
                     ),
                   );
                 },

@@ -31,7 +31,8 @@ class SettingController extends GetxController {
 
   // Function read themeCurrent in getStore
   void loadThemeCurrent() {
-    selectedThemeModeCurent.value = box.read('isThemeCurrent') ?? 'device';
+    selectedThemeModeCurent.value =
+        box.read('isThemeCurrent') ?? 'followSystem';
   }
 
   // Function Toggle Theme Mode

@@ -12,6 +12,8 @@ class SearchView extends GetView<SearchControl> {
 
   @override
   Widget build(BuildContext context) {
+    Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Get.isDarkMode) {
         homeC.isDark.value = true;
@@ -109,7 +111,8 @@ class SearchView extends GetView<SearchControl> {
                       width: 45,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage(homeC.isDark.isTrue
+                            image: AssetImage(homeC.isDark.isTrue ||
+                                    deviceBrightness == Brightness.dark
                                 ? "assets/images/dark-list-numb-surah-4pt.png"
                                 : "assets/images/light-list-numb-surah-4pt.png"),
                             fit: BoxFit.contain),

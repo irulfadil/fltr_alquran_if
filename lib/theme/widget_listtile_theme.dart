@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../utils/color_system.dart';
 
 class TListTileTheme {
+  TListTileTheme._();
+  
   static ListTileThemeData lightListTileTheme = const ListTileThemeData(
     titleTextStyle: TextStyle(
       fontSize: 16.0,

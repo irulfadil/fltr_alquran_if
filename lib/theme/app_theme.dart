@@ -11,6 +11,8 @@ import 'widget_tabbar_theme.dart';
 import 'widget_text_theme.dart';
 
 class AppTheme {
+  AppTheme._();
+
   // Theme lightMode
   static final lightMode = ThemeData(
     // brightness: Brightness.light,
@@ -24,7 +26,7 @@ class AppTheme {
     switchTheme: SSwitchTheme.lightSwitchTheme,
     iconTheme: IiconButtonTheme.lightIconTheme,
     radioTheme: RradioTheme.lightRadioTheme,
-   popupMenuTheme: PpopMenuTheme.lightPopupMenuTheme,
+    popupMenuTheme: PpopMenuTheme.lightPopupMenuTheme,
   );
 
   // Theme darkMode

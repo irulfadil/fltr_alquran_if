@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../utils/color_system.dart';
 
 class TTextTheme {
+  TTextTheme._();
+  
   static TextTheme lightTextTheme = const TextTheme(
     // fontSize: 34
     displayLarge: TextStyle(color: ColorSystem.appColorBrown),

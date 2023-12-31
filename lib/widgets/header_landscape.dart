@@ -24,47 +24,49 @@ class HeaderLandscape extends StatelessWidget {
 
     return Column(
       children: [
-        Container(
-          height: 110,
-          decoration: BoxDecoration(
-            color: homeC.isDark.isTrue || deviceBrightness == Brightness.dark
-                ? ColorSystem.backgroundDarkSecondary
-                : ColorSystem.appColorBrown.withOpacity(0.1),
-            image: DecorationImage(
-              image: AssetImage(
-                  homeC.isDark.isTrue || deviceBrightness == Brightness.dark
-                      ? "assets/images/header-dark.png"
-                      : "assets/images/header-light.png"),
-              fit: BoxFit.cover,
+        Obx(
+          () => Container(
+            height: 110,
+            decoration: BoxDecoration(
+              color: homeC.isDark.isTrue || deviceBrightness == Brightness.dark
+                  ? ColorSystem.backgroundDarkSecondary
+                  : ColorSystem.appColorBrown.withOpacity(0.1),
+              image: DecorationImage(
+                image: AssetImage(
+                    homeC.isDark.isTrue || deviceBrightness == Brightness.dark
+                        ? "assets/images/header-dark.png"
+                        : "assets/images/header-light.png"),
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(22.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  revelationType,
-                  style: const TextStyle(
-                    color: ColorSystem.appColorBrown,
-                    fontSize: 12.0,
+            child: Padding(
+              padding: const EdgeInsets.all(22.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    revelationType,
+                    style: const TextStyle(
+                      color: ColorSystem.appColorBrown,
+                      fontSize: 12.0,
+                    ),
                   ),
-                ),
-                Text(
-                  englishName,
-                  style: const TextStyle(
-                    color: ColorSystem.appColorBrown,
-                    fontSize: 14.0,
+                  Text(
+                    englishName,
+                    style: const TextStyle(
+                      color: ColorSystem.appColorBrown,
+                      fontSize: 14.0,
+                    ),
                   ),
-                ),
-                Text(
-                  "$numberOfAyahs Ayat",
-                  style: const TextStyle(
-                    color: ColorSystem.appColorBrown,
-                    fontSize: 12.0,
+                  Text(
+                    "$numberOfAyahs Ayat",
+                    style: const TextStyle(
+                      color: ColorSystem.appColorBrown,
+                      fontSize: 12.0,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

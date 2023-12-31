@@ -21,9 +21,10 @@ class SettingView extends GetView<SettingController> {
 
     // Controller load read FontSize in getStorage
     controller.loadFontSizeArabic();
+
     // Controller load read ThemeCurrent in getStorage
     controller.loadThemeCurrent();
-    // print('Setting isDarkMode: ${Get.isDarkMode}');
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Setting'),
@@ -229,20 +230,17 @@ class SettingView extends GetView<SettingController> {
                     children: <Widget>[
                       // RadioListTile<String>(
                       //     title: const Text('Mengikuti Perangkat'),
-                      //     value: 'device',
+                      //     value: "perangkat",
                       //     groupValue: controller.selectedThemeModeCurent.value,
                       //     onChanged: (value) {
                       //       controller.selectedThemeModeCurent.value = value!;
                       //       controller.saveThemeCurrent();
-                      //       deviceBrightness == Brightness.dark
-                      //           ? box.write('darkMode', value)
-                      //           : box.write('darkMode', 'light');
-
+                      //       controller.changeThemeMode(value);
                       //       Get.back();
                       //     }),
                       RadioListTile<String>(
                         title: const Text('Terang (Light)'),
-                        value: 'light',
+                        value: "light",
                         groupValue: controller.selectedThemeModeCurent.value,
                         onChanged: (value) {
                           controller.selectedThemeModeCurent.value = value!;
@@ -253,7 +251,7 @@ class SettingView extends GetView<SettingController> {
                       ),
                       RadioListTile<String>(
                         title: const Text('Gelap (Dark)'),
-                        value: 'dark',
+                        value: "dark",
                         groupValue: controller.selectedThemeModeCurent.value,
                         onChanged: (value) {
                           controller.selectedThemeModeCurent.value = value!;

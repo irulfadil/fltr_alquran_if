@@ -20,6 +20,8 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Get.isDarkMode) {
         controller.isDark.value = true;
@@ -43,6 +45,7 @@ class HomeView extends GetView<HomeController> {
           CustomIconButton(
             onPressed: () => Get.toNamed(Routes.search),
             icon: Icons.search,
+            iconColor: ColorSystem.appColorWhite,
             onTap: () {},
           ),
           PopupMenuButton<String>(
@@ -81,7 +84,8 @@ class HomeView extends GetView<HomeController> {
                 height: 50,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: controller.isDark.isTrue
+                    colors: controller.isDark.isTrue ||
+                            deviceBrightness == Brightness.dark
                         ? [
                             ColorSystem.backgroundDarkSecondary,
                             ColorSystem.appColorBrown
@@ -163,7 +167,8 @@ class HomeView extends GetView<HomeController> {
                         () => Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: controller.isDark.isTrue
+                              colors: controller.isDark.isTrue ||
+                                      deviceBrightness == Brightness.dark
                                   ? [
                                       ColorSystem.backgroundDarkSecondary,
                                       ColorSystem.appColorBrown
@@ -236,7 +241,8 @@ class HomeView extends GetView<HomeController> {
                         () => Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: controller.isDark.isTrue
+                              colors: controller.isDark.isTrue ||
+                                      deviceBrightness == Brightness.dark
                                   ? [
                                       ColorSystem.backgroundDarkSecondary,
                                       ColorSystem.appColorBrown
@@ -311,7 +317,8 @@ class HomeView extends GetView<HomeController> {
                         () => Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: controller.isDark.isTrue
+                              colors: controller.isDark.isTrue ||
+                                      deviceBrightness == Brightness.dark
                                   ? [
                                       ColorSystem.backgroundDarkSecondary,
                                       ColorSystem.appColorBrown
@@ -569,7 +576,9 @@ class HomeView extends GetView<HomeController> {
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                         image: AssetImage(controller
-                                                .isDark.isTrue
+                                                    .isDark.isTrue ||
+                                                deviceBrightness ==
+                                                    Brightness.dark
                                             ? "assets/images/dark-list-numb-surah-4pt.png"
                                             : "assets/images/light-list-numb-surah-4pt.png"),
                                         fit: BoxFit.contain),
@@ -682,7 +691,9 @@ class HomeView extends GetView<HomeController> {
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage(
-                                        controller.isDark.isTrue
+                                        controller.isDark.isTrue ||
+                                                deviceBrightness ==
+                                                    Brightness.dark
                                             ? "assets/images/dark-list-numb-juz-4pt.png"
                                             : "assets/images/light-list-numb-juz-4pt.png",
                                       ),

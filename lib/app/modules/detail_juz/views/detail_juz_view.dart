@@ -383,7 +383,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                 homeC.isEnabledTranslate.isTrue
                                     ? "${detailAyahsTranslate['text']}"
                                     : "",
-                                style: Theme.of(context).textTheme.bodyLarge,
+                                style: Theme.of(context).textTheme.bodyMedium,
                                 textAlign: TextAlign.justify,
                               ),
                               const SizedBox(height: 20.0),

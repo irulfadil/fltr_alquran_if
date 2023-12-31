@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../utils/color_system.dart';
 
 class TTabBarTheme {
+  TTabBarTheme._();
+  
   static TabBarTheme lightTabBarTheme = const TabBarTheme(
     indicator: BoxDecoration(
       border: Border(
