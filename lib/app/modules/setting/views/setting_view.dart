@@ -177,7 +177,7 @@ class SettingView extends GetView<SettingController> {
               secondary: const Icon(Icons.remove_red_eye_rounded,
                   color: ColorSystem.appColorTeal),
               activeColor: ColorSystem.appColorTeal,
-              inactiveThumbColor: Colors.grey[300],
+              inactiveThumbColor: Colors.grey[500],
               inactiveTrackColor: Colors.grey[300],
             ),
           ),

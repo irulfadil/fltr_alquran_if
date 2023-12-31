@@ -33,10 +33,10 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      darkTheme: selectedTheme,
+      // darkTheme: selectedTheme,
       theme: selectedTheme,
       // themeMode: ThemeMode.system,
-      title: 'Al Quran App',
+      title: 'Al Quran Online',
       initialRoute: box.read('isSkipIntro') == null
           ? Routes.introduction
           : Routes.accessMenu,
