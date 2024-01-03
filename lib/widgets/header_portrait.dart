@@ -1,40 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../app/modules/home/controllers/home_controller.dart';
+import '../app/modules/theme_control/theme_control.dart';
 import '../utils/color_system.dart';
 
 class HeaderPortrait extends StatelessWidget {
   const HeaderPortrait({
     super.key,
-    required this.homeC,
+    required this.themeController,
     required this.revelationType,
     required this.englishName,
     required this.numberOfAyahs,
   });
 
-  final HomeController homeC;
+  final ThemeController themeController;
   final String revelationType;
   final String englishName;
   final String numberOfAyahs;
 
   @override
   Widget build(BuildContext context) {
-    Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
+    // Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
 
     return Column(
       children: [
         Obx(
           () => Container(
             decoration: BoxDecoration(
-              color: homeC.isDark.isTrue || deviceBrightness == Brightness.dark
+              color: themeController.isDark.isTrue || Get.isDarkMode
                   ? ColorSystem.backgroundDarkSecondary
                   : ColorSystem.appColorBrown.withOpacity(0.1),
               image: DecorationImage(
-                  image: AssetImage(
-                      homeC.isDark.isTrue || deviceBrightness == Brightness.dark
-                          ? "assets/images/header-dark.png"
-                          : "assets/images/header-light.png"),
+                  image: AssetImage(themeController.isDark.isTrue
+                      ? "assets/images/header-dark.png"
+                      : "assets/images/header-light.png"),
                   fit: BoxFit.fitWidth),
             ),
             child: Padding(
@@ -70,7 +69,7 @@ class HeaderPortrait extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            color: homeC.isDark.isTrue || deviceBrightness == Brightness.dark
+            color: themeController.isDark.isTrue
                 ? ColorSystem.backgroundDarkSecondary
                 : ColorSystem.appColorBrown.withOpacity(0.1),
           ),
@@ -82,8 +81,7 @@ class HeaderPortrait extends StatelessWidget {
                 height: 50,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(homeC.isDark.isTrue ||
-                            deviceBrightness == Brightness.dark
+                    image: AssetImage(themeController.isDark.isTrue
                         ? "assets/images/bismillah-dark.png"
                         : "assets/images/bismillah-light.png"),
                     // fit: BoxFit.cover

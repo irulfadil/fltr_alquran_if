@@ -10,21 +10,21 @@ import '../../../data/models/juz_model.dart';
 import '../../../data/models/surah_model.dart';
 import '../../../routes/app_pages.dart';
 import '../../loading/loading_alljuz.dart';
+import '../../theme_control/theme_control.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({super.key});
   final indexTabHome = Get.arguments['indexTabHome'] ?? 0;
   final indexTabBookmark = Get.arguments['indexTabBokkmark'] ?? 0;
+  final themeC = Get.find<ThemeController>();
   final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
-    Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Get.isDarkMode) {
-        controller.isDark.value = true;
+        themeC.isDark.value = true;
       }
     });
 
@@ -32,11 +32,9 @@ class HomeView extends GetView<HomeController> {
     final now = DateTime.now();
     String formattedDate = controller.formattedDate.format(now);
 
-    print("storage theme: ${box.read('darkMode')}");
-
     return Scaffold(
       appBar: AppBar(
-        elevation: controller.isDark.isTrue ? 0 : 4,
+        elevation: themeC.isDark.isTrue ? 0 : 4,
         title: const Text(
           "Al Qur'an",
           textAlign: TextAlign.left,
@@ -84,8 +82,7 @@ class HomeView extends GetView<HomeController> {
                 height: 50,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: controller.isDark.isTrue ||
-                            deviceBrightness == Brightness.dark
+                    colors: themeC.isDark.isTrue
                         ? [
                             ColorSystem.backgroundDarkSecondary,
                             ColorSystem.appColorBrown
@@ -167,8 +164,7 @@ class HomeView extends GetView<HomeController> {
                         () => Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: controller.isDark.isTrue ||
-                                      deviceBrightness == Brightness.dark
+                              colors: themeC.isDark.isTrue
                                   ? [
                                       ColorSystem.backgroundDarkSecondary,
                                       ColorSystem.appColorBrown
@@ -241,8 +237,7 @@ class HomeView extends GetView<HomeController> {
                         () => Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: controller.isDark.isTrue ||
-                                      deviceBrightness == Brightness.dark
+                              colors: themeC.isDark.isTrue
                                   ? [
                                       ColorSystem.backgroundDarkSecondary,
                                       ColorSystem.appColorBrown
@@ -317,8 +312,7 @@ class HomeView extends GetView<HomeController> {
                         () => Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: controller.isDark.isTrue ||
-                                      deviceBrightness == Brightness.dark
+                              colors: themeC.isDark.isTrue
                                   ? [
                                       ColorSystem.backgroundDarkSecondary,
                                       ColorSystem.appColorBrown
@@ -348,13 +342,12 @@ class HomeView extends GetView<HomeController> {
                                         child: CustomElevatedButton(
                                           onPressed: () => Get.back(),
                                           text: "CANCEL",
-                                          backgroundColor:
-                                              controller.isDark.isTrue
-                                                  ? Colors.transparent
-                                                  : ColorSystem.appColorWhite,
+                                          backgroundColor: themeC.isDark.isTrue
+                                              ? Colors.transparent
+                                              : ColorSystem.appColorWhite,
                                           colorBorder:
                                               ColorSystem.appColorWhite,
-                                          colorText: controller.isDark.isTrue
+                                          colorText: themeC.isDark.isTrue
                                               ? ColorSystem.appColorWhite
                                               : ColorSystem.appColorBrown,
                                         ),
@@ -575,10 +568,7 @@ class HomeView extends GetView<HomeController> {
                                   width: 45,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        image: AssetImage(controller
-                                                    .isDark.isTrue ||
-                                                deviceBrightness ==
-                                                    Brightness.dark
+                                        image: AssetImage(themeC.isDark.isTrue
                                             ? "assets/images/dark-list-numb-surah-4pt.png"
                                             : "assets/images/light-list-numb-surah-4pt.png"),
                                         fit: BoxFit.contain),
@@ -691,9 +681,7 @@ class HomeView extends GetView<HomeController> {
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage(
-                                        controller.isDark.isTrue ||
-                                                deviceBrightness ==
-                                                    Brightness.dark
+                                        themeC.isDark.isTrue
                                             ? "assets/images/dark-list-numb-juz-4pt.png"
                                             : "assets/images/light-list-numb-juz-4pt.png",
                                       ),
@@ -811,7 +799,7 @@ class HomeView extends GetView<HomeController> {
                                     }
                                   },
                                   leading: CircleAvatar(
-                                    backgroundColor: controller.isDark.isTrue
+                                    backgroundColor: themeC.isDark.isTrue
                                         ? ColorSystem.appColorTeal
                                         : ColorSystem.appColorBrown
                                             .withOpacity(0.5),
@@ -851,14 +839,13 @@ class HomeView extends GetView<HomeController> {
                                             child: CustomElevatedButton(
                                               onPressed: () => Get.back(),
                                               text: "CANCEL",
-                                              backgroundColor: controller
+                                              backgroundColor: themeC
                                                       .isDark.isTrue
                                                   ? Colors.transparent
                                                   : ColorSystem.appColorWhite,
                                               colorBorder:
                                                   ColorSystem.appColorWhite,
-                                              colorText: controller
-                                                      .isDark.isTrue
+                                              colorText: themeC.isDark.isTrue
                                                   ? ColorSystem.appColorWhite
                                                   : ColorSystem.appColorBrown,
                                             ),

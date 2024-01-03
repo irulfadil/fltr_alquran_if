@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/custom_elevated_button.dart';
 import '../../../routes/app_pages.dart';
-import '../../home/controllers/home_controller.dart';
+import '../../theme_control/theme_control.dart';
 import '../controllers/setting_controller.dart';
 
 class SettingView extends GetView<SettingController> {
   SettingView({Key? key}) : super(key: key);
-  final homeC = Get.find<HomeController>();
+  final themeC = Get.find<ThemeController>();
   final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
-
     // Controller load read FontSize in getStorage
     controller.loadFontSizeArabic();
 
@@ -81,13 +76,13 @@ class SettingView extends GetView<SettingController> {
                     child: CustomElevatedButton(
                       onPressed: () => Get.back(),
                       text: "CANCEL",
-                      backgroundColor: homeC.isDark.isTrue
+                      backgroundColor: themeC.isDark.isTrue
                           ? ColorSystem.backgroundDarkSecondary
                           : ColorSystem.appColorWhite,
-                      colorBorder: homeC.isDark.isTrue
+                      colorBorder: themeC.isDark.isTrue
                           ? ColorSystem.appColorGray
                           : ColorSystem.appColorBrown,
-                      colorText: homeC.isDark.isTrue
+                      colorText: themeC.isDark.isTrue
                           ? ColorSystem.appColorWhite
                           : ColorSystem.appColorBrown,
                     ),
@@ -132,13 +127,13 @@ class SettingView extends GetView<SettingController> {
                       child: CustomElevatedButton(
                         onPressed: () => Get.back(),
                         text: "CANCEL",
-                        backgroundColor: homeC.isDark.isTrue
+                        backgroundColor: themeC.isDark.isTrue
                             ? ColorSystem.backgroundDarkSecondary
                             : ColorSystem.appColorWhite,
-                        colorBorder: homeC.isDark.isTrue
+                        colorBorder: themeC.isDark.isTrue
                             ? ColorSystem.appColorGray
                             : ColorSystem.appColorBrown,
-                        colorText: homeC.isDark.isTrue
+                        colorText: themeC.isDark.isTrue
                             ? ColorSystem.appColorWhite
                             : ColorSystem.appColorBrown,
                       ),
@@ -149,7 +144,7 @@ class SettingView extends GetView<SettingController> {
             ),
           ),
           Divider(
-            color: homeC.isDark.isTrue
+            color: themeC.isDark.isTrue
                 ? ColorSystem.appColorGray
                 : ColorSystem.appColorBrown,
           ),
@@ -170,9 +165,9 @@ class SettingView extends GetView<SettingController> {
                 "Perlihatkan Terjemahan",
                 style: TextStyle(fontSize: 16.0),
               ),
-              value: homeC.isEnabledTranslate.isTrue,
+              value: themeC.isEnabledTranslate.isTrue,
               onChanged: (value) {
-                homeC.isEnabledTranslate.toggle();
+                themeC.isEnabledTranslate.toggle();
               },
               secondary: const Icon(Icons.remove_red_eye_rounded,
                   color: ColorSystem.appColorTeal),
@@ -198,7 +193,7 @@ class SettingView extends GetView<SettingController> {
             height: 10.0,
           ),
           Divider(
-            color: homeC.isDark.isTrue
+            color: themeC.isDark.isTrue
                 ? ColorSystem.appColorGray
                 : ColorSystem.appColorBrown,
           ),
@@ -216,7 +211,7 @@ class SettingView extends GetView<SettingController> {
               subtitle: Text(
                 controller.selectedThemeModeCurent.value,
               ),
-              leading: homeC.isDark.isTrue
+              leading: themeC.isDark.isTrue
                   ? const Icon(Icons.nightlight_round)
                   : const Icon(Icons.wb_sunny),
               onTap: () {
@@ -228,16 +223,16 @@ class SettingView extends GetView<SettingController> {
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      // RadioListTile<String>(
-                      //     title: const Text('Mengikuti Perangkat'),
-                      //     value: "perangkat",
-                      //     groupValue: controller.selectedThemeModeCurent.value,
-                      //     onChanged: (value) {
-                      //       controller.selectedThemeModeCurent.value = value!;
-                      //       controller.saveThemeCurrent();
-                      //       controller.changeThemeMode(value);
-                      //       Get.back();
-                      //     }),
+                      RadioListTile<String>(
+                          title: const Text('Mengikuti Perangkat'),
+                          value: "perangkat",
+                          groupValue: controller.selectedThemeModeCurent.value,
+                          onChanged: (value) {
+                            controller.selectedThemeModeCurent.value = value!;
+                            controller.saveThemeCurrent();
+                            controller.changeThemeMode(value, context);
+                            Get.back();
+                          }),
                       RadioListTile<String>(
                         title: const Text('Terang (Light)'),
                         value: "light",
@@ -245,7 +240,7 @@ class SettingView extends GetView<SettingController> {
                         onChanged: (value) {
                           controller.selectedThemeModeCurent.value = value!;
                           controller.saveThemeCurrent();
-                          controller.changeThemeMode(value);
+                          controller.changeThemeMode(value, context);
                           Get.back();
                         },
                       ),
@@ -256,7 +251,7 @@ class SettingView extends GetView<SettingController> {
                         onChanged: (value) {
                           controller.selectedThemeModeCurent.value = value!;
                           controller.saveThemeCurrent();
-                          controller.changeThemeMode(value);
+                          controller.changeThemeMode(value, context);
                           Get.back();
                         },
                       ),
@@ -268,13 +263,13 @@ class SettingView extends GetView<SettingController> {
                       child: CustomElevatedButton(
                         onPressed: () => Get.back(),
                         text: "CANCEL",
-                        backgroundColor: homeC.isDark.isTrue
+                        backgroundColor: themeC.isDark.isTrue
                             ? ColorSystem.backgroundDarkSecondary
                             : ColorSystem.appColorWhite,
-                        colorBorder: homeC.isDark.isTrue
+                        colorBorder: themeC.isDark.isTrue
                             ? ColorSystem.appColorGray
                             : ColorSystem.appColorBrown,
-                        colorText: homeC.isDark.isTrue
+                        colorText: themeC.isDark.isTrue
                             ? ColorSystem.appColorWhite
                             : ColorSystem.appColorBrown,
                       ),
@@ -285,7 +280,7 @@ class SettingView extends GetView<SettingController> {
             ),
           ),
           Divider(
-            color: homeC.isDark.isTrue
+            color: themeC.isDark.isTrue
                 ? ColorSystem.appColorGray
                 : ColorSystem.appColorBrown,
           ),

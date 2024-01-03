@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <p align="center">
   <a href="https://github.com/irulfadil/fltr_alquran_if">
-    <img src="assets/images/logo_alquran.png" alt="irulfadil" width="90" height="90">
+    <img src="assets/images/splash_logo_alquran.png" alt="irulfadil" width="90" height="90">
   </a>
   <h3 align="center">Al-Quran</h3>
   <p align="center">Al-Qur'an For Android<br /></p>

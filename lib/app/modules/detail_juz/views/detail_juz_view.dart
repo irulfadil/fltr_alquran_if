@@ -10,11 +10,13 @@ import '../../../../widgets/header_portrait.dart';
 import '../../../data/models/juz_model.dart' as juz;
 import '../../home/controllers/home_controller.dart';
 import '../../setting/controllers/setting_controller.dart';
+import '../../theme_control/theme_control.dart';
 import '../controllers/detail_juz_controller.dart';
 
 // ignore: must_be_immutable
 class DetailJuzView extends GetView<DetailJuzController> {
   DetailJuzView({Key? key}) : super(key: key);
+  final themeC = Get.find<ThemeController>();
   final homeC = Get.find<HomeController>();
   final settingC = Get.find<SettingController>();
   late Map<String, dynamic>? bookmark;
@@ -36,7 +38,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Get.isDarkMode) {
-        homeC.isDark.value = true;
+        themeC.isDark.value = true;
       }
     });
 
@@ -170,7 +172,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
                               return orientation == Orientation.portrait
                                   ? HeaderPortrait(
-                                      homeC: homeC,
+                                      themeController: themeC,
                                       revelationType: detailAyahs
                                           .surah!.revelationType
                                           .toString(),
@@ -182,7 +184,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                           .toString(),
                                     )
                                   : HeaderLandscape(
-                                      homeC: homeC,
+                                      themeController: themeC,
                                       revelationType: detailAyahs
                                           .surah!.revelationType
                                           .toString(),
@@ -198,7 +200,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: homeC.isDark.isTrue
+                            color: themeC.isDark.isTrue
                                 ? ColorSystem.backgroundDarkSecondary
                                 : ColorSystem.appColorBrown.withOpacity(0.1),
                           ),
@@ -217,7 +219,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                       width: 45,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          image: AssetImage(homeC.isDark.isTrue
+                                          image: AssetImage(themeC.isDark.isTrue
                                               ? "assets/images/dark-list-numb-juz-4pt.png"
                                               : "assets/images/light-list-numb-juz-4pt.png"),
                                           fit: BoxFit.contain,
@@ -369,7 +371,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                               Text(
                                 "${detailAyahs.text}",
                                 style: TextStyle(
-                                  color: homeC.isDark.isTrue
+                                  color: themeC.isDark.isTrue
                                       ? ColorSystem.appColorGray
                                       : ColorSystem.appColorBrown,
                                   fontWeight: FontWeight.w500,
@@ -380,7 +382,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                               ),
                               const SizedBox(height: 20.0),
                               Text(
-                                homeC.isEnabledTranslate.isTrue
+                                themeC.isEnabledTranslate.isTrue
                                     ? "${detailAyahsTranslate['text']}"
                                     : "",
                                 style: Theme.of(context).textTheme.bodyMedium,

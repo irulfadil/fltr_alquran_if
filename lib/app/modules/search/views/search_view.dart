@@ -3,20 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/color_system.dart';
 import '../../../routes/app_pages.dart';
+import '../../theme_control/theme_control.dart';
 import '../controllers/search_controller.dart';
-import '../../home/controllers/home_controller.dart';
 
 class SearchView extends GetView<SearchControl> {
   SearchView({Key? key}) : super(key: key);
-  final homeC = Get.find<HomeController>();
+  final themeC = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {
-    Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Get.isDarkMode) {
-        homeC.isDark.value = true;
+        themeC.isDark.value = true;
       }
     });
 
@@ -111,8 +109,7 @@ class SearchView extends GetView<SearchControl> {
                       width: 45,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage(homeC.isDark.isTrue ||
-                                    deviceBrightness == Brightness.dark
+                            image: AssetImage(themeC.isDark.isTrue
                                 ? "assets/images/dark-list-numb-surah-4pt.png"
                                 : "assets/images/light-list-numb-surah-4pt.png"),
                             fit: BoxFit.contain),

@@ -9,11 +9,13 @@ import '../../../data/models/surah_detail_model.dart';
 import '../../../data/models/surah_detail_translate_model.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../setting/controllers/setting_controller.dart';
+import '../../theme_control/theme_control.dart';
 import '../controllers/detail_surah_controller.dart';
 
 // ignore: must_be_immutable
 class DetailSurahView extends GetView<DetailSurahController> {
   DetailSurahView({Key? key}) : super(key: key);
+  final themeC = Get.find<ThemeController>();
   final homeC = Get.find<HomeController>();
   final settingC = Get.find<SettingController>();
   late Map<String, dynamic>? bookmark;
@@ -29,11 +31,9 @@ class DetailSurahView extends GetView<DetailSurahController> {
 
   @override
   Widget build(BuildContext context) {
-    // Brightness deviceBrightness = MediaQuery.of(context).platformBrightness;
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Get.isDarkMode) {
-        homeC.isDark.value = true;
+        themeC.isDark.value = true;
       }
     });
 
@@ -152,7 +152,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
 
                                 return orientation == Orientation.portrait
                                     ? HeaderPortrait(
-                                        homeC: homeC,
+                                        themeController: themeC,
                                         revelationType: surahAyahs
                                             .revelationType
                                             .toString(),
@@ -162,7 +162,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                             surahAyahs.numberOfAyahs.toString(),
                                       )
                                     : HeaderLandscape(
-                                        homeC: homeC,
+                                        themeController: themeC,
                                         revelationType: surahAyahs
                                             .revelationType
                                             .toString(),
@@ -175,7 +175,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                             ),
                           Container(
                             decoration: BoxDecoration(
-                              color: homeC.isDark.isTrue
+                              color: themeC.isDark.isTrue
                                   ? ColorSystem.backgroundDarkSecondary
                                   : ColorSystem.appColorBrown.withOpacity(0.1),
                             ),
@@ -193,7 +193,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                     width: 45,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
-                                        image: AssetImage(homeC.isDark.isTrue
+                                        image: AssetImage(themeC.isDark.isTrue
                                             ? "assets/images/dark-list-numb-surah-4pt.png"
                                             : "assets/images/light-list-numb-surah-4pt.png"),
                                         fit: BoxFit.contain,
@@ -326,7 +326,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                 Text(
                                   "${ayahs.text}",
                                   style: TextStyle(
-                                    color: homeC.isDark.isTrue
+                                    color: themeC.isDark.isTrue
                                         ? ColorSystem.appColorGray
                                         : ColorSystem.appColorBrown,
                                     fontWeight: FontWeight.w500,
@@ -338,7 +338,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                 ),
                                 const SizedBox(height: 20.0),
                                 Text(
-                                  homeC.isEnabledTranslate.isTrue
+                                  themeC.isEnabledTranslate.isTrue
                                       ? "${ayahsTranslate.text}"
                                       : "",
                                   style: Theme.of(context).textTheme.bodyMedium,

@@ -13,10 +13,12 @@ import '../../../../utils/color_system.dart';
 import '../../../data/db/database_instance.dart';
 import '../../../data/models/juz_model.dart';
 import '../../../data/models/surah_model.dart';
+import '../../theme_control/theme_control.dart';
 
 class HomeController extends GetxController {
-  RxBool isDark = false.obs;
-  RxBool isEnabledTranslate = true.obs;
+  // RxBool isDark = false.obs;
+  // RxBool isEnabledTranslate = true.obs;
+  final themeC = Get.put(ThemeController());
   final box = GetStorage();
   List<Juz> allJuz = [];
 
@@ -27,7 +29,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    cekTheme();
+    // cekTheme();
     initializeDateFormatting('id', null).then((_) {
       formattedDate;
       update();
@@ -35,12 +37,12 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  void cekTheme() {
-    if (box.read('darkMode') == 'dark') {
-      isDark.value = true;
-      print(isDark.value);
-    }
-  }
+  // void cekTheme() {
+  //   if (box.read('darkMode') == 'dark') {
+  //     isDark.value = true;
+  //     print("cekTheme: ${isDark.value}");
+  //   }
+  // }
 
   // Function data get Last Read
   Future<Map<String, dynamic>?> getLastRead() async {
@@ -85,10 +87,10 @@ class HomeController extends GetxController {
         ? Get.changeTheme(AppTheme.lightMode)
         : Get.changeTheme(AppTheme.darkMode);
 
-    isDark.toggle();
+    themeC.isDark.toggle();
 
     print("isDarkMode: ${Get.isDarkMode}");
-    print("isDark: $isDark");
+    print("isDark: ${themeC.isDark}");
 
     // read & remove database in getStore
     if (Get.isDarkMode) {

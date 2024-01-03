@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/color_system.dart';
-import '../../home/controllers/home_controller.dart';
+import '../../theme_control/theme_control.dart';
 import '../controllers/help_app_controller.dart';
 
 class HelpAppView extends GetView<HelpAppController> {
   HelpAppView({Key? key}) : super(key: key);
-  final homeC = Get.find<HomeController>();
+  final themeC = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class HelpAppView extends GetView<HelpAppController> {
               child: Icon(
                 Icons.live_help_outlined,
                 size: 32,
-                color: homeC.isDark.isTrue
+                color: themeC.isDark.isTrue
                     ? ColorSystem.appColorWhite
                     : ColorSystem.appColorBrown,
               ),
@@ -92,7 +92,7 @@ class HelpAppView extends GetView<HelpAppController> {
                     child: Icon(
                       Icons.bookmark_add_outlined,
                       size: 16,
-                      color: homeC.isDark.isTrue
+                      color: themeC.isDark.isTrue
                           ? ColorSystem.appColorWhite
                           : ColorSystem.appColorBrown,
                     ),
@@ -121,7 +121,7 @@ class HelpAppView extends GetView<HelpAppController> {
                   ),
             ),
             Divider(
-              color: homeC.isDark.isTrue
+              color: themeC.isDark.isTrue
                   ? ColorSystem.appColorWhite
                   : ColorSystem.appColorGray,
             ),
@@ -153,7 +153,7 @@ class HelpAppView extends GetView<HelpAppController> {
                   ),
             ),
             Divider(
-              color: homeC.isDark.isTrue
+              color: themeC.isDark.isTrue
                   ? ColorSystem.appColorWhite
                   : ColorSystem.appColorGray,
             ),
@@ -192,7 +192,7 @@ class HelpAppView extends GetView<HelpAppController> {
                     child: Icon(
                       Icons.play_arrow_rounded,
                       size: 16,
-                      color: homeC.isDark.isTrue
+                      color: themeC.isDark.isTrue
                           ? ColorSystem.appColorWhite
                           : ColorSystem.appColorBrown,
                     ),
@@ -205,7 +205,7 @@ class HelpAppView extends GetView<HelpAppController> {
               ),
             ),
             Divider(
-              color: homeC.isDark.isTrue
+              color: themeC.isDark.isTrue
                   ? ColorSystem.appColorWhite
                   : ColorSystem.appColorGray,
             ),
@@ -243,7 +243,7 @@ class HelpAppView extends GetView<HelpAppController> {
                     child: Icon(
                       Icons.search,
                       size: 16,
-                      color: homeC.isDark.isTrue
+                      color: themeC.isDark.isTrue
                           ? ColorSystem.appColorWhite
                           : ColorSystem.appColorBrown,
                     ),
@@ -256,7 +256,7 @@ class HelpAppView extends GetView<HelpAppController> {
               ),
             ),
             Divider(
-              color: homeC.isDark.isTrue
+              color: themeC.isDark.isTrue
                   ? ColorSystem.appColorWhite
                   : ColorSystem.appColorGray,
             ),
@@ -295,7 +295,7 @@ class HelpAppView extends GetView<HelpAppController> {
                     child: Icon(
                       Icons.more_vert,
                       size: 16,
-                      color: homeC.isDark.isTrue
+                      color: themeC.isDark.isTrue
                           ? ColorSystem.appColorWhite
                           : ColorSystem.appColorBrown,
                     ),

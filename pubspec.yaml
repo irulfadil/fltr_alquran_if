@@ -14,6 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_native_splash: ^2.3.9
   flutter_qiblah: ^2.2.0
   flutter_shimmer: ^2.1.2
   geocoding: ^2.1.1
@@ -40,7 +41,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/lotties/
+    # - assets/lotties/
     - assets/images/
 
   fonts:
@@ -54,3 +55,16 @@ flutter:
     - family: MUHAMMADIBold
       fonts:
         - asset: assets/fonts/MUHAMMADIBold.ttf
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#111B21"
+  image: assets/images/splash_logo_alquran_light.png
+  image_dark: assets/images/splash_logo_alquran_dark.png
+  android_12:
+    color: "#FFFFFF"
+    color_dark: "#111B21"
+    image: assets/images/splash_logo_alquran_light.png
+    image_dark: assets/images/splash_logo_alquran_dark.png
+    icon_background_color: "#FFFFFF"
+    icon_background_color_dark: "#111B21"

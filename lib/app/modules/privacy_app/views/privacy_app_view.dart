@@ -1,14 +1,12 @@
+import 'package:get/get.dart';
 import 'package:fltr_alquran_if/utils/color_system.dart';
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
-
-import '../../home/controllers/home_controller.dart';
+import '../../theme_control/theme_control.dart';
 import '../controllers/privacy_app_controller.dart';
 
 class PrivacyAppView extends GetView<PrivacyAppController> {
   PrivacyAppView({Key? key}) : super(key: key);
-  final homeC = Get.find<HomeController>();
+  final themeC = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +22,7 @@ class PrivacyAppView extends GetView<PrivacyAppController> {
             child: Icon(
               Icons.lock_person,
               size: 32,
-              color: homeC.isDark.isTrue
+              color: themeC.isDark.isTrue
                   ? ColorSystem.appColorWhite
                   : ColorSystem.appColorTeal,
             ),

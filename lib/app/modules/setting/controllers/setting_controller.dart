@@ -1,13 +1,11 @@
-// ignore_for_file: avoid_print
-
-import 'package:fltr_alquran_if/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../../../../theme/app_theme.dart';
+import '../../theme_control/theme_control.dart';
 
 class SettingController extends GetxController {
-  final homeC = Get.find<HomeController>();
+  final themeC = Get.find<ThemeController>();
+  final ThemeController themeController = Get.put(ThemeController());
   final box = GetStorage();
 
   RxInt isfontSizeArabic = 24.obs;
@@ -31,46 +29,42 @@ class SettingController extends GetxController {
 
   // Function read themeCurrent in getStore
   void loadThemeCurrent() {
-    selectedThemeModeCurent.value = box.read('isThemeCurrent') ?? 'device';
+    selectedThemeModeCurent.value = box.read('isThemeCurrent') ?? 'light';
   }
 
   // Function Toggle Theme Mode
-  void changeThemeMode(value) {
-    print('Get.isDarkMode: ${Get.isDarkMode}');
-    homeC.isDark.toggle();
+  void changeThemeMode(value, context) {
+    Get.log("isDarkMode: ${Get.isDarkMode}");
     switch (value) {
       case "light":
-        homeC.isDark.value = false;
-        Get.changeTheme(AppTheme.lightMode);
+        themeC.isDark.value = false;
+        Get.changeThemeMode(ThemeMode.light);
+        Get.isDarkMode ? box.remove('dbtheme') : box.write('dbtheme', value);
 
-        if (Get.isDarkMode) {
-          box.remove('darkMode');
-        } else {
-          box.write('darkMode', value);
-        }
-        print('Thema: $value');
+        Get.log('Thema: $value');
+        Get.log('StorageDarkMode: ${box.read('dbtheme')}');
         break;
       case "dark":
-        homeC.isDark.value = true;
-        Get.changeTheme(AppTheme.darkMode);
+        themeC.isDark.value = true;
+        Get.changeThemeMode(ThemeMode.dark);
+        Get.isDarkMode ? box.remove('dbtheme') : box.write('dbtheme', value);
 
-        if (Get.isDarkMode) {
-          box.remove('darkMode');
-        } else {
-          box.write('darkMode', value);
-        }
-        print('Thema: $value');
+        Get.log('Thema: $value');
+        Get.log('StorageDarkMode: ${box.read('dbtheme')}');
         break;
-      case "device":
-        if (Get.isDarkMode) {
-          box.remove('darkMode');
-        } else {
-          box.write('darkMode', value);
-        }
-        print('Thema: $value');
+      case "perangkat":
+        themeC.isDark.value = true;
+        Get.changeThemeMode(ThemeMode.system);
+        Get.isDarkMode ? box.remove('dbtheme') : box.write('dbtheme', value);
+
+        themeController.detectSystemTheme(context);
+        Get.log('Thema: $value');
+        Get.log('StorageDarkMode: ${box.read('dbtheme')}');
         break;
       default:
         break;
     }
   }
 }
+
+//Get.isDarkMode => ini berfungsi jika ThemeMode dinonaktif.

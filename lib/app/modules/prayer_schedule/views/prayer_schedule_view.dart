@@ -19,6 +19,10 @@ class PrayerScheduleView extends GetView<PrayerScheduleController> {
     final now = DateTime.now();
     String formattedDate = controller.formattedDate.format(now);
 
+    Future<void> refresh() {
+      return Future.delayed(const Duration(seconds: 4));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Prayer Schedule'),
@@ -74,156 +78,159 @@ class PrayerScheduleView extends GetView<PrayerScheduleController> {
               String maghrib = DateFormat.jm('id').format(prayerTimes.maghrib);
               String isya = DateFormat.jm('id').format(prayerTimes.isha);
 
-              return ListView(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 10.0, horizontal: 20.0),
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Jadwal Sholat",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(fontWeight: FontWeight.w600)),
-                      Text(formattedDate,
-                          style: Theme.of(context).textTheme.bodyMedium),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.location_pin, color: Colors.red[700]),
-                          Text(
-                            controller.currentAddress.value.isNotEmpty
-                                ? controller.currentAddress.value
-                                : "loading location...",
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Divider(),
-                  const SizedBox(height: 20.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Subuh",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            subuh,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(width: 10.0),
-                          const Icon(Icons.alarm, size: 32)
-                        ],
-                      ),
-                    ],
-                  ),
-                  limit,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Terbit",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            terbit,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(width: 10.0),
-                          const Icon(Icons.alarm, size: 32)
-                        ],
-                      ),
-                    ],
-                  ),
-                  limit,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Dzuhur",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            dzuhur,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(width: 10.0),
-                          const Icon(Icons.alarm, size: 32)
-                        ],
-                      ),
-                    ],
-                  ),
-                  limit,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Ashar",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            asyar,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(width: 10.0),
-                          const Icon(Icons.alarm, size: 32)
-                        ],
-                      ),
-                    ],
-                  ),
-                  limit,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Maghrib",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            maghrib,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(width: 10.0),
-                          const Icon(Icons.alarm, size: 32)
-                        ],
-                      ),
-                    ],
-                  ),
-                  limit,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Isya'",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            isya,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(width: 10.0),
-                          const Icon(Icons.alarm, size: 32)
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+              return RefreshIndicator(
+                onRefresh: refresh,
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 20.0),
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Jadwal Sholat",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(fontWeight: FontWeight.w600)),
+                        Text(formattedDate,
+                            style: Theme.of(context).textTheme.bodyMedium),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.location_pin, color: Colors.red[700]),
+                            Text(
+                              controller.currentAddress.value.isNotEmpty
+                                  ? controller.currentAddress.value
+                                  : "loading location...",
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Divider(),
+                    const SizedBox(height: 20.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Subuh",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              subuh,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(width: 10.0),
+                            const Icon(Icons.alarm, size: 32)
+                          ],
+                        ),
+                      ],
+                    ),
+                    limit,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Terbit",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              terbit,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(width: 10.0),
+                            const Icon(Icons.alarm, size: 32)
+                          ],
+                        ),
+                      ],
+                    ),
+                    limit,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Dzuhur",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              dzuhur,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(width: 10.0),
+                            const Icon(Icons.alarm, size: 32)
+                          ],
+                        ),
+                      ],
+                    ),
+                    limit,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Ashar",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              asyar,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(width: 10.0),
+                            const Icon(Icons.alarm, size: 32)
+                          ],
+                        ),
+                      ],
+                    ),
+                    limit,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Maghrib",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              maghrib,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(width: 10.0),
+                            const Icon(Icons.alarm, size: 32)
+                          ],
+                        ),
+                      ],
+                    ),
+                    limit,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Isya'",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              isya,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(width: 10.0),
+                            const Icon(Icons.alarm, size: 32)
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               );
             },
           );
