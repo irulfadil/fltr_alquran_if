@@ -19,13 +19,16 @@ class InformationAppView extends GetView<InformationAppController> {
           Text(
             "Assalamu'alaikum Warohmatullohi Wabarokatuhu.",
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
             textAlign: TextAlign.center,
           ),
+          const SizedBox(
+            height: 10.0,
+          ),
           Text(
             "Bismillahirrahmanirrahim Puji Syukur Kepada Allah SWT. Sholawat serta salam semoga selalu tercurahkan kepada Nabi Muhammad SAW.",
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w500,
                 ),
             textAlign: TextAlign.center,
@@ -70,6 +73,7 @@ class InformationAppView extends GetView<InformationAppController> {
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   letterSpacing: 0.5,
                   height: 1.5,
+                  fontWeight: FontWeight.w600,
                 ),
             overflow: TextOverflow.ellipsis,
             maxLines: 10,

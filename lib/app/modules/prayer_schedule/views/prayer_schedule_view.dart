@@ -9,10 +9,13 @@ import 'package:intl/intl.dart';
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/widget_location_error.dart';
 import '../../../routes/app_pages.dart';
+import '../../../services/determine_location.dart';
 import '../controllers/prayer_schedule_controller.dart';
 
+// ignore: must_be_immutable
 class PrayerScheduleView extends GetView<PrayerScheduleController> {
-  const PrayerScheduleView({Key? key}) : super(key: key);
+  PrayerScheduleView({Key? key}) : super(key: key);
+  DetermineLocation determineLocationC = Get.find<DetermineLocation>();
   final limit = const SizedBox(height: 5.0);
 
   @override
@@ -77,7 +80,7 @@ class PrayerScheduleView extends GetView<PrayerScheduleController> {
         centerTitle: true,
       ),
       body: FutureBuilder(
-        future: controller.determineLocation(),
+        future: determineLocationC.determineLocation(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
@@ -155,8 +158,8 @@ class PrayerScheduleView extends GetView<PrayerScheduleController> {
                           children: [
                             Icon(Icons.location_pin, color: Colors.red[700]),
                             Text(
-                              controller.currentAddress.isNotEmpty
-                                  ? controller.currentAddress.value
+                              determineLocationC.currentAddress.isNotEmpty
+                                  ? determineLocationC.currentAddress.value
                                   : "loading location...",
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),

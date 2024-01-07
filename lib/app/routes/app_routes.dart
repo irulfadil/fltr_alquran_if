@@ -17,4 +17,5 @@ abstract class Routes {
   static const helpApp = '/help-app';
   static const prayerSchedule = '/prayer-schedule';
   static const qiblah = '/qiblah';
+  static const contactUs = '/contact-us';
 }

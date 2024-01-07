@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/custom_elevated_button.dart';
+import '../../../../widgets/custom_icon_button.dart';
 import '../../../routes/app_pages.dart';
 import '../../theme_control/theme_control.dart';
 import '../controllers/setting_controller.dart';
@@ -320,34 +321,42 @@ class SettingView extends GetView<SettingController> {
           const SizedBox(
             height: 20.0,
           ),
-          const Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "Contact us",
                 style: TextStyle(
-                  fontSize: 16.0,
+                  fontSize: 14.0,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.web,
-                    size: 32,
-                    color: ColorSystem.appColorBrown,
+                  CustomIconButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.contactUs);
+                    },
+                    icon: Icons.contact_phone,
+                    iconColor: ColorSystem.appColorBrown,
+                    iconSize: 32,
+                    onTap: () {},
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10.0,
                   ),
-                  Icon(
-                    Icons.email,
-                    size: 32,
-                    color: ColorSystem.appColorBrown,
+                  CustomIconButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.contactUs);
+                    },
+                    icon: Icons.email,
+                    iconColor: ColorSystem.appColorBrown,
+                    iconSize: 32,
+                    onTap: () {},
                   ),
                 ],
               )

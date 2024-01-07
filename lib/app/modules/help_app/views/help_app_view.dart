@@ -289,7 +289,7 @@ class HelpAppView extends GetView<HelpAppController> {
                 children: [
                   const TextSpan(
                     text:
-                        "Fitur setting/pengaturan untuk mengatur kenyamanan pengguna mulai dari ukuran font, jenis arabic, penerjemah dan tema light/dark.\n Anda juga dapat menemukan setting/pengaturan ini di bagian menu utama yaitu sebuah button setting. Dan juga ada di bagian bar halaman utama pojok kanan icon",
+                        "Fitur setting/pengaturan untuk mengatur kenyamanan pengguna mulai dari ukuran font, jenis arabic, penerjemah dan tema light dan dark.\n Anda juga dapat menemukan setting/pengaturan ini di bagian menu utama yaitu sebuah button setting. Dan juga ada di bagian bar atau diatas halaman utama sebelah pojok kanan icon titik tiga vertical",
                   ),
                   WidgetSpan(
                     child: Icon(

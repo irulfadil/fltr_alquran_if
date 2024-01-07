@@ -29,7 +29,7 @@ class PrivacyAppView extends GetView<PrivacyAppController> {
           ),
           const Divider(),
           Text(
-            "Saat Anda menggunakan aplikasi ini, Anda mempercayai aplikasi ini dengan informasi Anda. Karena aplikasi ini sangat fokus dengan privasi Anda, maka Kebijakan Privasi ini dimaksudkan untuk membantu Anda memahami data apa yang kami gunakan dan mengapa kami memerlukannya.",
+            "Saat Anda menggunakan aplikasi ini, Anda mempercayai aplikasi ini dengan informasi Anda. Karena aplikasi ini sangat fokus dengan privasi Anda, maka Kebijakan Privasi ini dimaksudkan untuk membantu Anda memahami data apa yang digunakan dan mengapa memerlukannya.",
             textAlign: TextAlign.justify,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   letterSpacing: 0.5,
@@ -49,7 +49,7 @@ class PrivacyAppView extends GetView<PrivacyAppController> {
             ),
           ),
           Text(
-            "Aplikasi Al-Qur'an ini memerlukan akses ke penyimpanan di perangkat Anda, sehingga salah satu fitur bekerja dengan baik.",
+            "Aplikasi Al-Qur'an ini memerlukan akses ke penyimpanan di perangkat, sehingga salah satu fitur bekerja dengan baik untuk kenyamanan Anda sendiri.",
             textAlign: TextAlign.justify,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   letterSpacing: 0.5,

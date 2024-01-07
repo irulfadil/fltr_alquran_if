@@ -310,7 +310,6 @@ class AccessMenuView extends GetView<AccessMenuController> {
                                 Future.delayed(const Duration(seconds: 2), () {
                                   const SplashScreen();
                                 });
-                                // Get.toNamed(Routes.setting);
                               },
                               child: Container(
                                 width: 200,

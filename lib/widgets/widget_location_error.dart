@@ -22,7 +22,7 @@ class LocationErrorWidget extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           Text(
-            error!,
+            error ?? "Location disabled",
             style: const TextStyle(
                 color: errorColor, fontWeight: FontWeight.bold, fontSize: 14.0),
           ),

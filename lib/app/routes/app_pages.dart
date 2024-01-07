@@ -1,8 +1,9 @@
-import 'package:fltr_alquran_if/app/modules/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
 
 import '../modules/access_menu/bindings/access_menu_binding.dart';
 import '../modules/access_menu/views/access_menu_view.dart';
+import '../modules/contact_us/bindings/contact_us_binding.dart';
+import '../modules/contact_us/views/contact_us_view.dart';
 import '../modules/detail_juz/bindings/detail_juz_binding.dart';
 import '../modules/detail_juz/views/detail_juz_view.dart';
 import '../modules/detail_surah/bindings/detail_surah_binding.dart';
@@ -27,6 +28,8 @@ import '../modules/search/bindings/search_binding.dart';
 import '../modules/search/views/search_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
+import '../modules/splash_screen/splash_screen.dart';
+
 // import '../modules/qiblah/views/qiblah_view.dart';
 
 part 'app_routes.dart';
@@ -93,7 +96,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.prayerSchedule,
-      page: () => const PrayerScheduleView(),
+      page: () => PrayerScheduleView(),
       binding: PrayerScheduleBinding(),
     ),
     GetPage(
@@ -104,6 +107,11 @@ class AppPages {
     GetPage(
       name: Routes.splashScreen,
       page: () => const SplashScreen(),
+    ),
+    GetPage(
+      name: Routes.contactUs,
+      page: () => ContactUsView(),
+      binding: ContactUsBinding(),
     ),
   ];
 }

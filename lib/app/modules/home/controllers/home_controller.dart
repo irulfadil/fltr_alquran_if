@@ -37,13 +37,6 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  // void cekTheme() {
-  //   if (box.read('darkMode') == 'dark') {
-  //     isDark.value = true;
-  //     print("cekTheme: ${isDark.value}");
-  //   }
-  // }
-
   // Function data get Last Read
   Future<Map<String, dynamic>?> getLastRead() async {
     Database db = await database.database;

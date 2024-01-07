@@ -7,7 +7,6 @@ import '../../../routes/app_pages.dart';
 import '../controllers/qiblah_controller.dart';
 import 'qiblah_screen.dart';
 
-// ignore: must_be_immutable
 class QiblahView extends GetView<QiblahController> {
   const QiblahView({Key? key}) : super(key: key);
 

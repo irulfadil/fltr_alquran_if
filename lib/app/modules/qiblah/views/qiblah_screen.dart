@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/widget_location_error.dart';
-import '../controllers/qiblah_controller.dart';
+import '../../../services/determine_location.dart';
 
 class QiblahScreen extends StatefulWidget {
   const QiblahScreen({super.key});
@@ -18,7 +18,7 @@ class QiblahScreen extends StatefulWidget {
 
 class _QiblahScreenState extends State<QiblahScreen>
     with SingleTickerProviderStateMixin {
-  final qiblahC = Get.put(QiblahController());
+  DetermineLocation determineLocationC = Get.find<DetermineLocation>();
 
   late Animation<double>? animation;
   late AnimationController? _animationController;
@@ -27,7 +27,7 @@ class _QiblahScreenState extends State<QiblahScreen>
   @override
   void initState() {
     super.initState();
-    qiblahC.initLocationAndAddress();
+    determineLocationC.initLocationAndAddress();
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));
     animation = Tween(begin: 0.0, end: 0.0).animate(_animationController!);
@@ -65,14 +65,16 @@ class _QiblahScreenState extends State<QiblahScreen>
             }
 
             if (snapshot.hasError) {
-              return const LocationErrorWidget();
+              return const LocationErrorWidget(
+                error: "Location disabled",
+              );
             }
 
-            final qiblahDirection = snapshot.data;
+            final qiblahDirection = snapshot.data!;
 
             animation = Tween(
                     begin: begin,
-                    end: (qiblahDirection!.qiblah * (pi / 180) * -1))
+                    end: (qiblahDirection.qiblah * (pi / 180) * -1))
                 .animate(_animationController!);
             begin = (qiblahDirection.qiblah * (pi / 180) * -1);
             _animationController!.forward(from: 0);
@@ -80,12 +82,15 @@ class _QiblahScreenState extends State<QiblahScreen>
             return Obx(
               () {
                 // Current koordinat
-                double? latitude = qiblahC.currentLocation.value?.latitude;
-                double? longitude = qiblahC.currentLocation.value?.longitude;
+                double? latitude =
+                    determineLocationC.currentLocation.value?.latitude;
+                double? longitude =
+                    determineLocationC.currentLocation.value?.longitude;
 
                 if (latitude != null && longitude != null) {
-                  latitude = qiblahC.currentLocation.value?.latitude;
-                  longitude = qiblahC.currentLocation.value?.longitude;
+                  latitude = determineLocationC.currentLocation.value?.latitude;
+                  longitude =
+                      determineLocationC.currentLocation.value?.longitude;
                 } else {
                   latitude = 0;
                   longitude = 0;
@@ -156,8 +161,8 @@ class _QiblahScreenState extends State<QiblahScreen>
                             ),
                             const SizedBox(height: 8.0),
                             Text(
-                              qiblahC.currentAddress.value.isNotEmpty
-                                  ? qiblahC.currentAddress.value
+                              determineLocationC.currentAddress.value.isNotEmpty
+                                  ? determineLocationC.currentAddress.value
                                   : "loading location...",
                               style: Theme.of(context).textTheme.titleSmall,
                             ),

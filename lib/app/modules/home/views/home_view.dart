@@ -279,12 +279,6 @@ class HomeView extends GetView<HomeController> {
                                             color: ColorSystem.appColorWhite,
                                           ),
                                           const SizedBox(width: 5.0),
-                                          // Text(
-                                          //     AppLocalizations.of(context)!
-                                          //         .helloWorld,
-                                          //     style: Theme.of(context)
-                                          //         .textTheme
-                                          //         .labelLarge),
                                           Text(
                                             "Terakhir Baca",
                                             style: Theme.of(context)
