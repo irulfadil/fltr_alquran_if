@@ -23,8 +23,8 @@ class LocationErrorWidget extends StatelessWidget {
           const SizedBox(height: 32),
           Text(
             error!,
-            style:
-                const TextStyle(color: errorColor, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: errorColor, fontWeight: FontWeight.bold, fontSize: 14.0),
           ),
           const SizedBox(height: 32),
           ElevatedButton(

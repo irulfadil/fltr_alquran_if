@@ -65,17 +65,17 @@ class IntroductionView extends GetView<IntroductionController> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                "Read, even if it's just one verse.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: ColorSystem.appColorWhite,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ),
+                            // const Padding(
+                            //   padding: EdgeInsets.all(8.0),
+                            //   child: Text(
+                            //     "Read, even if it's just one verse.",
+                            //     textAlign: TextAlign.center,
+                            //     style: TextStyle(
+                            //       color: ColorSystem.appColorWhite,
+                            //       fontSize: 14,
+                            //     ),
+                            //   ),
+                            // ),
                             const SizedBox(height: 10.0),
                             Center(
                               child: Stack(

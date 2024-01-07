@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:ui' as ui;
+import 'package:fltr_alquran_if/app/modules/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +14,6 @@ import '../controllers/access_menu_controller.dart';
 
 class AccessMenuView extends GetView<AccessMenuController> {
   AccessMenuView({Key? key}) : super(key: key);
-  final homeC = Get.find<HomeController>();
   final accessC = Get.find<AccessMenuController>();
 
   @override
@@ -96,7 +96,7 @@ class AccessMenuView extends GetView<AccessMenuController> {
                                 ),
                                 child: const Center(
                                     child: Text(
-                                  "Read AlQur'an",
+                                  "Baca AlQur'an",
                                   style: TextStyle(
                                     color: ColorSystem.appColorWhite,
                                     fontSize: 16.0,
@@ -213,7 +213,7 @@ class AccessMenuView extends GetView<AccessMenuController> {
                                         ),
                                         child: const Center(
                                           child: Text(
-                                            "Last Read",
+                                            "Terakhir Baca",
                                             style: TextStyle(
                                               color: ColorSystem.appColorWhite,
                                               fontSize: 16.0,
@@ -307,6 +307,10 @@ class AccessMenuView extends GetView<AccessMenuController> {
                             InkWell(
                               onTap: () {
                                 Get.toNamed(Routes.setting);
+                                Future.delayed(const Duration(seconds: 2), () {
+                                  const SplashScreen();
+                                });
+                                // Get.toNamed(Routes.setting);
                               },
                               child: Container(
                                 width: 200,

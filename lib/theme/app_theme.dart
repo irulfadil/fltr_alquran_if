@@ -16,6 +16,7 @@ class AppTheme {
   // Theme lightMode
   static final lightMode = ThemeData(
     // brightness: Brightness.light,
+    useMaterial3: true,
     scaffoldBackgroundColor: ColorSystem.backgroundLight,
     dialogBackgroundColor: ColorSystem.backgroundLight,
     fontFamily: "Poppins",
@@ -32,6 +33,7 @@ class AppTheme {
   // Theme darkMode
   static final darkMode = ThemeData(
     // brightness: Brightness.dark,
+    useMaterial3: true,
     scaffoldBackgroundColor: ColorSystem.backgroundDark,
     dialogBackgroundColor: ColorSystem.backgroundDarkSecondary,
     fontFamily: "Poppins",

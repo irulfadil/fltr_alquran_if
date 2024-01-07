@@ -16,5 +16,6 @@ class ColorSystem {
 
   static const backgroundLight = Color(0xFFFFFFFF);
   static const backgroundDark = Color(0xFF101010);
-  static const backgroundDarkSecondary = Color(0xFF222224);
+  // static const backgroundDarkSecondary = Color(0xFF222224);
+  static const backgroundDarkSecondary = Color(0xFF111B21);
 }

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:get/get.dart';
+
+import '../../../utils/color_system.dart';
+import '../access_menu/views/access_menu_view.dart';
+// import '../../routes/app_pages.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,7 +21,8 @@ class _SplashScreenState extends State<SplashScreen>
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Future.delayed(const Duration(seconds: 4), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) {
-        return const HomeScreen();
+        return AccessMenuView();
+        // return const HomeScreen();
       }));
     });
   }
@@ -30,20 +36,21 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.green, Colors.yellow],
-          begin: Alignment.centerRight,
-          end: Alignment.bottomLeft,
+    return Center(
+      child: Container(
+        // width: double.infinity,
+        decoration: const BoxDecoration(
+          color: ColorSystem.backgroundDarkSecondary,
         ),
-      ),
-      child: const Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("data"),
-        ],
+        child: Stack(
+          children: [
+            SizedBox(
+              width: 80,
+              height: 80,
+              child: Image.asset("assets/images/logo_alquran.png"),
+            ),
+          ],
+        ),
       ),
     );
   }

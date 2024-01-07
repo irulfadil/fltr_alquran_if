@@ -1,3 +1,4 @@
+import 'package:fltr_alquran_if/app/modules/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
 
 import '../modules/access_menu/bindings/access_menu_binding.dart';
@@ -99,6 +100,10 @@ class AppPages {
       name: Routes.qiblah,
       page: () => const QiblahView(),
       binding: QiblahBinding(),
+    ),
+    GetPage(
+      name: Routes.splashScreen,
+      page: () => const SplashScreen(),
     ),
   ];
 }

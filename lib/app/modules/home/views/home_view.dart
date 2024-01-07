@@ -2,6 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/custom_elevated_button.dart';
@@ -31,7 +32,7 @@ class HomeView extends GetView<HomeController> {
     // Setting datetime
     final now = DateTime.now();
     String formattedDate = controller.formattedDate.format(now);
-
+    Get.log("isDark: ${themeC.isDark.value}");
     return Scaffold(
       appBar: AppBar(
         elevation: themeC.isDark.isTrue ? 0 : 4,
@@ -143,7 +144,6 @@ class HomeView extends GetView<HomeController> {
                 Get.toNamed(Routes.qiblah);
               },
             ),
-            // untuk color SwitchListTile bisa set default di custom_theme.
           ],
         ),
       ),
@@ -206,7 +206,7 @@ class HomeView extends GetView<HomeController> {
                                             color: ColorSystem.appColorWhite,
                                           ),
                                           const SizedBox(width: 5.0),
-                                          Text("Last Read",
+                                          Text("Terakhir Baca",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelLarge),
@@ -279,8 +279,14 @@ class HomeView extends GetView<HomeController> {
                                             color: ColorSystem.appColorWhite,
                                           ),
                                           const SizedBox(width: 5.0),
+                                          // Text(
+                                          //     AppLocalizations.of(context)!
+                                          //         .helloWorld,
+                                          //     style: Theme.of(context)
+                                          //         .textTheme
+                                          //         .labelLarge),
                                           Text(
-                                            "Last Read",
+                                            "Terakhir Baca",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .labelLarge,
@@ -457,7 +463,7 @@ class HomeView extends GetView<HomeController> {
                                             ),
                                             const SizedBox(width: 5.0),
                                             Text(
-                                              "Last Read",
+                                              "Terakhir Baca",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelLarge,

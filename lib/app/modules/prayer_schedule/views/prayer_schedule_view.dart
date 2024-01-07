@@ -2,11 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:adhan/adhan.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../utils/color_system.dart';
 import '../../../../widgets/widget_location_error.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/prayer_schedule_controller.dart';
 
 class PrayerScheduleView extends GetView<PrayerScheduleController> {
@@ -23,15 +25,60 @@ class PrayerScheduleView extends GetView<PrayerScheduleController> {
       return Future.delayed(const Duration(seconds: 4));
     }
 
+    showLocationDialog() {
+      if (controller.isLocationEnabled.value) {
+        controller.checkLocationEnabled();
+      } else {
+        Get.defaultDialog(
+          title: 'Location Service Disabled',
+          content: const Text(
+              'Please enable location services for the app to function properly.'),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  child: Text('Go to Settings',
+                      style: Theme.of(context).textTheme.titleSmall),
+                  onPressed: () async {
+                    await Geolocator.openLocationSettings();
+                    await Future.delayed(const Duration(seconds: 8));
+                    controller.checkLocationEnabled();
+                    // Get.until(
+                    //     (route) => Get.currentRoute != '/prayer-schedule');
+                    // Get.back();
+                  },
+                ),
+                TextButton(
+                  child: Text('Close',
+                      style: Theme.of(context).textTheme.titleSmall),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+            onTap: () {
+              Get.toNamed(
+                Routes.home,
+                arguments: {"indexTabHome": 0},
+              );
+            },
+            child: const Icon(Icons.arrow_back)),
         title: const Text('Prayer Schedule'),
         centerTitle: true,
       ),
       body: FutureBuilder(
-        future: controller.getCurrentLocation(),
+        future: controller.determineLocation(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          print("snapshot: ${snapshot.data}");
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
               margin: const EdgeInsets.only(top: 20.0),
@@ -48,15 +95,24 @@ class PrayerScheduleView extends GetView<PrayerScheduleController> {
               ),
             );
           }
-          if (!snapshot.hasData) {
-            return const LocationErrorWidget();
+
+          if (!snapshot.hasData || snapshot.hasError) {
+            return LocationErrorWidget(
+              error: "Location disabled",
+              callback: showLocationDialog,
+            );
           }
+
+          print("snapshot: ${snapshot.data}");
+          final position = snapshot.data!;
+          final latitude = position.latitude;
+          final longitude = position.longitude;
 
           return Obx(
             () {
               // Get latitude & longtitude
-              double? latitude = controller.currentLocation.value?.latitude;
-              double? longitude = controller.currentLocation.value?.longitude;
+              // double? latitude = controller.currentLocation.value?.latitude;
+              // double? longitude = controller.currentLocation.value?.longitude;
               Coordinates myCoordinates;
 
               if (latitude != null && longitude != null) {
@@ -99,7 +155,7 @@ class PrayerScheduleView extends GetView<PrayerScheduleController> {
                           children: [
                             Icon(Icons.location_pin, color: Colors.red[700]),
                             Text(
-                              controller.currentAddress.value.isNotEmpty
+                              controller.currentAddress.isNotEmpty
                                   ? controller.currentAddress.value
                                   : "loading location...",
                               style: Theme.of(context).textTheme.bodyMedium,

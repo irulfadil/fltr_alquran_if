@@ -23,9 +23,16 @@ class InformationAppView extends GetView<InformationAppController> {
                 ),
             textAlign: TextAlign.center,
           ),
+          Text(
+            "Bismillahirrahmanirrahim Puji Syukur Kepada Allah SWT. Sholawat serta salam semoga selalu tercurahkan kepada Nabi Muhammad SAW.",
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+            textAlign: TextAlign.center,
+          ),
           const Divider(),
           Text(
-            "Aplikasi Al Quran adalah aplikasi yang Anda butuhkan untuk membaca kitab suci Al Quran dimanapun Anda inginkan. Inilah saat yang tepat untuk menjadikan diri Anda lebih beriman, relax dan mengistirahatkan pikiran sejenak untuk membaca Al-Qur'an.",
+            "Aplikasi Al Quran adalah aplikasi yang dibutuhkan untuk membaca kitab suci Al Quran dimanapun yang Anda inginkan dalam bentuk aplikasi mobile. Inilah cara baru yang tepat untuk menjadikan diri lebih beriman, relax dan mengistirahatkan pikiran sejenak untuk membaca Al-Qur'an.",
             textAlign: TextAlign.justify,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   letterSpacing: 0.5,

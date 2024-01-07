@@ -3,6 +3,7 @@ part of 'app_pages.dart';
 abstract class Routes {
   Routes._();
   static const introduction = '/introduction';
+  static const splashScreen = '/splash_screen';
   static const home = '/home';
   static const search = '/search';
   static const detailSurah = '/detail-surah';

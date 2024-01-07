@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print
+
+import 'package:fltr_alquran_if/app/modules/qiblah/views/qiblah_view.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -6,6 +9,7 @@ import 'package:permission_handler/permission_handler.dart';
 class QiblahController extends GetxController {
   // Position? currentLocation;
   Rx<Position?> currentLocation = Rx<Position?>(null);
+  RxBool isLocationEnabled = false.obs;
   late bool servicePermission = false;
   late LocationPermission permission;
 
@@ -16,6 +20,17 @@ class QiblahController extends GetxController {
   void onInit() {
     super.onInit();
     initLocationAndAddress();
+  }
+
+  // Function check Location device
+  Future<void> checkLocationEnabled() async {
+    bool locationEnabled = await Geolocator.isLocationServiceEnabled();
+    isLocationEnabled.value = locationEnabled;
+    Get.log("locationEnabled: $isLocationEnabled");
+
+    isLocationEnabled.isTrue
+        ? Get.offAll(() => const QiblahView())
+        : isLocationEnabled.isFalse;
   }
 
   // Function permission for lokasi device.
@@ -33,20 +48,33 @@ class QiblahController extends GetxController {
   }
 
   // Function current location
-  Future<Position> _getCurrentLocation() async {
-    servicePermission = await Geolocator.isLocationServiceEnabled();
+  Future<Position?> _getCurrentLocation() async {
+    LocationPermission permission;
+
+    bool servicePermission = await Geolocator.isLocationServiceEnabled();
     if (!servicePermission) {
-      // ignore: avoid_print
-      print("Service disabled");
+      print('Location services are disabled. Please enable the services');
+      return null;
     }
 
     // The service is enabled on major phones, but it's ok to check it
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        print('Location permissions are denied.');
+        return null;
+      }
     }
 
-    return await Geolocator.getCurrentPosition();
+    if (permission == LocationPermission.deniedForever) {
+      print(
+          "Location permissions are permanently denied, we cannot request permissions.");
+      return null;
+    }
+
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
 
   // Function get geocode the coordinate and convert them into address.
@@ -60,7 +88,6 @@ class QiblahController extends GetxController {
         currentAddress.value = "${place.locality}, ${place.country}";
       }
     } catch (e) {
-      // ignore: avoid_print
       print(e);
     }
   }

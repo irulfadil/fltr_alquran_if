@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print
+
+import 'package:fltr_alquran_if/app/modules/prayer_schedule/views/prayer_schedule_view.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
@@ -7,6 +10,7 @@ import 'package:intl/intl.dart';
 class PrayerScheduleController extends GetxController {
   Rx<Position?> currentLocation = Rx<Position?>(null);
   RxString currentAddress = ''.obs;
+  RxBool isLocationEnabled = false.obs;
 
   late bool servicePermission = false;
   late LocationPermission permission;
@@ -23,18 +27,38 @@ class PrayerScheduleController extends GetxController {
     super.onInit();
   }
 
+  Future<void> checkLocationEnabled() async {
+    bool locationEnabled = await Geolocator.isLocationServiceEnabled();
+    isLocationEnabled.value = locationEnabled;
+    Get.log("locationEnabled: $isLocationEnabled");
+
+    isLocationEnabled.isTrue
+        ? Get.offAll(() => const PrayerScheduleView())
+        : isLocationEnabled.isFalse;
+  }
+
   // Function init location address.
   Future<void> initLocationAndAddress() async {
-    currentLocation.value = await getCurrentLocation();
-    await _getAdressFromCoordinates();
+    try {
+      Position? location = await determineLocation();
+      currentLocation.value = location;
+      await _getAdressFromCoordinates();
+    } catch (e) {
+      if (e is LocationServiceDisabledException) {
+        print("LocationServiceDisabledException");
+      }
+    }
   }
 
   // Function current location
-  Future<Position> getCurrentLocation() async {
-    servicePermission = await Geolocator.isLocationServiceEnabled();
+  Future<Position?> determineLocation() async {
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    bool servicePermission = await Geolocator.isLocationServiceEnabled();
     if (!servicePermission) {
-      // ignore: avoid_print
-      print("Location services are disabled.");
+      print('Location services are disabled. Please enable the services');
+      return null;
     }
 
     // The service is enabled on major phones, but it's ok to check it
@@ -42,13 +66,15 @@ class PrayerScheduleController extends GetxController {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+        print('Location permissions are denied.');
+        return null;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      print(
+          "Location permissions are permanently denied, we cannot request permissions.");
+      return null;
     }
 
     return await Geolocator.getCurrentPosition(
@@ -66,7 +92,6 @@ class PrayerScheduleController extends GetxController {
         currentAddress.value = "${place.locality}, ${place.country}";
       }
     } catch (e) {
-      // ignore: avoid_print
       print(e);
     }
   }
