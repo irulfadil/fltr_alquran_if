@@ -47,35 +47,26 @@ class ContactUsView extends GetView<ContactUsController> {
           const SizedBox(
             height: 20.0,
           ),
-          Text(
-            "Email: djonkcreative@gmail.com",
+          RichText(
             textAlign: TextAlign.justify,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                letterSpacing: 0.5,
-                height: 1.5,
-                color: ColorSystem.appColorTeal),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 10,
-          ),
-          Text(
-            "Telepon: *",
-            textAlign: TextAlign.justify,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  letterSpacing: 0.5,
-                  height: 1.5,
+            text: TextSpan(
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    letterSpacing: 0.5,
+                    height: 1.5,
+                  ),
+              children: [
+                const TextSpan(
+                  text: "email:",
                 ),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 10,
-          ),
-          Text(
-            "Alamat: *",
-            textAlign: TextAlign.justify,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  letterSpacing: 0.5,
-                  height: 1.5,
+                TextSpan(
+                  text: " djonkcreative@gmail.com",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: ColorSystem.appColorTeal),
                 ),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 10,
+              ],
+            ),
           ),
           const SizedBox(
             height: 20.0,

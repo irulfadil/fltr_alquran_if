@@ -300,7 +300,7 @@ class SettingView extends GetView<SettingController> {
             leading: const Icon(Icons.info),
             title: const Text("Information & Privacy"),
             subtitle: const Text(
-              "Information & Privacy policy App",
+              "Information & Privacy Policy App",
             ),
             onTap: () {
               Get.toNamed(Routes.informationPrivacy);

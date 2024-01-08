@@ -32,7 +32,7 @@ class HomeView extends GetView<HomeController> {
     // Setting datetime
     final now = DateTime.now();
     String formattedDate = controller.formattedDate.format(now);
-    Get.log("isDark: ${themeC.isDark.value}");
+    Get.log("home isDark: ${themeC.isDark.value}");
     return Scaffold(
       appBar: AppBar(
         elevation: themeC.isDark.isTrue ? 0 : 4,
@@ -335,7 +335,7 @@ class HomeView extends GetView<HomeController> {
                                     middleTextStyle:
                                         Theme.of(context).textTheme.titleMedium,
                                     middleText:
-                                        "Are you sure delete last read ?",
+                                        "Are you sure delete Terakhir Baca ?",
                                     actions: [
                                       SizedBox(
                                         width: 110,
@@ -417,9 +417,14 @@ class HomeView extends GetView<HomeController> {
                                         child: CustomElevatedButton(
                                           onPressed: () => Get.back(),
                                           text: "BACK",
-                                          backgroundColor: Colors.transparent,
+                                          backgroundColor: themeC.isDark.isTrue
+                                              ? Colors.transparent
+                                              : ColorSystem.appColorWhite,
                                           colorBorder:
                                               ColorSystem.appColorWhite,
+                                          colorText: themeC.isDark.isTrue
+                                              ? ColorSystem.appColorWhite
+                                              : ColorSystem.appColorBrown,
                                         ),
                                       ),
                                     ],
@@ -832,7 +837,7 @@ class HomeView extends GetView<HomeController> {
                                             .titleMedium,
                                         title: "Delete",
                                         middleText:
-                                            "Are you sure delete bookmark ?",
+                                            "Are you sure delete Bookmark?",
                                         actions: [
                                           SizedBox(
                                             width: 110,

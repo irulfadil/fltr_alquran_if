@@ -5,12 +5,14 @@ class ThemeController extends GetxController {
   RxBool isDark = false.obs;
   RxBool isEnabledTranslate = true.obs;
 
-  void toggleTheme(bool value) {
-    isDark.value = value;
-  }
+  // void toggleTheme(bool value) {
+  //   isDark.value = value;
+  // }
 
   void detectSystemTheme(BuildContext context) {
     final brightness = MediaQuery.of(context).platformBrightness;
     brightness == Brightness.dark ? isDark.value = true : isDark.value = false;
+    // ignore: avoid_print
+    print("Theme isDark: $isDark");
   }
 }

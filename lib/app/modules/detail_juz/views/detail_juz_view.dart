@@ -268,7 +268,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                                           .titleMedium,
                                                   title: "Save as",
                                                   middleText:
-                                                      "Please, Choose LastRead or Bookmark ?",
+                                                      "Please, Choose Terakhir Baca or Bookmark ?",
                                                   actions: [
                                                     CustomElevatedButton(
                                                       onPressed: () async {
@@ -278,7 +278,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                                             index);
                                                         homeC.update();
                                                       },
-                                                      text: "LAST READ",
+                                                      text: "TERAKHIR BACA",
                                                       backgroundColor:
                                                           ColorSystem
                                                               .appColorBrown,
