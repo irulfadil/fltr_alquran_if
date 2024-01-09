@@ -22,7 +22,7 @@ class DetermineLocation {
     }
   }
 
-  // Function current location
+  // Function current location.
   Future<Position?> determineLocation() async {
     LocationPermission permission;
 
@@ -33,7 +33,7 @@ class DetermineLocation {
       return null;
     }
 
-    // The service is enabled on major phones, but it's ok to check it
+    // The service is enabled on major phones, but it's ok to check it.
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();

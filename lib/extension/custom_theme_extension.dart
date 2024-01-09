@@ -2,26 +2,27 @@ import 'package:flutter/material.dart';
 
 import '../utils/color_system.dart';
 
-//2. create extention
+//2. create extention.
 extension ExtendedTheme on BuildContext {
   CustomThemeExtension get theme {
     return Theme.of(this).extension<CustomThemeExtension>()!;
   }
 }
 
-//1. create class CustomThemeExtension
+//1. create class CustomThemeExtension.
 class CustomThemeExtension extends ThemeExtension<CustomThemeExtension> {
   final Color? headerColor;
 
   const CustomThemeExtension({
     this.headerColor,
   });
-  // mode light
+
+  // mode light.
   static const lightMode = CustomThemeExtension(
     headerColor: ColorSystem.appColorGreen,
   );
 
-  // mode dark
+  // mode dark.
   static const darkMode = CustomThemeExtension(
     headerColor: ColorSystem.appColorBrown,
   );

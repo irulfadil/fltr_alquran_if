@@ -18,7 +18,7 @@ class QiblahController extends GetxController {
     determineLocationC.initLocationAndAddress();
   }
 
-  // Function check Location device
+  // Function check Location device.
   Future<void> checkLocationEnabled() async {
     bool locationEnabled = await Geolocator.isLocationServiceEnabled();
     isLocationEnabled.value = locationEnabled;

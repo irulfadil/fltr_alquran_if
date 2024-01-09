@@ -25,6 +25,7 @@ class PrayerScheduleController extends GetxController {
     super.onInit();
   }
 
+  // function check mode lokasi device.
   Future<void> checkLocationEnabled() async {
     bool locationEnabled = await Geolocator.isLocationServiceEnabled();
     isLocationEnabled.value = locationEnabled;

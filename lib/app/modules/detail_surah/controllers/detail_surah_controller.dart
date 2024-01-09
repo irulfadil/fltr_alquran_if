@@ -79,12 +79,12 @@ class DetailSurahController extends GetxController {
         colorText: ColorSystem.appColorWhite,
       );
     }
-    //query database
+    //query database.
     var data = await db.query('bookmark');
     print(data);
   }
 
-  // Function data get detailSurah
+  // Function data get detailSurah.
   Future<SurahDetail> getSurahDetail(String surahNumb) async {
     Uri url =
         Uri.parse("https://api.alquran.cloud/v1/surah/$surahNumb/ar.alafasy");
@@ -97,7 +97,7 @@ class DetailSurahController extends GetxController {
     return detailSurah;
   }
 
-  // Function data get detailSurah translate
+  // Function data get detailSurah translate.
   Future<SurahDetailTranslate> getSurahDetailTranslate(String surahNumb) async {
     Uri url =
         Uri.parse("https://api.alquran.cloud/v1/surah/$surahNumb/en.pickthall");
@@ -111,7 +111,7 @@ class DetailSurahController extends GetxController {
     return detailSurahTranslate;
   }
 
-  // Function play audio by surah
+  // Function play audio by surah.
   void playAudio(Ayah? ayahs) async {
     if (ayahs!.audio != null) {
       try {
@@ -147,7 +147,7 @@ class DetailSurahController extends GetxController {
     }
   }
 
-  // Function pause audio by surah
+  // Function pause audio by surah.
   void pauseAudio(Ayah ayahs) async {
     try {
       await player.pause();
@@ -171,7 +171,7 @@ class DetailSurahController extends GetxController {
     }
   }
 
-  // Function resume audio by surah
+  // Function resume audio by surah.
   void resumeAudio(Ayah ayahs) async {
     try {
       ayahs.statusAudio = "playing";
@@ -197,7 +197,7 @@ class DetailSurahController extends GetxController {
     }
   }
 
-  // Function stop audio by surah
+  // Function stop audio by surah.
   void stopAudio(Ayah ayahs) async {
     try {
       await player.stop();

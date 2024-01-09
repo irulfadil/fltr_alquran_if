@@ -22,6 +22,7 @@ class AccessMenuController extends GetxController {
     print("procesing access done...");
   }
 
+  // Function get AllJuz from API.
   Future<List<Juz>> getJuz() async {
     copyallJuz.clear();
     for (int i = 1; i <= 30; i++) {

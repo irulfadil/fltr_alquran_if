@@ -12,27 +12,27 @@ class SettingController extends GetxController {
   RxString selectedThemeModeCurent = 'light'.obs;
   RxString selectdValueFontArabic = 'utsmani'.obs;
 
-  // Function save fontSie in getStore
+  // Function save fontSie in getStore.
   void saveFontSizeArabic() {
     box.write('isfontSizeArabic', isfontSizeArabic.value);
   }
 
-  // Function read FontSize in getStore
+  // Function read FontSize in getStore.
   void loadFontSizeArabic() {
     isfontSizeArabic.value = box.read('isfontSizeArabic') ?? 24;
   }
 
-  // Function save themeCurrent in getStore
+  // Function save themeCurrent in getStore.
   void saveThemeCurrent() {
     box.write('isThemeCurrent', selectedThemeModeCurent.value);
   }
 
-  // Function read themeCurrent in getStore
+  // Function read themeCurrent in getStore.
   void loadThemeCurrent() {
     selectedThemeModeCurent.value = box.read('isThemeCurrent') ?? 'light';
   }
 
-  // Function Toggle Theme Mode
+  // Function Toggle Theme Mode.
   void changeThemeMode(value, context) {
     Get.log("isDarkMode: ${Get.isDarkMode}");
     switch (value) {
