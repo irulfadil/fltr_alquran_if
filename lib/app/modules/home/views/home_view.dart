@@ -413,7 +413,7 @@ class HomeView extends GetView<HomeController> {
                                         "Last read data in processing...",
                                     actions: [
                                       SizedBox(
-                                        width: 80,
+                                        width: 110,
                                         child: CustomElevatedButton(
                                           onPressed: () => Get.back(),
                                           text: "BACK",
@@ -644,9 +644,6 @@ class HomeView extends GetView<HomeController> {
                             ),
                           );
                         }
-                        // List<Juz> limitedList = snapshot.data!.length > 30
-                        //     ? snapshot.data!.sublist(0, 30)
-                        //     : snapshot.data!;
 
                         return ListView.builder(
                           // itemCount: 30,

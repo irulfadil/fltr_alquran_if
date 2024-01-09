@@ -332,7 +332,6 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                     fontWeight: FontWeight.w500,
                                     fontSize: settingC.isfontSizeArabic.value
                                         .toDouble(),
-                                    // fontFamily: "",
                                   ),
                                   textAlign: TextAlign.right,
                                 ),

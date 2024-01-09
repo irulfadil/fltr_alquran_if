@@ -120,11 +120,11 @@ class HomeController extends GetxController {
       Set<int> juzNumbersSet = {};
 
       // for (int i = 1; i <= 30; i++) {
+      // if (_allJuz.length >= 30) {
+      //   break;
+      // }
+      // Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$i/ar.alafasy");
       while (_allJuz.length < 30) {
-        // if (_allJuz.length >= 30) {
-        //   break;
-        // }
-        // Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$i/ar.alafasy");
         Uri url = Uri.parse(
             "https://api.alquran.cloud/v1/juz/${_allJuz.length + 1}/ar.alafasy");
         var res = await http.get(url);
