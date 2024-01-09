@@ -101,7 +101,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                 return Text('Error: ${snapshot.error}');
               }
 
-              if (!snapshot.hasData) {
+              if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 30.0),

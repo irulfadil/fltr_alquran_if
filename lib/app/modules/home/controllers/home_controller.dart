@@ -16,11 +16,12 @@ import '../../../data/models/surah_model.dart';
 import '../../theme_control/theme_control.dart';
 
 class HomeController extends GetxController {
-  // RxBool isDark = false.obs;
-  // RxBool isEnabledTranslate = true.obs;
   final themeC = Get.put(ThemeController());
   final box = GetStorage();
-  List<Juz> allJuz = [];
+  final List<Juz> _allJuz = [];
+  List<Juz> get allJuz => _allJuz;
+
+  RxBool isDataFetched = false.obs;
 
   // Instance database sqflite
   DatabaseInstance database = DatabaseInstance.instance;
@@ -34,6 +35,13 @@ class HomeController extends GetxController {
       formattedDate;
       update();
     });
+
+    ever(isDataFetched, (bool fetched) {
+      if (!fetched) {
+        getAllJuz();
+      }
+    });
+
     super.onInit();
   }
 
@@ -101,23 +109,43 @@ class HomeController extends GetxController {
     List<dynamic> data = (jsonDecode(res.body) as Map<String, dynamic>)["data"];
 
     List<Surah> results = data.map((e) => Surah.fromJson(e)).toList();
-    print("Master Sum: ${results.length}");
+    print("Master Surah: ${results.length}");
     return results;
   }
 
   // Function get AllJuz to Tab 'Juz'
   Future<List<Juz>> getAllJuz() async {
-    for (int i = 1; i <= 30; i++) {
-      Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$i/ar.alafasy");
-      var res = await http.get(url);
+    if (!isDataFetched.value) {
+      _allJuz.clear();
+      Set<int> juzNumbersSet = {};
 
-      Map<String, dynamic> data =
-          (jsonDecode(res.body) as Map<String, dynamic>)["data"];
+      // for (int i = 1; i <= 30; i++) {
+      while (_allJuz.length < 30) {
+        // if (_allJuz.length >= 30) {
+        //   break;
+        // }
+        // Uri url = Uri.parse("https://api.alquran.cloud/v1/juz/$i/ar.alafasy");
+        Uri url = Uri.parse(
+            "https://api.alquran.cloud/v1/juz/${_allJuz.length + 1}/ar.alafasy");
+        var res = await http.get(url);
 
-      Juz juz = Juz.fromJson(data);
-      allJuz.add(juz);
-      // print("allJuz: $allJuz");
+        Map<String, dynamic> data =
+            (jsonDecode(res.body) as Map<String, dynamic>)["data"];
+
+        Juz juz = Juz.fromJson(data);
+
+        if (juz.number != null && !juzNumbersSet.contains(juz.number!)) {
+          _allJuz.add(juz);
+          juzNumbersSet.add(juz.number!);
+        }
+      }
+      _allJuz.sort((a, b) => a.number!.compareTo(b.number as num));
+      isDataFetched.value = true;
+      update();
     }
-    return allJuz;
+    List<Juz> limitedList =
+        _allJuz.sublist(0, _allJuz.length > 30 ? 30 : _allJuz.length);
+    print("Master allJuz: ${_allJuz.length}");
+    return limitedList;
   }
 }

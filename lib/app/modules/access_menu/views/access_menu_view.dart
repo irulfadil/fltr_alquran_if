@@ -18,8 +18,6 @@ class AccessMenuView extends GetView<AccessMenuController> {
 
   @override
   Widget build(BuildContext context) {
-    print("check copyallJuz: ${accessC.copyallJuz}");
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -115,11 +113,13 @@ class AccessMenuView extends GetView<AccessMenuController> {
                                     Map<String, dynamic>? lastRead =
                                         snapshot.data;
                                     print("access lastread: $lastRead");
+                                    print(
+                                        "copyallJuz: ${accessC.copyallJuz.length}");
 
                                     return InkWell(
                                       onTap: () {
                                         if (lastRead != null &&
-                                            accessC.copyallJuz.length >= 30) {
+                                            accessC.copyallJuz.length == 30) {
                                           switch (lastRead['via']) {
                                             case "juz":
                                               Juz detailJuz =
@@ -129,8 +129,8 @@ class AccessMenuView extends GetView<AccessMenuController> {
                                                   detailJuz.surahs!.keys
                                                       .toList();
 
-                                              print("detailJuz: $detailJuz");
-                                              print("surahInJuz: $surahInJuz");
+                                              // print("detailJuz: $detailJuz");
+                                              // print("surahInJuz: $surahInJuz");
 
                                               Get.toNamed(Routes.detailJuz,
                                                   arguments: {

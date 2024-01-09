@@ -621,7 +621,7 @@ class HomeView extends GetView<HomeController> {
                             ConnectionState.waiting) {
                           return const LoadAlljuz();
                         }
-                        if (!snapshot.hasData) {
+                        if (!snapshot.hasData || snapshot.data!.isEmpty) {
                           return Center(
                             child: Padding(
                               padding:
@@ -644,8 +644,13 @@ class HomeView extends GetView<HomeController> {
                             ),
                           );
                         }
+                        // List<Juz> limitedList = snapshot.data!.length > 30
+                        //     ? snapshot.data!.sublist(0, 30)
+                        //     : snapshot.data!;
+
                         return ListView.builder(
-                          itemCount: 30,
+                          // itemCount: 30,
+                          itemCount: snapshot.data!.length,
                           itemBuilder: (BuildContext context, int index) {
                             Juz detailJuz = snapshot.data![index];
 
