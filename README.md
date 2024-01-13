@@ -3,14 +3,14 @@
   <a href="https://github.com/irulfadil/fltr_alquran_if">
     <img src="assets/images/logo_alquran.png" alt="irulfadil" width="90" height="90">
   </a>
-  <h3 align="center">Al-Quran</h3>
+  <h3 align="center">Al-Quran Online</h3>
   <p align="center">Al-Qur'an For Android<br /></p>
 </p>
 
 ## Al-Qur’an App
 
 An Flutter App. Al Quran App is the app that all you need for Reading Al Quran Anywhere you wanted.
-It is the good time to make yourself to be more vaith, and rest your thought for an while to read Qur’an.
+It is the good time to make yourself to be more mind, and rest your thought for an while to read Qur’an.
 
 ### API Information
 
@@ -36,15 +36,13 @@ API Used: https://alquran.cloud/
 - [x] Can see prayer schedule according to the current location.
 - [x] Qiblah Direction.
 
-### Author
-
-by irulfadil @DjonkCreative
-
 ### GitHub
 
 View Github
+by irulfadil @DjonkCreative
+
 #Quran #Apps
 
 ### Contact
 
-[fadilirul](https://www.instagram.com/fadilirul/)
+@DjonkCreative
