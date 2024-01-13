@@ -20,15 +20,14 @@ migrate_working_dir/
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 .vscode/
-.assets/
-.android/
+.assets/*
 
 lib/app
 lib/l10n
 lib/theme
 lib/utils
+lib/main.dart
 
-main.dart
 pubspec.yaml
 
 test/
