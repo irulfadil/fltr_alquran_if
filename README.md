@@ -9,8 +9,7 @@
 
 ## Al-Qur’an App
 
-An Flutter App. Al Quran App is the app that all you need for Reading Al Quran Anywhere you wanted.
-It is the good time to make yourself to be more mind, and rest your thought for an while to read Qur’an.
+An Flutter App. Al Quran App is the app that all you need for Reading Al Quran Anywhere you wanted. It is the good time to make yourself to be more mind, and rest your thought for an while to read Qur’an.
 
 ### API Information
 
