@@ -7,7 +7,7 @@ import '../../theme_control/theme_control.dart';
 import '../controllers/help_app_controller.dart';
 
 class HelpAppView extends GetView<HelpAppController> {
-  HelpAppView({Key? key}) : super(key: key);
+  HelpAppView({super.key});
   final themeC = Get.find<ThemeController>();
 
   @override

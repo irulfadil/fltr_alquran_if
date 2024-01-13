@@ -14,7 +14,7 @@ import '../controllers/detail_surah_controller.dart';
 
 // ignore: must_be_immutable
 class DetailSurahView extends GetView<DetailSurahController> {
-  DetailSurahView({Key? key}) : super(key: key);
+  DetailSurahView({super.key});
   final themeC = Get.find<ThemeController>();
   final homeC = Get.find<HomeController>();
   final settingC = Get.find<SettingController>();
@@ -93,10 +93,12 @@ class DetailSurahView extends GetView<DetailSurahController> {
                           width: 100,
                           height: 100,
                         ),
+                        const SizedBox(height: 15.0),
                         const Text(
-                          "Data Empty",
+                          "Data Empty & Disconnected",
                           style: TextStyle(
                             color: Colors.grey,
+                            fontSize: 12,
                           ),
                         )
                       ],

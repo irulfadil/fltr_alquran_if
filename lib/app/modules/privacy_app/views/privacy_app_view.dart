@@ -5,7 +5,7 @@ import '../../theme_control/theme_control.dart';
 import '../controllers/privacy_app_controller.dart';
 
 class PrivacyAppView extends GetView<PrivacyAppController> {
-  PrivacyAppView({Key? key}) : super(key: key);
+  PrivacyAppView({super.key});
   final themeC = Get.find<ThemeController>();
 
   @override

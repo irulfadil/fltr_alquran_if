@@ -7,7 +7,7 @@ import '../../../routes/app_pages.dart';
 import '../controllers/information_privacy_controller.dart';
 
 class InformationPrivacyView extends GetView<InformationPrivacyController> {
-  const InformationPrivacyView({Key? key}) : super(key: key);
+  const InformationPrivacyView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

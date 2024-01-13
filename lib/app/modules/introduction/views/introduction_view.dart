@@ -8,7 +8,7 @@ import '../../../routes/app_pages.dart';
 import '../controllers/introduction_controller.dart';
 
 class IntroductionView extends GetView<IntroductionController> {
-  IntroductionView({Key? key}) : super(key: key);
+  IntroductionView({super.key});
   final box = GetStorage();
 
   @override

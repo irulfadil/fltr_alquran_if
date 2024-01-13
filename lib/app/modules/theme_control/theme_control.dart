@@ -12,6 +12,7 @@ class ThemeController extends GetxController {
   void detectSystemTheme(BuildContext context) {
     final brightness = MediaQuery.of(context).platformBrightness;
     brightness == Brightness.dark ? isDark.value = true : isDark.value = false;
+    update();
     Get.log("Theme isDark: $isDark");
   }
 }

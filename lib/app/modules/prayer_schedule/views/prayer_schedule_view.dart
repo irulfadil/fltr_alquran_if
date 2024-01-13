@@ -14,7 +14,7 @@ import '../controllers/prayer_schedule_controller.dart';
 
 // ignore: must_be_immutable
 class PrayerScheduleView extends GetView<PrayerScheduleController> {
-  PrayerScheduleView({Key? key}) : super(key: key);
+  PrayerScheduleView({super.key});
   DetermineLocation determineLocationC = Get.find<DetermineLocation>();
   final limit = const SizedBox(height: 5.0);
 

@@ -9,7 +9,7 @@ import '../../theme_control/theme_control.dart';
 import '../controllers/setting_controller.dart';
 
 class SettingView extends GetView<SettingController> {
-  SettingView({Key? key}) : super(key: key);
+  SettingView({super.key});
   final themeC = Get.find<ThemeController>();
   final box = GetStorage();
 

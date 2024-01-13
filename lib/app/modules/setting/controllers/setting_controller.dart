@@ -53,7 +53,6 @@ class SettingController extends GetxController {
         Get.log('StorageDarkMode: ${box.read('dbtheme')}');
         break;
       case "perangkat":
-        // themeC.isDark.value = true;
         // detectSystemTheme, Dijalankan ketika ada perubahan mode di perangkat
         themeController.detectSystemTheme(context);
         Get.changeThemeMode(ThemeMode.system);

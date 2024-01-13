@@ -132,6 +132,7 @@ class HomeController extends GetxController {
           juzNumbersSet.add(juz.number!);
         }
       }
+      Get.log("juzNumbersSet: $juzNumbersSet");
 
       // sort pengurutan berdasarkan juz number.
       _allJuz.sort((a, b) => a.number!.compareTo(b.number as num));

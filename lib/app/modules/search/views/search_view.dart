@@ -7,7 +7,7 @@ import '../../theme_control/theme_control.dart';
 import '../controllers/search_controller.dart';
 
 class SearchView extends GetView<SearchControl> {
-  SearchView({Key? key}) : super(key: key);
+  SearchView({super.key});
   final themeC = Get.find<ThemeController>();
 
   @override

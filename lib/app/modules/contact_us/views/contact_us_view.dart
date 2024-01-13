@@ -7,7 +7,7 @@ import '../../theme_control/theme_control.dart';
 import '../controllers/contact_us_controller.dart';
 
 class ContactUsView extends GetView<ContactUsController> {
-  ContactUsView({Key? key}) : super(key: key);
+  ContactUsView({super.key});
   final themeC = Get.find<ThemeController>();
 
   @override

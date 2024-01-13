@@ -33,6 +33,7 @@ class HomeView extends GetView<HomeController> {
     final now = DateTime.now();
     String formattedDate = controller.formattedDate.format(now);
     Get.log("home isDark: ${themeC.isDark.value}");
+
     return Scaffold(
       appBar: AppBar(
         elevation: themeC.isDark.isTrue ? 0 : 4,
@@ -542,12 +543,14 @@ class HomeView extends GetView<HomeController> {
                                     width: 100,
                                     height: 100,
                                   ),
+                                  const SizedBox(height: 15.0),
                                   const Text(
-                                    "Data Empty",
+                                    "Data Empty & Disconnected",
                                     style: TextStyle(
                                       color: Colors.grey,
+                                      fontSize: 12,
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -614,111 +617,120 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                   Center(
-                    child: FutureBuilder<List<Juz>>(
-                      future: controller.getAllJuz(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const LoadAlljuz();
-                        }
-                        if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                          return Center(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 30.0),
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/data_empty.png",
-                                    width: 100,
-                                    height: 100,
-                                  ),
-                                  const Text(
-                                    "Data Empty",
-                                    style: TextStyle(
-                                      color: Colors.grey,
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        await Future.delayed(const Duration(seconds: 4));
+                        await controller.getAllJuz();
+                      },
+                      child: FutureBuilder<List<Juz>>(
+                        future: controller.getAllJuz(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const LoadAlljuz();
+                          }
+                          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 30.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/data_empty.png",
+                                      width: 100,
+                                      height: 100,
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        }
-
-                        return ListView.builder(
-                          // itemCount: 30,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            Juz detailJuz = snapshot.data![index];
-
-                            List<dynamic> surahInJuz =
-                                detailJuz.surahs!.keys.toList();
-
-                            List<dynamic> nameSurahInJuz = [];
-
-                            for (String elemn in surahInJuz) {
-                              var allData = detailJuz.surahs?[elemn];
-
-                              if (allData != null) {
-                                nameSurahInJuz
-                                    .add(allData.englishName.toString());
-                              }
-                            }
-
-                            // String startSurah = detailJuz.surahs!.keys.first;
-                            // String lastSurah = detailJuz.surahs!.keys.last;
-
-                            // String? startNameSurah =
-                            //     detailJuz.surahs![startSurah]!.englishName;
-                            // String? lastNameSurah =
-                            //     detailJuz.surahs![lastSurah]!.englishName;
-
-                            return Obx(
-                              () => ListTile(
-                                onTap: () => Get.toNamed(
-                                  Routes.detailJuz,
-                                  arguments: {
-                                    'detailJuz': detailJuz,
-                                    'surahInJuz': surahInJuz
-                                  },
-                                ),
-                                leading: Container(
-                                  height: 45,
-                                  width: 45,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        themeC.isDark.isTrue
-                                            ? "assets/images/dark-list-numb-juz-4pt.png"
-                                            : "assets/images/light-list-numb-juz-4pt.png",
+                                    const SizedBox(height: 15.0),
+                                    const Text(
+                                      "Data Empty & Disconnected",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 12,
                                       ),
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "${detailJuz.number}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    ),
-                                  ),
-                                ),
-                                title: Text(
-                                  "Juz ${detailJuz.number}",
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
-                                ),
-                                subtitle: Text(
-                                  // ignore: unnecessary_string_interpolations
-                                  "${nameSurahInJuz.join(', ')}",
-                                  // "$startNameSurah - $lastNameSurah",
-                                  style: Theme.of(context).textTheme.titleSmall,
+                                    )
+                                  ],
                                 ),
                               ),
                             );
-                          },
-                        );
-                      },
+                          }
+
+                          return ListView.builder(
+                            // itemCount: 30,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              Juz detailJuz = snapshot.data![index];
+
+                              List<dynamic> surahInJuz =
+                                  detailJuz.surahs!.keys.toList();
+
+                              List<dynamic> nameSurahInJuz = [];
+
+                              for (String elemn in surahInJuz) {
+                                var allData = detailJuz.surahs?[elemn];
+
+                                if (allData != null) {
+                                  nameSurahInJuz
+                                      .add(allData.englishName.toString());
+                                }
+                              }
+
+                              // String startSurah = detailJuz.surahs!.keys.first;
+                              // String lastSurah = detailJuz.surahs!.keys.last;
+
+                              // String? startNameSurah =
+                              //     detailJuz.surahs![startSurah]!.englishName;
+                              // String? lastNameSurah =
+                              //     detailJuz.surahs![lastSurah]!.englishName;
+
+                              return Obx(
+                                () => ListTile(
+                                  onTap: () => Get.toNamed(
+                                    Routes.detailJuz,
+                                    arguments: {
+                                      'detailJuz': detailJuz,
+                                      'surahInJuz': surahInJuz
+                                    },
+                                  ),
+                                  leading: Container(
+                                    height: 45,
+                                    width: 45,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          themeC.isDark.isTrue
+                                              ? "assets/images/dark-list-numb-juz-4pt.png"
+                                              : "assets/images/light-list-numb-juz-4pt.png",
+                                        ),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "${detailJuz.number}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                  ),
+                                  title: Text(
+                                    "Juz ${detailJuz.number}",
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                  subtitle: Text(
+                                    // ignore: unnecessary_string_interpolations
+                                    "${nameSurahInJuz.join(', ')}",
+                                    // "$startNameSurah - $lastNameSurah",
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ),
                   GetBuilder<HomeController>(
@@ -756,12 +768,14 @@ class HomeView extends GetView<HomeController> {
                                       width: 100,
                                       height: 100,
                                     ),
+                                    const SizedBox(height: 15.0),
                                     const Text(
-                                      "Data Empty",
+                                      "Data Empty & Disconnected",
                                       style: TextStyle(
                                         color: Colors.grey,
+                                        fontSize: 12,
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),

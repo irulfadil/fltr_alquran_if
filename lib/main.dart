@@ -27,6 +27,7 @@ class ThemeBinding implements Bindings {
     Get.put(ThemeController());
     Get.put(PrayerScheduleController());
     Get.put(QiblahController());
+    Get.log("ThemeBinding");
   }
 }
 

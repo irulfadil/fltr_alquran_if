@@ -15,7 +15,7 @@ import '../controllers/detail_juz_controller.dart';
 
 // ignore: must_be_immutable
 class DetailJuzView extends GetView<DetailJuzController> {
-  DetailJuzView({Key? key}) : super(key: key);
+  DetailJuzView({super.key});
   final themeC = Get.find<ThemeController>();
   final homeC = Get.find<HomeController>();
   final settingC = Get.find<SettingController>();
@@ -112,10 +112,12 @@ class DetailJuzView extends GetView<DetailJuzController> {
                           width: 100,
                           height: 100,
                         ),
+                        const SizedBox(height: 15.0),
                         const Text(
-                          "Data Empty",
+                          "Data Empty & Disconnected",
                           style: TextStyle(
                             color: Colors.grey,
+                            fontSize: 12,
                           ),
                         )
                       ],

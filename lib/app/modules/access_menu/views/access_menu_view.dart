@@ -13,7 +13,7 @@ import '../../home/controllers/home_controller.dart';
 import '../controllers/access_menu_controller.dart';
 
 class AccessMenuView extends GetView<AccessMenuController> {
-  AccessMenuView({Key? key}) : super(key: key);
+  AccessMenuView({super.key});
   final accessC = Get.find<AccessMenuController>();
 
   @override

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../controllers/information_app_controller.dart';
 
 class InformationAppView extends GetView<InformationAppController> {
-  const InformationAppView({Key? key}) : super(key: key);
+  const InformationAppView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -8,7 +8,7 @@ import '../controllers/qiblah_controller.dart';
 import 'qiblah_screen.dart';
 
 class QiblahView extends GetView<QiblahController> {
-  const QiblahView({Key? key}) : super(key: key);
+  const QiblahView({super.key});
 
   @override
   Widget build(BuildContext context) {
