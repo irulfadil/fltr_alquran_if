@@ -20,9 +20,9 @@ migrate_working_dir/
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 .vscode/
-assets/images/logo_alquran.png
-assets/images/light_mode.png
-assets/images/dark_mode.png
+# assets/images/logo_alquran.png
+# assets/images/light_mode.png
+# assets/images/dark_mode.png
 
 lib/app
 lib/l10n
